@@ -1,0 +1,11 @@
+﻿CREATE TABLE Employees
+(
+	Id INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(30) NOT NULL,
+    Surname NVARCHAR(30) NOT NULL,
+	Login NVARCHAR(20) NOT NULL,
+	Password NVARCHAR(20) NOT NULL,
+	DateStartOfWork DATETIME2 NOT NULL,
+	PositionId INT NOT NULL
+	FOREIGN KEY (PositionId) REFERENCES dbo.Positions(Id),
+);

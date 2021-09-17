@@ -61,4 +61,15 @@
     <Folder Include="Tables" />
     <Folder Include="StoredPocedures" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Positions.sql" />
+    <Build Include="Tables\Brands.sql" />
+    <Build Include="Tables\Models.sql" />
+    <Build Include="Tables\Tariffs.sql" />
+    <Build Include="Tables\Cars.sql" />
+    <Build Include="Tables\Employees.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Calls.sql" />
+  </ItemGroup>
 </Project>
