@@ -1,0 +1,8 @@
+﻿CREATE TABLE Accounts
+(
+	Id INT PRIMARY KEY IDENTITY,
+	Login NVARCHAR(30) UNIQUE NOT NULL,
+	Password NVARCHAR(30) NOT NULL,
+	EmployeeId INT
+	FOREIGN KEY (EmployeeId) REFERENCES dbo.Employees(Id)
+);

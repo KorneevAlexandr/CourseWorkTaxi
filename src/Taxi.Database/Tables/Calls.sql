@@ -5,8 +5,6 @@
 	Phone NVARCHAR(15) NOT NULL,
 	StartAddress NVARCHAR(80) NOT NULL,
 	EndAddress NVARCHAR(80) NOT NULL,
-	TariffId INT
-	FOREIGN KEY (TariffId) REFERENCES dbo.Tariffs(Id),
 	CarId INT
 	FOREIGN KEY (CarId) REFERENCES dbo.Cars(Id),
 	DispatcherId INT

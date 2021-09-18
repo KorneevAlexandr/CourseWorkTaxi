@@ -9,6 +9,8 @@
 	LastTI DATETIME2,
 	ModelId INT
 	FOREIGN KEY (ModelId) REFERENCES dbo.Models(Id),
+	TariffId INT
+	FOREIGN KEY (TariffId) REFERENCES dbo.Tariffs(Id),
 	DriverId INT
 	FOREIGN KEY (DriverId) REFERENCES dbo.Employees(Id),
 	MechanicId INT
