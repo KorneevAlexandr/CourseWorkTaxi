@@ -69,6 +69,7 @@
     <Build Include="Tables\Cars.sql" />
     <Build Include="Tables\Employees.sql" />
     <Build Include="Tables\Accounts.sql" />
+    <Build Include="Tables\Drivers.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Calls.sql" />
