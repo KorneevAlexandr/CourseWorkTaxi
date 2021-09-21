@@ -7,10 +7,6 @@ namespace Taxi.DAL.Data
 	{
 		private readonly string _conntectionString;
 
-		public TaxiContext()
-		{ 
-		}
-
 		public TaxiContext(string conntectionString)
 		{
 			_conntectionString = conntectionString;
@@ -18,7 +14,7 @@ namespace Taxi.DAL.Data
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer("Server = SANCHOZ; Database = Taxi.CourseWorkDB; Trusted_Connection = True;");
+			optionsBuilder.UseSqlServer(_conntectionString);
 		}
 
 		public DbSet<Account> Accounts { get; set; }
