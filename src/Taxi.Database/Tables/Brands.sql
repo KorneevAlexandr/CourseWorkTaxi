@@ -1,5 +1,0 @@
-﻿CREATE TABLE Brands
-(
-	Id INT PRIMARY KEY IDENTITY,
-	Name NVARCHAR(30)
-);

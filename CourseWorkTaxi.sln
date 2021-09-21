@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EF11468C-29F2-4630-A479-5A8FA109A064}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Taxi.Database", "src\Taxi.Database\Taxi.Database.sqlproj", "{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.DAL", "src\Taxi.DAL\Taxi.DAL.csproj", "{9D49CF47-13A6-475E-803E-F85DBD7B9D1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +13,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9D49CF47-13A6-475E-803E-F85DBD7B9D1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D49CF47-13A6-475E-803E-F85DBD7B9D1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D49CF47-13A6-475E-803E-F85DBD7B9D1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D49CF47-13A6-475E-803E-F85DBD7B9D1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B8C0E21F-08B0-4FD7-9512-15399C2CE3D3} = {EF11468C-29F2-4630-A479-5A8FA109A064}
+		{9D49CF47-13A6-475E-803E-F85DBD7B9D1A} = {EF11468C-29F2-4630-A479-5A8FA109A064}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1735F35D-D296-4FA8-AC43-8EE896DCD0EE}
