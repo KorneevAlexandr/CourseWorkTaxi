@@ -13,17 +13,17 @@ namespace Taxi.UI.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IService<BrandDto> _brandService;
+		private readonly IEmployeeService _employeeService;
 
-		public HomeController(IService<BrandDto> brandService)
+		public HomeController(IEmployeeService employeeService)
 		{
-			_brandService = brandService;
+			_employeeService = employeeService;
 		}
 
 		public async Task<IActionResult> Index()
 		{
-			var items = await _brandService.GetAll();
-			return View(items.ToList()[0]);
+			var items = await _employeeService.GetAll(0, 3);
+			return View(items);
 		}
 
 		public IActionResult Privacy()

@@ -1,0 +1,15 @@
+﻿@model Taxi.UI.Models.Brands.BrandViewModel;
+
+@{
+	ViewData["Title"] = "Изменения марки";
+}
+
+<form asp-action="Update" method="post">
+	<input style="display: none" type="number" name="Id" value="@Model.Id" />
+
+	<label>Введите имя: </label>
+	<input type="text" name="Name" value="@Model.Name"/>
+
+	<input type="submit" value="Изменить">
+</form>
+

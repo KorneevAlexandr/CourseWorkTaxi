@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Taxi.BLL.ModelsDto;
 
 namespace Taxi.BLL.Interfaces.Services
 {
-	public interface IService<T>
+	public interface IEmployeeService : IService<EmployeeDto>
 	{
-		Task CreateAsync(T entity);
-
-		Task DeleteAsync(int id);
-
-		Task UpdateAsync(T entity);
+		Task<IEnumerable<EmployeeDto>> GetAll(int skip, int take);
 	}
 }

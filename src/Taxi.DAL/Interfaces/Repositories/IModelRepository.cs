@@ -6,6 +6,6 @@ namespace Taxi.DAL.Interfaces.Repositories
 {
 	public interface IModelRepository : IRepository<Model>
 	{
-		Task<IQueryable<Model>> GetAllByBrand(int brandId);
+		Task<IQueryable<Model>> GetAllByBrandAsync(int brandId);
 	}
 }

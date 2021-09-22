@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Taxi.UI.Models.Brands.BrandViewModel>;
+
+@{ 
+	ViewData["Title"] = "Форматирование марок";
+}
+
+<form asp-action="Create" method="post">
+	<label>Введите имя: </label>
+	<input type="text" name="Name" />
+
+	<input type="submit" value="Добавить">
+</form>
+
+<table>
+	@foreach (var item in Model)
+	{
+	<tr>
+		<td>@item.Name</td>
+		<td>
+			<a asp-action="Update" asp-route-id="@item.Id">Переименовать</a> | 
+			<a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+		</td>
+	</tr>
+	}
+</table>

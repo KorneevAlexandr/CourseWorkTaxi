@@ -43,8 +43,7 @@ namespace Taxi.DAL.Repositories
 		public async Task UpdateAsync(Brand entity)
 		{
 			var item = await GetAsync(entity.Id);
-			item = entity;
-			_context.Brands.Update(item);
+			item.Name = entity.Name;
 			await SaveChangesAsync();
 		}
 

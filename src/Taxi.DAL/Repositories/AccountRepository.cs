@@ -21,6 +21,11 @@ namespace Taxi.DAL.Repositories
 			return await _context.Accounts.FirstOrDefaultAsync(x => x.Login.Equals(login));
 		}
 
+		public async Task<Account> GetByEmployee(int id)
+		{
+			return await _context.Accounts.FirstOrDefaultAsync(x => x.EmployeeId == id);
+		}
+
 		public async Task CreateAsync(Account entity)
 		{
 			await _context.Accounts.AddAsync(entity);

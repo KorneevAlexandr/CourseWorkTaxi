@@ -28,8 +28,8 @@ namespace Taxi.UI
 		{
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
-			services.AddScoped<IService<BrandDto>, BrandService>(
-				options => new BrandService(connectionString));
+			services.AddScoped<IEmployeeService, EmployeeService>(options => new EmployeeService(connectionString));
+			services.AddScoped<IBrandService, BrandService>(options => new BrandService(connectionString));
 
 			services.AddControllersWithViews();
 		}

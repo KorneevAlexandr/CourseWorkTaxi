@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
@@ -11,15 +9,16 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class BrandService : IService<BrandDto>
+	public class BrandService : IBrandService
 	{
-		private readonly IBrandRepository _brandRepository;
+		private readonly ICompleteRepository<Brand> _brandRepository;
+
 		public BrandService(string connectionString)
 		{
 			_brandRepository = new BrandRepository(connectionString);
 		}
 
-		public async Task<IEnumerable<BrandDto>> GetAll()
+		public async Task<IEnumerable<BrandDto>> GetAllAsync()
 		{
 			var items = await _brandRepository.GetAllAsync();
 			return items.Select(x => new BrandDto
@@ -29,26 +28,39 @@ namespace Taxi.BLL.Services
 			});
 		}
 
-		public Task CreateAsync(BrandDto entity)
+		public async Task<BrandDto> GetAsync(int id)
 		{
-			throw new NotImplementedException();
+			var item = await _brandRepository.GetAsync(id);
+			return new BrandDto
+			{
+				Id = item.Id,
+				Name = item.Name,
+			};
 		}
 
-		public Task DeleteAsync(int id)
+		public async Task CreateAsync(BrandDto entity)
 		{
-			throw new NotImplementedException();
+			var item = new Brand
+			{
+				Id = entity.Id,
+				Name = entity.Name,
+			};
+			await _brandRepository.CreateAsync(item);
 		}
 
-
-
-		public Task<BrandDto> GetAsync(int id)
+		public async Task DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			await _brandRepository.DeleteAsync(id);
 		}
 
-		public Task UpdateAsync(BrandDto entity)
+		public async Task UpdateAsync(BrandDto entity)
 		{
-			throw new NotImplementedException();
+			var item = new Brand
+			{
+				Id = entity.Id,
+				Name = entity.Name,
+			};
+			await _brandRepository.UpdateAsync(item);
 		}
 	}
 }

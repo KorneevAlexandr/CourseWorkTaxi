@@ -16,7 +16,7 @@ namespace Taxi.DAL.Repositories
 			_context = new TaxiContext(connectionString);
 		}
 
-		public async Task<IQueryable<Model>> GetAllByBrand(int brandId)
+		public async Task<IQueryable<Model>> GetAllByBrandAsync(int brandId)
 		{
 			var items = await _context.Models.Where(x => x.BrandId == brandId).ToListAsync();
 			return items.AsQueryable();
@@ -44,7 +44,13 @@ namespace Taxi.DAL.Repositories
 		public async Task UpdateAsync(Model entity)
 		{
 			var item = await GetAsync(entity.Id);
-			item = entity;
+			item.Name = entity.Name;
+			item.HP = entity.HP;
+			item.Fuel = entity.Fuel;
+			item.Body = entity.Body;
+			item.Price = entity.Price;
+			item.BrandId = entity.BrandId;
+
 			_context.Models.Update(item);
 			await SaveChangesAsync();
 		}
