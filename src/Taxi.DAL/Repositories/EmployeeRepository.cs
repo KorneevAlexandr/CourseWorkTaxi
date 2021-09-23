@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.DAL.Data;
@@ -16,21 +18,28 @@ namespace Taxi.DAL.Repositories
 			_context = new TaxiContext(connectionString);
 		}
 
+		public async Task<IQueryable<Employee>> GetAllAsync(
+			Func<IQueryable<Employee>, IQueryable<Employee>> func)
+		{
+			var items = await (func(_context.Employees.AsQueryable())).ToListAsync();
+			return items.AsQueryable();
+		}
+
 		public async Task<IQueryable<Employee>> GetAllAsync(int skip, int take)
 		{
 			var items = await _context.Employees.Skip(skip).Take(take).ToListAsync();
 			return items.AsQueryable();
 		}
 
-		public async Task<int> GetCountAsync()
+		public async Task<Employee> GetLastAsync()
 		{
-			return await _context.Employees.CountAsync();
+			return await _context.Employees.LastAsync();
 		}
 
-		public async Task<IQueryable<Employee>> GetAllByPosition(int positionId)
+		public async Task<int> GetCountAsync(Func<IQueryable<Employee>, IQueryable<Employee>> predicate)
 		{
-			var items = await _context.Employees.Where(x => x.PositionId == positionId).ToListAsync();
-			return items.AsQueryable();
+			return await (predicate(_context.Employees)).CountAsync();
+			// return await _context.Employees.CountAsync();
 		}
 
 		public async Task<Employee> GetAsync(int id)

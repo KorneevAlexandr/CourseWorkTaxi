@@ -7,7 +7,7 @@ namespace Taxi.DAL.Interfaces.Repositories
 	{
 		Task<Account> GetAsync(string login);
 
-		Task<Account> GetByEmployee(int id);
+		Task<Account> GetByEmployeeAsync(int id);
 
 		Task CreateAsync(Account entity);
 

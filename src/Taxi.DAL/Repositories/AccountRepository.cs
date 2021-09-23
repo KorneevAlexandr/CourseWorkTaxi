@@ -21,7 +21,7 @@ namespace Taxi.DAL.Repositories
 			return await _context.Accounts.FirstOrDefaultAsync(x => x.Login.Equals(login));
 		}
 
-		public async Task<Account> GetByEmployee(int id)
+		public async Task<Account> GetByEmployeeAsync(int id)
 		{
 			return await _context.Accounts.FirstOrDefaultAsync(x => x.EmployeeId == id);
 		}
@@ -35,7 +35,10 @@ namespace Taxi.DAL.Repositories
 		public async Task DeleteAsync(int id)
 		{
 			var deletedItem = _context.Accounts.FirstOrDefault(item => item.Id == id);
-			_context.Accounts.Remove(deletedItem);
+			if (deletedItem != null)
+			{
+				_context.Accounts.Remove(deletedItem);
+			}
 			await SaveChangesAsync();
 		}
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Taxi.BLL.ModelsDto.EmployeeDto>;
+﻿@model IEnumerable<Taxi.BLL.ModelsDto.CarDto>;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -12,16 +12,7 @@
 	{
         <table>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Surname</td>
-                @if (item.Login == null)
-				{
-                    <td>------------------------------</td>
-				}
-				else
-				{
-			        <td>@item.Login</td>
-                }
+                <td>@item.RegistrationNumber</td>
             </tr>
         </table>
     }
