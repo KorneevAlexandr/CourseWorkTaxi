@@ -49,6 +49,27 @@ namespace Taxi.BLL.Services
 			return cars.Select(x => ItemConvert(x));
 		}
 
+		public async Task<CarDto> GetAsync(int id)
+		{
+			var item = await _carRepository.GetAsync(id);
+			return ItemConvert(item);
+		}
+
+		public async Task CreateAsync(CarDto entity)
+		{
+			await _carRepository.CreateAsync(ItemConvert(entity));
+		}
+
+		public async Task DeleteAsync(int id)
+		{
+			await _carRepository.DeleteAsync(id);
+		}
+
+		public async Task UpdateAsync(CarDto entity)
+		{
+			await _carRepository.UpdateAsync(ItemConvert(entity));
+		}
+
 		private CarDto ItemConvert(Car car)
 		{
 			return new CarDto
