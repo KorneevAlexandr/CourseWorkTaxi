@@ -20,16 +20,18 @@ namespace Taxi.DAL.Domain
 		public double Price { get; set; }
 
 		[Required]
-		public int StartAddressId { get; set; }
-
-		[ForeignKey("StartAddressId")]
-		public Address StartAddress { get; set; }
+		[MaxLength(40)]
+		public string StartStreet { get; set; }
 
 		[Required]
-		public int EndAddressId { get; set; }
+		public int StartHomeNumber { get; set; }
 
-		[ForeignKey("EndAddressId")]
-		public Address EndAddress { get; set; }
+		[Required]
+		[MaxLength(40)]
+		public string EndStreet { get; set; }
+
+		[Required]
+		public int EndHomeNumber { get; set; }
 
 		[Required]
 		public int CarId { get; set; }

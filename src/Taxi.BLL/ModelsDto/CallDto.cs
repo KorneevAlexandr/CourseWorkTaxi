@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Taxi.BLL.ModelsDto
 {
@@ -16,9 +12,13 @@ namespace Taxi.BLL.ModelsDto
 
 		public DateTime CallDateTime { get; set; }
 
-		public string StartAddress { get; set; }
+		public string StartStreet { get; set; }
 
-		public string EndAddress { get; set; }
+		public string EndStreet { get; set; }
+
+		public int StartHomeNumber { get; set; }
+
+		public int EndHomeNumber { get; set; }
 
 		public int CarId { get; set; }
 

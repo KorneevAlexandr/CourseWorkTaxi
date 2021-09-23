@@ -7,6 +7,11 @@ namespace Taxi.DAL.Data
 	{
 		private readonly string _conntectionString;
 
+		public TaxiContext()
+		{
+			_conntectionString = "Server = SANCHOZ; Database = Taxi.CourseWorkDB; Trusted_Connection = True;";
+		}
+
 		public TaxiContext(string conntectionString)
 		{
 			_conntectionString = conntectionString;
@@ -18,8 +23,6 @@ namespace Taxi.DAL.Data
 		}
 
 		public DbSet<Account> Accounts { get; set; }
-
-		public DbSet<Address> Addresses { get; set; }
 
 		public DbSet<Brand> Brands { get; set; }
 

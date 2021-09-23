@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taxi.DAL.Data;
 
 namespace Taxi.DAL.Migrations
 {
     [DbContext(typeof(TaxiContext))]
-    partial class TaxiContextModelSnapshot : ModelSnapshot
+    [Migration("20210923185323_UpdateAddresses")]
+    partial class UpdateAddresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,13 +81,8 @@ namespace Taxi.DAL.Migrations
                     b.Property<int>("DispatherId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EndHomeNumber")
+                    b.Property<int>("HomeNumber")
                         .HasColumnType("int");
-
-                    b.Property<string>("EndStreet")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(15)
@@ -94,10 +91,7 @@ namespace Taxi.DAL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("StartHomeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StartStreet")
+                    b.Property<string>("Street")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");

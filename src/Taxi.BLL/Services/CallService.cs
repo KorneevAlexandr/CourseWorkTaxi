@@ -13,27 +13,36 @@ namespace Taxi.BLL.Services
 	public class CallService : ICallService
 	{
 		private readonly ICallRepository _callRepository;
-		private readonly ICompleteRepository<Address> _addressRepository;
 
 		public CallService(string connectonString)
 		{
 			_callRepository = new CallRepository(connectonString);
-			_addressRepository = new AddressRepository(connectonString);
 		}
 
-		public Task<IEnumerable<CallDto>> GetAllAsync(int tariffId, DateTime day, int driverId, int mechanicId, int skip, int take)
+		public async Task<IEnumerable<CallDto>> GetAllAsync(int tariffId, DateTime? day, int driverId, int dispatherId, int skip, int take)
 		{
-			throw new NotImplementedException();
+			var items = await _callRepository.GetAllAsync(tariffId, day, driverId, dispatherId, skip, take);
+			return items.Select(x => ItemConvert(x));
 		}
 
-		public Task<int> GetCountAsync(int tariffId, DateTime day, int driverId, int mechanicId)
+		public async Task<int> GetCountAsync(int tariffId, DateTime? day, int driverId, int mechanicId)
 		{
-			throw new NotImplementedException();
+			return await _callRepository.GetCountAsync(tariffId, day, driverId, mechanicId);
 		}
 
-		public IEnumerable<AddressDto> GetPopularAddresses(int numberMonth)
+		public async Task CreateAsync(CallDto entity)
 		{
-			throw new NotImplementedException();
+			await _callRepository.CreateAsync(ItemConvert(entity));
+		}
+
+		public async Task DeleteAsync(int id)
+		{
+			await _callRepository.DeleteAsync(id);
+		}
+
+		public async Task UpdateAsync(CallDto entity)
+		{
+			await _callRepository.UpdateAsync(ItemConvert(entity));
 		}
 
 		private CallDto ItemConvert(Call call)
@@ -45,10 +54,29 @@ namespace Taxi.BLL.Services
 				DriverId = call.Car.DriverId,
 				CallDateTime = call.CallDateTime,
 				CarId = call.CarId,
-				EndAddress = $"{call.EndAddress.District}, {call.EndAddress.Street}, {call.EndAddress.HomeNumber}",
-				StartAddress = $"{call.StartAddress.District}, {call.StartAddress.Street}, {call.StartAddress.HomeNumber}",
 				Phone = call.Phone,
 				Price = call.Price,
+				StartStreet = call.StartStreet,
+				EndStreet = call.EndStreet,
+				StartHomeNumber = call.StartHomeNumber,
+				EndHomeNumber = call.EndHomeNumber,
+			};
+		}
+
+		private Call ItemConvert(CallDto call)
+		{
+			return new Call
+			{
+				Id = call.Id,
+				DispatherId = call.DispatherId,
+				CallDateTime = call.CallDateTime,
+				CarId = call.CarId,
+				Phone = call.Phone,
+				Price = call.Price,
+				StartStreet = call.StartStreet,
+				EndStreet = call.EndStreet,
+				StartHomeNumber = call.StartHomeNumber,
+				EndHomeNumber = call.EndHomeNumber,
 			};
 		}
 	}

@@ -9,5 +9,6 @@ namespace Taxi.DAL.Interfaces.Repositories
 	{
 		Task<IQueryable<Call>> GetAllAsync(int tariffId, DateTime? day, int driverId, int dispatherId, int skip, int take);
 		Task<int> GetCountAsync(int tariffId, DateTime? day, int driverId, int dispatherId);
+		// IQueryable<string> GetPopularStreet(DateTime date);
 	}
 }
