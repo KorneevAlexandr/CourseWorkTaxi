@@ -44,7 +44,9 @@ namespace Taxi.DAL.Repositories
 		public async Task UpdateAsync(Tariff entity)
 		{
 			var item = await GetAsync(entity.Id);
-			item = entity;
+			item.Name = entity.Name;
+			item.Description = entity.Description;
+			item.Price = entity.Price;
 			_context.Tariffs.Update(item);
 			await SaveChangesAsync();
 		}

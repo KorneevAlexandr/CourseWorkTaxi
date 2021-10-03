@@ -7,11 +7,6 @@ namespace Taxi.DAL.Data
 	{
 		private readonly string _conntectionString;
 
-		public TaxiContext()
-		{
-			_conntectionString = "Server = SANCHOZ; Database = Taxi.CourseWorkDB; Trusted_Connection = True;";
-		}
-
 		public TaxiContext(string conntectionString)
 		{
 			_conntectionString = conntectionString;

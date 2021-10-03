@@ -31,6 +31,10 @@ namespace Taxi.UI
 			services.AddScoped<IEmployeeService, EmployeeService>(options => new EmployeeService(connectionString));
 			services.AddScoped<IBrandService, BrandService>(options => new BrandService(connectionString));
 			services.AddScoped<ICarService, CarService>(options => new CarService(connectionString));
+			services.AddScoped<ICallService, CallService>(options => new CallService(connectionString));
+			services.AddScoped<ITariffService, TariffService>(options => new TariffService(connectionString));
+			services.AddScoped<IModelService, ModelService>(options => new ModelService(connectionString));
+			services.AddScoped<IPositionService, PositionService>(options => new PositionService(connectionString));
 
 			services.AddControllersWithViews();
 		}

@@ -1,0 +1,18 @@
+﻿@model Taxi.UI.Models.Tariffs.TariffViewModel;
+
+@{
+	ViewData["Title"] = "Добавление тарифа";
+}
+
+<form action="Create" method="post">
+	<label>Название тарифа</label><br />
+	<input type="text" name="Name" /><br /><br />
+
+	<label>Описание тарифа</label><br />
+	<textarea name="Description"></textarea><br /><br />
+
+	<label>Стоимость тарифа, за км</label><br />
+	<input type="text" name="Price" /><br /><br />
+
+	<input type="submit" value="Создать" /><br /><br />
+</form>
