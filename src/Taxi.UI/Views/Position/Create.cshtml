@@ -1,0 +1,15 @@
+﻿@model Taxi.UI.Models.Positions.PositionViewModel;
+
+@{
+	ViewData["Title"] = "Создание должности";
+}
+
+<form action="Create" method="post">
+	<label>Название</label><br />
+	<input type="text" name="Name" /><br /><br />
+
+	<label>Описание</label><br />
+	<textarea name="Description"></textarea><br /><br />
+
+	<input type="submit" value="Создать" /><br />
+</form>

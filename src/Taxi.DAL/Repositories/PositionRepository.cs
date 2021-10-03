@@ -44,7 +44,8 @@ namespace Taxi.DAL.Repositories
 		public async Task UpdateAsync(Position entity)
 		{
 			var item = await GetAsync(entity.Id);
-			item = entity;
+			item.Name = entity.Name;
+			item.Description = entity.Description;
 			_context.Positions.Update(item);
 			await SaveChangesAsync();
 		}

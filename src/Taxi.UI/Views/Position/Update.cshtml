@@ -1,0 +1,17 @@
+﻿@model Taxi.UI.Models.Positions.PositionViewModel;
+
+@{
+	ViewData["Title"] = "Изменение должности";
+}
+
+<form action="Update" method="post">
+	<input style="display:none" type="number" name="Id" value="@Model.Id" />
+
+	<label>Название</label><br />
+	<input type="text" name="Name" value="@Model.Name" /><br /><br />
+
+	<label>Описание</label><br />
+	<textarea name="Description">@Model.Description</textarea><br /><br />
+
+	<input type="submit" value="Изменить" /><br />
+</form>

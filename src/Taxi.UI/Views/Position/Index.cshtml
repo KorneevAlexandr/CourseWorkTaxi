@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Taxi.UI.Models.Positions.PositionViewModel>;
+
+@{
+	ViewData["Title"] = "Управление должностями";
+}
+
+<a asp-action="Create" >Добавить должность</a><br />
+
+<table class="table table-striped">
+	<tr>
+		<th>Название</th>
+		<th>Описание</th>
+		<th>Действия</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Name</td>
+			<td>@item.Description</td>
+			<td>
+				<a asp-action="Delete" asp-route-id="@item.Id" >Удалить</a> | 
+				<a asp-action="Update" asp-route-id="@item.Id" >Изменить</a>
+			</td>
+		</tr>
+	}
+
+</table>
