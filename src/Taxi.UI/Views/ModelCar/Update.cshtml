@@ -1,0 +1,33 @@
+﻿@model Taxi.UI.Models.CarModels.ModelViewModel;
+
+@{
+	ViewData["Title"] = "Изменение модели";
+}
+
+<form asp-action="Update" asp-controller="ModelCar" method="post">
+	<p>
+		<select asp-for="BrandId" asp-items="@(new SelectList(
+				Model.Brands, "Id", "Name",
+				Model.Brands.FirstOrDefault(x => x.Id == Model.BrandId).Name))">
+		</select>
+	</p>
+
+	<input style="display:none" type="number" name="Id" value="@Model.Id" />
+
+	<label>Название</label><br />
+	<input type="text" name="Name" value="@Model.Name" /><br /><br />
+
+	<label>Топливо</label><br />
+	<input type="text" name="Fuel" value="@Model.Fuel" /><br /><br />
+
+	<label>Кузов</label><br />
+	<input type="text" name="Body" value="@Model.Body" /><br /><br />
+
+	<label>Мощность, л.с.</label><br />
+	<input type="number" name="HP" value="@Model.HP" /><br /><br />
+
+	<label>Цена</label><br />
+	<input type="text" name="Price" value="@Model.Price" /><br /><br />
+
+	<input type="submit" value="Изменить" />
+</form>

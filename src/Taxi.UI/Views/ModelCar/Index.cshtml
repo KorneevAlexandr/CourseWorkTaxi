@@ -1,0 +1,51 @@
+﻿@model Taxi.UI.Models.CarModels.ModelCollectionViewModel;
+
+@{
+	ViewData["Title"] = "Управление моделями машин";
+}
+
+<a asp-action="Create" asp-controller="ModelCar">Добавить модель</a><br />
+
+<form asp-action="Index" asp-controller="ModelCar" method="get">
+	<p>
+		@if (Model.Id != 0)
+		{
+			<select asp-for="Id" asp-items="@(new SelectList(
+				Model.Brands, "Id", "Name",
+				Model.Brands.FirstOrDefault(x => x.Id == Model.Id).Name))"></select>
+		}
+		else
+		{
+			<select asp-for="Id" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
+		}
+	</p>
+
+	<input type="submit" value="Найти" />
+</form>
+
+<table class=" table table-striped">
+	<tr>
+		<th>Название</th>
+		<th>Кузов</th>
+		<th>Топливо</th>
+		<th>Мощность, л.с.</th>
+		<th>Стоимость</th>
+		<th>Действия</th>
+	</tr>
+
+	@foreach (var item in Model.Models)
+	{
+		<tr>
+			<td>@item.Name</td>
+			<td>@item.Body</td>
+			<td>@item.Fuel</td>
+			<td>@item.HP</td>
+			<td>@item.Price</td>
+			<td>
+				<a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+				<a asp-action="Update" asp-route-id="@item.Id">Изменить</a>
+			</td>
+		</tr>
+	}
+
+</table>
