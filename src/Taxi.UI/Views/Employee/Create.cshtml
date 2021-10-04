@@ -1,0 +1,22 @@
+﻿@model Taxi.UI.Models.Employees.EmployeeViewModel;
+
+@{
+	ViewData["Title"] = "Добавление сотрудников";
+}
+
+<form asp-action="Create" asp-controller="Employee" method="post">
+
+	<label>Имя</label><br />
+	<input type="text" name="Name" /><br /><br />
+
+	<label>Фамилия</label><br />
+	<input type="text" name="Surname" /><br /><br />
+
+	<label>Должность</label><br />
+	<select asp-for="PositionId" asp-items="@(new SelectList(Model.Positions, "Id", "Name"))"></select><br /><br />
+
+	<label>Дата принятия на работу</label><br />
+	<input type="text" name="DateStartOfWork" /><br /><br />
+
+	<input type="submit" value="Создать" />
+</form>

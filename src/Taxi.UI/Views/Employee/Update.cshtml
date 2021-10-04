@@ -1,0 +1,25 @@
+﻿@model Taxi.UI.Models.Employees.EmployeeViewModel;
+
+@{
+	ViewData["Title"] = "Редактирование сотрудника";
+}
+
+<form asp-action="Update" asp-controller="Employee" method="post">
+	<input style="display:none" type="number" name="Id" value="@Model.Id" />
+
+	<label>Имя</label><br />
+	<input type="text" name="Name" value="@Model.Name" /><br /><br />
+
+	<label>Фамилия</label><br />
+	<input type="text" name="Surname" value="@Model.Surname" /><br /><br />
+
+	<label>Должность</label><br />
+	<select asp-for="PositionId" asp-items=
+			"@(new SelectList(Model.Positions, "Id", "Name", Model.Positions.FirstOrDefault(x => x.Id == Model.PositionId)))">
+	</select><br /><br />
+
+	<label>Дата принятия на работу</label><br />
+	<input type="text" name="DateStartOfWork" value="@Model.DateStartOfWork.ToShortDateString()" /><br /><br />
+
+	<input type="submit" value="Изменить" />
+</form>

@@ -85,8 +85,10 @@ namespace Taxi.BLL.Services
 			}
 			else if (positionId == 0)
 			{
+				var date = DateTime.Now;
+				var validDate = new DateTime(date.Year - yearStanding, date.Month, date.Day);
 				func = (IQueryable<Employee> source) => source.Where(x =>
-				(DateTime.Now - x.DateStartOfWork).Days >= (yearStanding * 365));
+				x.DateStartOfWork <= validDate);
 			}
 			else // positionId != 0
 			{
@@ -161,7 +163,10 @@ namespace Taxi.BLL.Services
 		public async Task DeleteAsync(int id)
 		{
 			var item = await _accountRepository.GetByEmployeeAsync(id);
-			await _accountRepository.DeleteAsync(item.EmployeeId);
+			if (item != null)
+			{
+				await _accountRepository.DeleteAsync(item.EmployeeId);
+			}
 			await _employeeRepository.DeleteAsync(id);
 		}
 
@@ -178,11 +183,12 @@ namespace Taxi.BLL.Services
 			await _accountRepository.UpdateAsync(item);
 		}
 
-		private async Task<IQueryable<EmployeeDto>> ConvertCollection(IQueryable<Employee> items)
+		private async Task<IEnumerable<EmployeeDto>> ConvertCollection(IQueryable<Employee> items)
 		{
 			var employees = items.Select(x => ItemConvert(x));
-
-			foreach (var item in employees)
+			var listEmployees = employees.ToList();
+			
+			foreach (var item in listEmployees)
 			{
 				var account = await _accountRepository.GetByEmployeeAsync(item.Id);
 				var position = await _positionService.GetAsync(item.PositionId);
@@ -193,7 +199,7 @@ namespace Taxi.BLL.Services
 				item.PositionName = position.Name;
 			}
 
-			return employees;
+			return listEmployees;
 		}
 
 		private Employee ItemConvert(EmployeeDto employee)

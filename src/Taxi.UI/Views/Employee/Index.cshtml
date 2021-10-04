@@ -1,0 +1,59 @@
+﻿@model Taxi.UI.Models.Employees.EmployeeCollectionViewModel;
+
+@{
+	ViewData["Title"] = "Управление сотрудниками";
+}
+
+<a asp-action="Create">Добавить сотрудника</a><br />
+
+<form asp-action="Index" asp-controller="Employee" method="get">
+	<p>
+		@if (Model.SelectedPositionId != 0)
+		{
+			<select asp-for="SelectedPositionId" name="positionId" asp-items="@(new SelectList(
+				Model.Positions, "Id", "Name",
+				Model.Positions.FirstOrDefault(x => x.Id == Model.SelectedPositionId).Name))"></select>
+		}
+		else
+		{
+			<select asp-for="SelectedPositionId" name="positionId" asp-items="@(new SelectList(Model.Positions, "Id", "Name"))"></select>
+		}
+	</p>
+
+	<label>Стаж от (лет)</label>
+	<input type="number" name="yearStanding" asp-for="YearStanding" value="@Model.YearStanding" />
+
+	<input type="submit" value="Найти" />
+
+
+<table class="table table-striped">
+	<tr>
+		<th>Имя</th>
+		<th>Фамилия</th>
+		<th>Принятие на работу</th>
+		<th>Должность</th>
+		<th>Действия</th>
+	</tr>
+
+	@foreach (var item in Model.Employees)
+	{
+		<tr>
+			<td>@item.Name</td>
+			<td>@item.Surname</td>
+			<td>@item.DateStartOfWork.ToShortDateString()</td>
+			<td>@item.PositionName</td>
+			<td>
+				<a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+				<a asp-action="Update" asp-route-id="@item.Id">Изменить</a>
+			</td>
+		</tr>
+	}
+
+</table>
+
+	@for (int i = 0; i < Model.CountPages; i++)
+	{
+		<input type="submit" asp-action="Index" name="page" value="@(i + 1)" />
+	}
+</form>
+
