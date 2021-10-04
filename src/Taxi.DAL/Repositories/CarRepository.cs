@@ -19,7 +19,7 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<IQueryable<Car>> GetAllAsync(int brandId, int mileage, int price, int issueYear, int skip, int take)
 		{
-			IQueryable<Car> cars = _context.Cars.Include(x => x.Model);
+			IQueryable<Car> cars = _context.Cars.Include(x => x.Model).Include(x => x.Mechanic).Include(x => x.Driver).Include(x => x.Tariff);
 
 			if (brandId != 0)
 			{
@@ -73,7 +73,8 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<IQueryable<Car>> GetAllAsync(int skip, int take)
 		{
-			var items = await _context.Cars.Skip(skip).Take(take).ToListAsync();
+			var items = await _context.Cars.Include(x => x.Model).Include(x => x.Mechanic).Include(x => x.Driver).Include(x => x.Tariff)
+				.Skip(skip).Take(take).ToListAsync();
 			return items.AsQueryable();
 		}
 

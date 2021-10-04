@@ -70,6 +70,16 @@ namespace Taxi.BLL.Services
 			await _carRepository.UpdateAsync(ItemConvert(entity));
 		}
 
+		//private async Task<IEnumerable<CarDto>> CollectionConvert(IEnumerable<Car> items)
+		//{
+		//	var cars = items.ToList();
+		//	foreach (var car in cars)
+		//	{
+		//		var mechanic = await _employeeRepository.GetAsync(car.MechanicId);
+		//		var 
+		//	}
+		//}
+
 		private CarDto ItemConvert(Car car)
 		{
 			return new CarDto
@@ -85,6 +95,11 @@ namespace Taxi.BLL.Services
 				ModelId = car.ModelId,
 				RegistrationNumber = car.RegistrationNumber,
 				TariffId = car.TariffId,
+				TariffName = car.Tariff.Name,
+				Price = car.Model.Price,
+				ModelName = car.Model.Name,
+				MechanicFullName = $"{car.Mechanic.Surname} {car.Mechanic.Name}",
+				DriverFullName = $"{car.Driver.Surname} {car.Driver.Name}",
 			};
 		}
 

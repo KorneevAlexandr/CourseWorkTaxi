@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Taxi.BLL.ModelsDto
+namespace Taxi.UI.Models.Cars
 {
-	public class CarDto
+	public class CarViewModel
 	{
 		public int Id { get; set; }
 
@@ -18,22 +21,14 @@ namespace Taxi.BLL.ModelsDto
 
 		public DateTime LastTI { get; set; }
 
-		public int ModelId { get; set; }
-
-		public int Price { get; set; }
-
 		public string ModelName { get; set; }
-
-		public int TariffId { get; set; }
-		
-		public string TariffName { get; set; }
-
-		public int DriverId { get; set; }
-
-		public int MechanicId { get; set; }
 
 		public string DriverFullName { get; set; }
 
 		public string MechanicFullName { get; set; }
+
+		public string TariffName { get; set; }
+
+		public int Price { get; set; }
 	}
 }

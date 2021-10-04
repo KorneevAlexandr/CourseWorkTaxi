@@ -1,0 +1,79 @@
+﻿@model Taxi.UI.Models.Cars.CarCollectionViewModel
+
+@{
+	ViewData["Title"] = "Автопарк";
+}
+
+<form action="Create" method="get">
+	<select name="brandId" asp-items="@(new SelectList
+        (Model.Brands.Where(x => x.Id != 0), "Id", "Name"))"></select>
+
+	<input type="submit" value="Создать" />
+</form>
+
+<form>
+
+	<label>Марка</label>
+    @if (Model.BrandId != 0)
+	{
+		<select asp-for="BrandId" name="brandId" asp-items="@(new SelectList(
+			Model.Brands, "Id", "Name",
+			Model.Brands.FirstOrDefault(x => x.Id == Model.BrandId).Name))"></select>
+	}
+	else
+	{
+		<select asp-for="BrandId" name="brandId" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
+	}
+    <br />
+
+    <label>Год выпуска, от</label>
+    <input type="number" name="issueYear" asp-for="IssueYear" value="@Model.IssueYear" /><br />
+    
+    <label>Пробег, до (км)</label>
+    <input type="number" name="mileage" asp-for="Mileage" value="@Model.Mileage" /><br />
+
+    <label>Цена, от</label>
+    <input type="number" name="price" asp-for="Price" value="@Model.Price" /><br />
+
+    <input type="submit" value="Найти" />
+
+<table class="table table-striped">
+    <tr>
+        <th>Модель</th>
+        <th>Гос. номер</th>
+        <th>Год выпуска</th>
+        <th>Цена</th>
+        <th>Номер кузова</th>
+        <th>Номер двигателя</th>
+        <th>Последнее ТО</th>
+        <th>Пробег</th>
+        <th>Тариф</th>
+        <th>Водитель</th>
+        <th>Механик</th>
+    </tr>
+
+    @foreach (var item in Model.Cars)
+	{
+        <tr>
+            <td>@item.ModelName</td>
+            <td>@item.RegistrationNumber</td>
+            <td>@item.IssueYear</td>
+            <td>@item.Price</td>
+            <td>@item.BodyNumber</td>
+            <td>@item.EngineNumber</td>
+            <td>@item.LastTI.ToShortDateString()</td>
+            <td>@item.Mileage</td>
+            <td>@item.TariffName</td>
+            <td>@item.DriverFullName</td>
+            <td>@item.MechanicFullName</td>
+        </tr>
+    }
+
+</table>
+
+    @for (int i = 0; i < Model.CountPages; i++)
+	{
+		<input type="submit" asp-action="Index" name="page" value="@(i + 1)" />
+	}
+
+</form>

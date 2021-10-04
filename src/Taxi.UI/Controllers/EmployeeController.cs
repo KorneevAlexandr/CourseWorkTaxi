@@ -14,7 +14,7 @@ namespace Taxi.UI.Controllers
 	public class EmployeeController : Controller
 	{
 		private const int AMOUNT = 2;
-		private int currentPage;
+		private int _currentPage;
 
 		private readonly IEmployeeService _employeeService;
 		private readonly IPositionService _positionService;
@@ -24,19 +24,20 @@ namespace Taxi.UI.Controllers
 		{
 			_employeeService = employeeService;
 			_positionService = positionService;
-			currentPage = 0;
+			_currentPage = 0;
 		}
 
 		public async Task<IActionResult> Index(int? page, int? positionId, int? yearStanding)
 		{
-			currentPage = --page == null ? 0 : page.Value;
+			_currentPage = page == null ? 0 : page.Value - 1;
 			var selectedPositionId = positionId == null ? 0 : positionId.Value;
 			var selectedYearStanding = yearStanding == null ? 0 : yearStanding.Value;
 
 			var countEmployees = await _employeeService.GetCountAsync(selectedPositionId, selectedYearStanding);
 			var employees = await _employeeService.GetAllAsync(
-				selectedYearStanding, selectedPositionId, currentPage * AMOUNT, AMOUNT);
+				selectedYearStanding, selectedPositionId, _currentPage * AMOUNT, AMOUNT);
 			var positions = await _positionService.GetAllAsync();
+			
 			var modelPositions = new List<PositionViewModel>
 				{ new PositionViewModel { Id = 0, Name = "Любой" } };
 			modelPositions.AddRange(positions.Select(x => new PositionViewModel
