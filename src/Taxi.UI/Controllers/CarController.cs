@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
+using Taxi.BLL.ModelsDto;
 using Taxi.UI.Models.Brands;
 using Taxi.UI.Models.CarModels;
 using Taxi.UI.Models.Cars;
@@ -24,7 +25,7 @@ namespace Taxi.UI.Controllers
 		private readonly IEmployeeService _employeeService;
 		private readonly ITariffService _tariffService;
 
-		public CarController(ICarService carService, IModelService modelService, ITariffService tariffService, 
+		public CarController(ICarService carService, IModelService modelService, ITariffService tariffService,
 			IBrandService brandService, IPositionService positionService, IEmployeeService employeeService)
 		{
 			_carService = carService;
@@ -120,7 +121,7 @@ namespace Taxi.UI.Controllers
 			{
 				BrandName = brand.Name,
 				Models = models.Select(x => new ModelSelectViewModel
-				{ 
+				{
 					Id = x.Id,
 					Name = x.Name,
 				}).ToList(),
@@ -130,7 +131,7 @@ namespace Taxi.UI.Controllers
 					Id = x.Id,
 					Name = x.Name,
 				}).ToList(),
-				
+
 				Drivers = drivers.Select(x => new EmployeesSelectViewModel
 				{
 					Id = x.Id,
@@ -147,6 +148,170 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
+		public async Task<IActionResult> Create(CarCreateUpdateViewModel model)
+		{
+			var car = new CarDto
+			{
+				ModelId = model.ModelId,
+				DriverId = model.DriverId,
+				MechanicId = model.MechanicId,
+				BodyNumber = model.BodyNumber,
+				EngineNumber = model.EngineNumber,
+				IssueYear = model.IssueYear,
+				Mileage = model.Mileage,
+				TariffId = model.TariffId,
+				LastTI = model.LastTI,
+				RegistrationNumber = model.RegistrationNumber,
+			};
+			var modelCar = await _modelService.GetAsync(model.ModelId);
+			var brand = await _brandService.GetAsync(modelCar.BrandId);
+			await _carService.CreateAsync(car);
+			return Redirect($"~/Car/Index?brandId={brand.Id}");
+		}
 
+		[HttpGet]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return RedirectToAction("Index");
+			}
+			var car = await _carService.GetAsync(id.Value);
+			var model = await _modelService.GetAsync(car.ModelId);
+			await _carService.DeleteAsync(id.Value);
+			return Redirect($"~/Car/Index?brandId={model.BrandId}");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Update(int? id)
+		{
+			if (id == null)
+			{
+				return RedirectToAction("Index");
+			}
+
+			var car = await _carService.GetAsync(id.Value);
+			var modelCar = await _modelService.GetAsync(car.ModelId);
+			var brand = await _brandService.GetAsync(modelCar.BrandId);
+			var models = await _modelService.GetAllByBrandAsync(brand.Id);
+			var tariffs = await _tariffService.GetAllAsync();
+
+			// TODO : хардкод
+			// добавить имена ролей на русском в конфигурационный файл
+			var positions = await _poisitionService.GetAllAsync();
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
+			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals("Механик")); // и тут!
+
+			if (driverPosition == null || mechanicPosition == null)
+			{
+				return NotFound();
+			}
+
+			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
+			var countMechanics = await _employeeService.GetCountAsync(mechanicPosition.Id, 0);
+			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);
+			var mechanics = await _employeeService.GetAllAsync(0, mechanicPosition.Id, 0, countMechanics);
+
+			var model = new CarCreateUpdateViewModel
+			{
+				BodyNumber = car.BodyNumber,
+				EngineNumber = car.EngineNumber,
+				RegistrationNumber = car.RegistrationNumber,
+				DriverId = car.DriverId,
+				IssueYear = car.IssueYear,
+				LastTI = car.LastTI,
+				Mileage = car.Mileage,
+				MechanicId = car.MechanicId,
+				ModelId = car.ModelId,
+				Id = car.Id,
+				TariffId = car.TariffId,
+				BrandName = brand.Name,
+
+				Models = models.Select(x => new ModelSelectViewModel
+				{
+					Id = x.Id,
+					Name = x.Name,
+				}).ToList(),
+
+				Tariffs = tariffs.Select(x => new TariffViewModel
+				{
+					Id = x.Id,
+					Name = x.Name,
+				}).ToList(),
+
+				Drivers = drivers.Select(x => new EmployeesSelectViewModel
+				{
+					Id = x.Id,
+					FullName = $"{x.Surname} {x.Name}",
+				}).ToList(),
+
+				Mechanics = mechanics.Select(x => new EmployeesSelectViewModel
+				{
+					Id = x.Id,
+					FullName = $"{x.Surname} {x.Name}",
+				}).ToList(),
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Update(CarCreateUpdateViewModel model)
+		{
+			var car = new CarDto
+			{
+				Id = model.Id,
+				ModelId = model.ModelId,
+				DriverId = model.DriverId,
+				MechanicId = model.MechanicId,
+				BodyNumber = model.BodyNumber,
+				EngineNumber = model.EngineNumber,
+				IssueYear = model.IssueYear,
+				Mileage = model.Mileage,
+				TariffId = model.TariffId,
+				LastTI = model.LastTI,
+				RegistrationNumber = model.RegistrationNumber,
+			};
+			var modelCar = await _modelService.GetAsync(model.ModelId);
+			var brand = await _brandService.GetAsync(modelCar.BrandId);
+			await _carService.UpdateAsync(car);
+			return Redirect($"~/Car/Index?brandId={brand.Id}");
+		}
+
+		public IActionResult ShowTICars()
+		{
+			var cars = _carService.GetAllForTI();
+			var model = cars.Select(x => new CarViewModel
+			{
+				Id = x.Id,
+				ModelName = x.ModelName,
+				DriverFullName = x.DriverFullName,
+				MechanicFullName = x.MechanicFullName,
+				BodyNumber = x.BodyNumber,
+				EngineNumber = x.EngineNumber,
+				IssueYear = x.IssueYear,
+				Mileage = x.Mileage,
+				RegistrationNumber = x.RegistrationNumber,
+				LastTI = x.LastTI,
+				TariffName = x.TariffName,
+				Price = x.Price,
+			}).ToList();
+
+			return View(model);
+		}
+
+		public async Task<IActionResult> UpdateTI(int? id)
+		{
+			if (id == null)
+			{
+				return RedirectToAction("Index");
+			}
+			var car = await _carService.GetAsync(id.Value);
+
+			// TODO : возможно, исправить на указание даты прохождение ТО
+			car.LastTI = DateTime.Now;
+			await _carService.UpdateAsync(car);
+			return RedirectToAction("ShowTICars");
+		}
 	}
 }

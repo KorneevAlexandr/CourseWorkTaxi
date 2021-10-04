@@ -68,7 +68,8 @@ namespace Taxi.DAL.Repositories
 
 		public IQueryable<Car> GetAllForTI(DateTime dateStart, DateTime dateEnd)
 		{
-			return _context.Cars.Where(x => x.LastTI >= dateStart && x.LastTI <= dateEnd);
+			return _context.Cars.Include(x => x.Model).Include(x => x.Mechanic).Include(x => x.Driver).Include(x => x.Tariff)
+				.Where(x => x.LastTI >= dateStart && x.LastTI <= dateEnd);
 		}
 
 		public async Task<IQueryable<Car>> GetAllAsync(int skip, int take)
@@ -85,7 +86,8 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<Car> GetAsync(int id)
 		{
-			var item = await _context.Cars.FirstOrDefaultAsync(x => x.Id == id);
+			var item = await _context.Cars.Include(x => x.Model).Include(x => x.Mechanic).Include(x => x.Driver).Include(x => x.Tariff)
+				.FirstOrDefaultAsync(x => x.Id == id);
 			return item;
 		}
 
@@ -105,7 +107,16 @@ namespace Taxi.DAL.Repositories
 		public async Task UpdateAsync(Car entity)
 		{
 			var item = await GetAsync(entity.Id);
-			item = entity;
+			item.BodyNumber = entity.BodyNumber;
+			item.EngineNumber = entity.EngineNumber;
+			item.DriverId = entity.DriverId;
+			item.IssueYear = entity.IssueYear;
+			item.LastTI = entity.LastTI;
+			item.MechanicId = entity.MechanicId;
+			item.ModelId = entity.ModelId;
+			item.Mileage = entity.Mileage;
+			item.TariffId = entity.TariffId;
+
 			_context.Cars.Update(item);
 			await SaveChangesAsync();
 		}

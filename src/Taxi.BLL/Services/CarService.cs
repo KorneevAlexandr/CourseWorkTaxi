@@ -80,7 +80,7 @@ namespace Taxi.BLL.Services
 		//	}
 		//}
 
-		private CarDto ItemConvert(Car car)
+		private static CarDto ItemConvert(Car car)
 		{
 			return new CarDto
 			{
@@ -103,7 +103,7 @@ namespace Taxi.BLL.Services
 			};
 		}
 
-		private Car ItemConvert(CarDto car)
+		private static Car ItemConvert(CarDto car)
 		{
 			return new Car
 			{

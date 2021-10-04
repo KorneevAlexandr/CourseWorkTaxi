@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Taxi.UI.Models.Cars.CarViewModel>
+
+@{
+	ViewData["Title"] = "Машины с ТО в этом месяце";
+}
+
+<table class="table table-striped">
+	<tr>
+		<th>Модель</th>
+		<th>Гос. номер</th>
+		<th>Год выпуска</th>
+		<th>Цена</th>
+		<th>Номер кузова</th>
+		<th>Номер двигателя</th>
+		<th>Последнее ТО</th>
+		<th>Пробег</th>
+		<th>Тариф</th>
+		<th>Водитель</th>
+		<th>Механик</th>
+		<th>Действия</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.ModelName</td>
+			<td>@item.RegistrationNumber</td>
+			<td>@item.IssueYear</td>
+			<td>@item.Price</td>
+			<td>@item.BodyNumber</td>
+			<td>@item.EngineNumber</td>
+			<td>@item.LastTI.ToShortDateString()</td>
+			<td>@item.Mileage</td>
+			<td>@item.TariffName</td>
+			<td>@item.DriverFullName</td>
+			<td>@item.MechanicFullName</td>
+			<td>
+				<a asp-action="UpdateTI" asp-route-id="@item.Id">Отметить ТО</a>
+			</td>
+		</tr>
+	}
+</table>

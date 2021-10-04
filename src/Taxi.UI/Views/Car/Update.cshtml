@@ -1,0 +1,47 @@
+﻿@model Taxi.UI.Models.Cars.CarCreateUpdateViewModel;
+
+@{
+	ViewData["Title"] = "Изменение автомобиля";
+}
+
+<form action="Update" method="post">
+	<input style="display: none" type="number" name="Id" value="@Model.Id" />
+	<label>Марка: @Model.BrandName</label><br /><br />
+
+	<label>Модель автомобиля</label>
+	<select asp-for="ModelId" asp-items="@(new SelectList(Model.Models, "Id", "Name", 
+		Model.Models.FirstOrDefault(x => x.Id == Model.ModelId).Name))"></select><br /><br />
+
+	<label>Регистрационный номер</label><br />
+	<input type="text" name="RegistrationNumber" value="@Model.RegistrationNumber" /><br /><br />
+
+	<label>Номер кузова</label><br />
+	<input type="number" name="BodyNumber" value="@Model.BodyNumber" /><br /><br />
+
+	<label>Номер двигателя</label><br />
+	<input type="number" name="EngineNumber" value="@Model.EngineNumber" /><br /><br />
+
+	<label>Пробег</label><br />
+	<input type="number" name="Mileage" value="@Model.Mileage" /><br /><br />
+
+	<label>Год выпуска</label><br />
+	<input type="number" name="IssueYear" value="@Model.IssueYear" /><br /><br />
+
+	<label>Дата последнего ТО</label><br />
+	<input type="text" name="LastTI" value="@Model.LastTI.ToShortDateString()" /><br /><br />
+
+	<label>Тариф, относящийся к автомобилю</label>
+	<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+		Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId).Name))"></select><br /><br />
+
+	<label>Водитель</label>
+	<select asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
+		Model.Drivers.FirstOrDefault(x => x.Id == Model.DriverId).FullName))"></select><br /><br />
+
+	<label>Механик</label>
+	<select asp-for="MechanicId" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName",
+		Model.Mechanics.FirstOrDefault(x => x.Id == Model.MechanicId).FullName))"></select><br /><br />
+
+	<input type="submit" value="Изменить" />
+</form>
+

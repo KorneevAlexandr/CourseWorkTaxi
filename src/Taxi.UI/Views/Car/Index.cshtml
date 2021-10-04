@@ -4,15 +4,16 @@
 	ViewData["Title"] = "Автопарк";
 }
 
-<form action="Create" method="get">
-	<select name="brandId" asp-items="@(new SelectList
+<a asp-action="ShowTICars">Машины с ТО в этом месяце</a><br />
+
+<form asp-action="Create" asp-controller="Car" method="get">
+	<select name="brandId" asp-for="BrandId" asp-items="@(new SelectList
         (Model.Brands.Where(x => x.Id != 0), "Id", "Name"))"></select>
 
-	<input type="submit" value="Создать" />
-</form>
+	<input type="submit" value="Создать" /><br />
+</form><br /><br />
 
 <form>
-
 	<label>Марка</label>
     @if (Model.BrandId != 0)
 	{
@@ -23,8 +24,7 @@
 	else
 	{
 		<select asp-for="BrandId" name="brandId" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
-	}
-    <br />
+	}<br />
 
     <label>Год выпуска, от</label>
     <input type="number" name="issueYear" asp-for="IssueYear" value="@Model.IssueYear" /><br />
@@ -35,7 +35,7 @@
     <label>Цена, от</label>
     <input type="number" name="price" asp-for="Price" value="@Model.Price" /><br />
 
-    <input type="submit" value="Найти" />
+    <input type="submit" value="Найти" /><br />
 
 <table class="table table-striped">
     <tr>
@@ -50,6 +50,7 @@
         <th>Тариф</th>
         <th>Водитель</th>
         <th>Механик</th>
+        <th>Действия</th>
     </tr>
 
     @foreach (var item in Model.Cars)
@@ -66,9 +67,12 @@
             <td>@item.TariffName</td>
             <td>@item.DriverFullName</td>
             <td>@item.MechanicFullName</td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                <a asp-action="Update" asp-route-id="@item.Id">Изменить</a>
+            </td>
         </tr>
     }
-
 </table>
 
     @for (int i = 0; i < Model.CountPages; i++)

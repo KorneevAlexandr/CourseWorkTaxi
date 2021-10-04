@@ -3,3 +3,41 @@
 @{
 	ViewData["Title"] = "Добавление автомобиля";
 }
+
+<form action="Create" method="post">
+	<label>Марка: @Model.BrandName</label><br /><br />
+
+	<label>Модель автомобиля</label>
+	<select name="ModelId" asp-items="@(new SelectList(Model.Models, "Id", "Name"))"></select><br /><br />
+
+	<label>Регистрационный номер</label><br />
+	<input type="text" name="RegistrationNumber" /><br /><br />
+
+	<label>Номер кузова</label><br />
+	<input type="number" name="BodyNumber" /><br /><br />
+
+	<label>Номер двигателя</label><br />
+	<input type="number" name="EngineNumber" /><br /><br />
+
+	<label>Пробег</label><br />
+	<input type="number" name="Mileage" /><br /><br />
+
+	<label>Год выпуска</label><br />
+	<input type="number" name="IssueYear" /><br /><br />
+
+	<label>Дата последнего ТО</label><br />
+	<input type="text" name="LastTI" /><br /><br />
+
+	<label>Тариф, относящийся к автомобилю</label>
+	<select name="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
+
+	<label>Водитель</label>
+	<select name="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select><br /><br />
+
+	<label>Механик</label>
+	<select name="MechanicId" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName"))"></select><br /><br />
+
+	<input type="submit" value="Добавить" />
+
+</form>
+
