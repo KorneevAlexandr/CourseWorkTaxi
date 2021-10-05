@@ -1,0 +1,79 @@
+﻿@model Taxi.UI.Models.Calls.CallCollectionViewModel;
+
+<form asp-action="Index" method="get">
+
+	<label>Водитель</label>
+	@if (Model.DriverId != 0)
+	{
+		<select name="driverId" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
+			Model.Drivers.FirstOrDefault(x => x.Id == Model.DriverId).FullName))"></select>
+	}
+	else
+	{
+		<select name="driverId" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select>
+	}
+
+	<label>Диспетчер</label>
+	@if (Model.DispatherId != 0)
+	{
+		<select name="dispatherId" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName",
+			Model.Dispathers.FirstOrDefault(x => x.Id == Model.DispatherId).FullName))"></select>
+	}
+	else
+	{
+		<select name="dispatherId" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName"))"></select>
+	}
+
+	<label>Тариф</label>
+	@if (Model.TariffId != 0)
+	{
+		<select name="tariffId" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+			Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId).Name))"></select>
+	}
+	else
+	{
+		<select name="tariffId" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select>
+	}
+
+	<label>Год и день</label>
+	@if (Model.Date != null)
+	{
+		<input type="text" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
+	}
+	else
+	{
+		<input type="text" name="date" asp-for="Date" />
+	}
+	<input type="submit" value="Найти" /><br />
+
+	<table class=" table table-striped">
+		<tr>
+			<th>Телефон</th>
+			<th>Стоимость</th>
+			<th>Время вызова</th>
+			<th>Начальный адрес</th>
+			<th>Конечный адрес</th>
+			<th>Водитель</th>
+			<th>Диспетчер</th>
+		</tr>
+
+		@foreach (var item in Model.Calls)
+		{
+			<tr>
+				<td>@item.Phone</td>
+				<td>@item.Price</td>
+				<td>@($"{item.CallDateTime.ToShortDateString()} {item.CallDateTime.ToShortTimeString()}")</td>
+				<td>@($"{item.StartStreet} {item.StartHomeNumber}")</td>
+				<td>@($"{item.EndStreet} {item.EndHomeNumber}")</td>
+				<td>@item.DriverFullName</td>
+				<td>@item.DispatherFullName</td>
+			</tr>
+		}
+	</table>
+
+	@for (int i = 0; i < Model.CountPages; i++)
+	{
+		<input type="submit" asp-action="Index" name="page" value="@(i + 1)" />
+	}
+</form>
+

@@ -13,16 +13,18 @@ namespace Taxi.BLL.Services
 	public class CallService : ICallService
 	{
 		private readonly ICallRepository _callRepository;
+		private readonly IEmployeeRepository _employeeRepository;
 
 		public CallService(string connectonString)
 		{
 			_callRepository = new CallRepository(connectonString);
+			_employeeRepository = new EmployeeRepository(connectonString);
 		}
 
 		public async Task<IEnumerable<CallDto>> GetAllAsync(int tariffId, DateTime? day, int driverId, int dispatherId, int skip, int take)
 		{
 			var items = await _callRepository.GetAllAsync(tariffId, day, driverId, dispatherId, skip, take);
-			return items.Select(x => ItemConvert(x));
+			return await CollectionConvert(items);
 		}
 
 		public async Task<int> GetCountAsync(int tariffId, DateTime? day, int driverId, int mechanicId)
@@ -43,6 +45,22 @@ namespace Taxi.BLL.Services
 		public async Task UpdateAsync(CallDto entity)
 		{
 			await _callRepository.UpdateAsync(ItemConvert(entity));
+		}
+
+		private async Task<IEnumerable<CallDto>> CollectionConvert(IEnumerable<Call> calls)
+		{
+			var items = new List<CallDto>();
+			foreach (var item in calls.ToList())
+			{
+				var callDto = ItemConvert(item);
+				var driver = await _employeeRepository.GetAsync(callDto.DriverId);
+				var dispather = await _employeeRepository.GetAsync(callDto.DispatherId);
+				
+				callDto.DriverFullName = $"{driver.Surname} {driver.Name}";
+				callDto.DispatherFullName = $"{dispather.Surname} {dispather.Name}";
+				items.Add(callDto);
+			}
+			return items;
 		}
 
 		private CallDto ItemConvert(Call call)

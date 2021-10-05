@@ -33,7 +33,7 @@ namespace Taxi.DAL.Repositories
 
 		private IQueryable<Call> Filter(int tariffId, DateTime? day, int driverId, int dispatherId)
 		{
-			IQueryable<Call> calls = _context.Calls.Include(x => x.Car);
+			IQueryable<Call> calls = _context.Calls.Include(x => x.Car).Include(x => x.Dispather);
 
 			if (tariffId != 0)
 			{

@@ -25,5 +25,9 @@ namespace Taxi.BLL.ModelsDto
 		public int DispatherId { get; set; }
 
 		public int DriverId { get; set; }
+
+		public string DispatherFullName { get; set; }
+
+		public string DriverFullName { get; set; }
 	}
 }
