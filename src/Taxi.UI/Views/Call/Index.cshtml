@@ -38,11 +38,11 @@
 	<label>Год и день</label>
 	@if (Model.Date != null)
 	{
-		<input type="text" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
+		<input type="date" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
 	}
 	else
 	{
-		<input type="text" name="date" asp-for="Date" />
+		<input type="date" name="date" asp-for="Date" />
 	}
 	<input type="submit" value="Найти" /><br />
 

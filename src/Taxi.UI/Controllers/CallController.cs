@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -107,6 +108,31 @@ namespace Taxi.UI.Controllers
 					EndHomeNumber = x.EndHomeNumber,
 					DriverFullName = x.DriverFullName,
 					DispatherFullName = x.DispatherFullName,
+				}).ToList(),
+			};
+
+			return View(model);
+		}
+
+		public async Task<IActionResult> PopularAddresses()
+		{
+			var startAddresses = await _callService.GetPopularStartStreets();
+			var endAddresses = await _callService.GetPopularEndStreets();
+
+			var model = new CallAddressCollectionViewModel
+			{
+				StartAddresses = startAddresses.Select(x => new CallAddressViewModel
+				{
+					Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.MonthNumber),
+					Address = x.AddressName,
+					CountAddresses = x.CountCalls,
+				}).ToList(),
+
+				EndAddresses = endAddresses.Select(x => new CallAddressViewModel
+				{
+					Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.MonthNumber),
+					Address = x.AddressName,
+					CountAddresses = x.CountCalls,
 				}).ToList(),
 			};
 

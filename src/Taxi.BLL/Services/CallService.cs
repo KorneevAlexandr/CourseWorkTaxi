@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -61,6 +62,40 @@ namespace Taxi.BLL.Services
 				items.Add(callDto);
 			}
 			return items;
+		}
+
+		public async Task<IEnumerable<CallAddressDto>> GetPopularStartStreets()
+		{
+			var callAddresses = new List<CallAddressDto>();
+			var now = DateTime.Now;
+			for (int i = 1; i <= now.Month; i++)
+			{
+				var dictByMonth = await _callRepository.GetPopularStartStreet(now.Year, i);
+				callAddresses.Add(new CallAddressDto
+				{
+					MonthNumber = i,
+					AddressName = dictByMonth.FirstOrDefault().Key,
+					CountCalls = dictByMonth.FirstOrDefault().Value,
+				});
+			}
+			return callAddresses;
+		}
+
+		public async Task<IEnumerable<CallAddressDto>> GetPopularEndStreets()
+		{
+			var callAddresses = new List<CallAddressDto>();
+			var now = DateTime.Now;
+			for (int i = 1; i <= now.Month; i++)
+			{
+				var dictByMonth = await _callRepository.GetPopularEndStreet(now.Year, i);
+				callAddresses.Add(new CallAddressDto
+				{
+					MonthNumber = i,
+					AddressName = dictByMonth.FirstOrDefault().Key,
+					CountCalls = dictByMonth.FirstOrDefault().Value,
+				});
+			}
+			return callAddresses;
 		}
 
 		private CallDto ItemConvert(Call call)
