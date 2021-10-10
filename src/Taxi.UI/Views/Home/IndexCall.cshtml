@@ -1,0 +1,53 @@
+﻿@model Taxi.UI.Models.Calls.SuccessUserCallViewModel;
+
+@{
+	ViewData["Title"] = "Подробности заказа";
+}
+
+<form asp-controller="Home" asp-action="IndexCall" method="post">
+
+	<label>Номер телефона</label><br />
+	<input type="text" asp-for="UserCall.Phone" value="@Model.UserCall.Phone" /><br />
+
+	<label>Адрес отправления</label><br />
+	<input type="text" asp-for="UserCall.StartStreet" value="@Model.UserCall.StartStreet" />
+	<input type="number" asp-for="UserCall.StartHomeNumber" value="@Model.UserCall.StartHomeNumber" /><br />
+
+	<label>Адрес прибытия</label><br />
+	<input type="text" asp-for="UserCall.EndStreet" value="@Model.UserCall.EndStreet" />
+	<input type="number" asp-for="UserCall.EndHomeNumber" value="@Model.UserCall.EndHomeNumber" /><br />
+
+	<label>Тариф</label>
+	<p>@Model.TariffName</p><br />
+
+	<label>Водитель</label><br />
+	<p>@Model.DriverFullName</p><br />
+
+	<label>Автомобиль</label><br />
+	<p>@Model.CarName</p><br />
+
+	<label>Регистрационный номер</label><br />
+	<p>@Model.RegistrationName</p><br />
+
+	<label>Стоимость</label><br />
+	<p name="Price">@Model.Price</p><br />
+
+	<input style="display: none" type="number" asp-for="DriverId" value="@Model.DriverId" />
+	<input style="display: none" type="number" asp-for="DispatherId" value="@Model.DispatherId" />
+	<input style="display: none" type="number" asp-for="CarId" value="@Model.CarId" />
+	<input style="display: none" type="number" asp-for="Price" value="@Model.Price" />
+	<input style="display: none" type="text" asp-for="RegistrationName" value="@Model.RegistrationName" />
+	<input style="display: none" type="text" asp-for="CarName" value="@Model.CarName" />
+	<input style="display: none" type="text" asp-for="DriverFullName" value="@Model.DriverFullName" />
+	<input style="display: none" type="text" asp-for="TariffName" value="@Model.TariffName" />
+
+	@if (Model.IsSuccessed)
+	{
+		<h2>Заказ подтвержден</h2>
+	}
+	else
+	{
+		<input type="submit" value="Подтвердить" />
+	}
+</form>
+

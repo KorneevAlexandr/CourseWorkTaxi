@@ -5,11 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
-using Taxi.BLL.ModelsDto;
-using Taxi.UI.Models.Brands;
 using Taxi.UI.Models.Calls;
-using Taxi.UI.Models.CarModels;
-using Taxi.UI.Models.Cars;
 using Taxi.UI.Models.Employees;
 using Taxi.UI.Models.Tariffs;
 
@@ -21,7 +17,7 @@ namespace Taxi.UI.Controllers
 		private int _currentPage;
 
 		private readonly ICallService _callService;
-		private readonly IPositionService _poisitionService;
+		private readonly IPositionService _positionService;
 		private readonly IEmployeeService _employeeService;
 		private readonly ITariffService _tariffService;
 
@@ -31,7 +27,7 @@ namespace Taxi.UI.Controllers
 			_callService = callService;
 			_employeeService = employeeService;
 			_tariffService = tariffService;
-			_poisitionService = positionService;
+			_positionService = positionService;
 			_currentPage = 0;
 		}
 
@@ -49,7 +45,7 @@ namespace Taxi.UI.Controllers
 
 			// TODO : хардкод
 			// добавить имена ролей на русском в конфигурационный файл
-			var positions = await _poisitionService.GetAllAsync();
+			var positions = await _positionService.GetAllAsync();
 			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
 			var dispatherPosition = positions.FirstOrDefault(x => x.Name.Equals("Диспетчер")); // и тут!
 			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);

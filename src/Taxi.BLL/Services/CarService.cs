@@ -55,6 +55,12 @@ namespace Taxi.BLL.Services
 			return ItemConvert(item);
 		}
 
+		public async Task<CarDto> GetRandomCarByTariff(int tariffId)
+		{
+			var randomCar = await _carRepository.GetRandomCarByTariff(tariffId);
+			return ItemConvert(randomCar);
+		}
+
 		public async Task CreateAsync(CarDto entity)
 		{
 			await _carRepository.CreateAsync(ItemConvert(entity));

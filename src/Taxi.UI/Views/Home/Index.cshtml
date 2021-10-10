@@ -1,20 +1,31 @@
-﻿@model IEnumerable<Taxi.BLL.ModelsDto.CarDto>;
+﻿@model Taxi.UI.Models.Calls.UserCallViewModel;
 
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Заказ такси";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-	
-    @foreach (var item in Model.ToList())
-	{
-        <table>
-            <tr>
-                <td>@item.RegistrationNumber</td>
-            </tr>
-        </table>
-    }
+<form asp-controller="Home" asp-action="IndexCall" method="get">
 
-</div>
+	<label>Номер телефона</label><br />
+	<input type="text" asp-for="Phone" value="@Model.Phone" /><br />
+
+	<label>Адрес отправления</label><br>
+	<input type="text" asp-for="StartStreet" value="@Model.StartStreet" />
+	<input type="number" asp-for="StartHomeNumber" value="@Model.StartHomeNumber" /><br />
+
+	<label>Адрес прибытия</label><br>
+	<input type="text" asp-for="EndStreet" value="@Model.EndStreet" />
+	<input type="number" asp-for="EndHomeNumber" value="@Model.EndHomeNumber" /><br />
+
+	<label>Тариф</label>
+	@if (Model.TariffId != 0)
+	{
+		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name", 
+			Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId)))"></select><br /><br />
+	}
+	<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
+
+
+
+	<input type="submit" value="Заказать" />
+</form>

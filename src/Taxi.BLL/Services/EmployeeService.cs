@@ -121,6 +121,16 @@ namespace Taxi.BLL.Services
 			return ItemConvert(item);
 		}
 
+		public async Task<EmployeeDto> GetRandomAsync(int positionId)
+		{
+			var random = new Random();
+
+			var countEmployees = await GetCountAsync(positionId, 0);
+			var allEmployees = await GetAllByPositionAsync(positionId, 0, countEmployees);
+			var randomEmployees = allEmployees.Skip(random.Next(0, countEmployees)).Take(1).FirstOrDefault();
+			return randomEmployees;
+		}
+
 		public async Task<int> EmployeeIsAutorizeAsync(string login, string password)
 		{
 			var account = await _accountRepository.GetAsync(login);
@@ -223,6 +233,7 @@ namespace Taxi.BLL.Services
 				Name = employee.Name,
 				PositionId = employee.PositionId,
 				Surname = employee.Surname,
+				PositionName = employee.Position.Name,
 			};
 		}
 	}

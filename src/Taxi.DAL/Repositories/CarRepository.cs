@@ -91,6 +91,18 @@ namespace Taxi.DAL.Repositories
 			return item;
 		}
 
+		public async Task<Car> GetRandomCarByTariff(int tariffId)
+		{
+			var random = new Random();
+			var carsByTariffId = _context.Cars.Where(x => x.TariffId == tariffId).Select(x => x.Id);
+			var countSelectedCars = await carsByTariffId.CountAsync();
+
+			var randomCarId = await carsByTariffId.Skip(random.Next(0, --countSelectedCars))
+				.Take(1).FirstOrDefaultAsync();
+
+			return await GetAsync(randomCarId);
+		}
+
 		public async Task CreateAsync(Car entity)
 		{
 			await _context.Cars.AddAsync(entity);

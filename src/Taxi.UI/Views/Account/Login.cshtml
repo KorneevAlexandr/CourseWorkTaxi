@@ -1,0 +1,15 @@
+﻿@model Taxi.UI.Models.Accounts.AccountViewModel;
+
+@{
+	ViewData["Title"] = "Вход в приложение";
+}
+
+<form asp-action="Login" asp-controller="Account" method="post">
+	<label>Введите логин: </label><br />
+	<input type="text" asp-for="Login" value="" /><br /><br />
+
+	<label>Введите пароль: </label><br />
+	<input type="password" asp-for="Password" value="" /><br /><br />
+
+	<input type="submit" value="Войти" />
+</form>

@@ -18,13 +18,13 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<IQueryable<Model>> GetAllByBrandAsync(int brandId)
 		{
-			var items = await _context.Models.Where(x => x.BrandId == brandId).ToListAsync();
+			var items = await _context.Models.Include(x => x.Brand).Where(x => x.BrandId == brandId).ToListAsync();
 			return items.AsQueryable();
 		}
 
 		public async Task<Model> GetAsync(int id)
 		{
-			var item = await _context.Models.FirstOrDefaultAsync(x => x.Id == id);
+			var item = await _context.Models.Include(x => x.Brand).FirstOrDefaultAsync(x => x.Id == id);
 			return item;
 		}
 

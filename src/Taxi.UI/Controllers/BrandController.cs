@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -7,6 +8,7 @@ using Taxi.UI.Models.Brands;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin")]
 	public class BrandController : Controller
 	{
 		private readonly IBrandService _brandService;

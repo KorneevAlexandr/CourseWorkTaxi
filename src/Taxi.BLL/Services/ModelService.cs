@@ -56,6 +56,7 @@ namespace Taxi.BLL.Services
 				Fuel = model.Fuel,
 				HP = model.HP,
 				Price = model.Price,
+				BrandName = model.Brand.Name,
 			};
 		}
 

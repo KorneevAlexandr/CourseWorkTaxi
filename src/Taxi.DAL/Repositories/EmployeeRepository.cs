@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.DAL.Data;
@@ -44,7 +43,7 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<Employee> GetAsync(int id)
 		{
-			var item = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
+			var item = await _context.Employees.Include(x => x.Position).FirstOrDefaultAsync(x => x.Id == id);
 			return item;
 		}
 
