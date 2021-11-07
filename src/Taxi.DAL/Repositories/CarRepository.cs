@@ -97,6 +97,11 @@ namespace Taxi.DAL.Repositories
 			var carsByTariffId = _context.Cars.Where(x => x.TariffId == tariffId).Select(x => x.Id);
 			var countSelectedCars = await carsByTariffId.CountAsync();
 
+			if (countSelectedCars == 0)
+			{
+				throw new InvalidOperationException("Машины с заданном тарифом нет.");
+			}
+
 			var randomCarId = await carsByTariffId.Skip(random.Next(0, --countSelectedCars))
 				.Take(1).FirstOrDefaultAsync();
 

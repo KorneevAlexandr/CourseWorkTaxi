@@ -51,7 +51,16 @@ namespace Taxi.UI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> IndexCall(UserCallViewModel model)
 		{
-			var car = await _carService.GetRandomCarByTariff(model.TariffId);
+			CarDto car;
+			try
+			{
+				car = await _carService.GetRandomCarByTariff(model.TariffId);
+			}
+			catch
+			{
+				return RedirectToAction("Index");
+			}
+
 			var modelCar = await _modelService.GetAsync(car.ModelId);
 			var driver = await _employeeService.GetAsync(car.DriverId);
 			var tariff = await _tariffService.GetAsync(model.TariffId);

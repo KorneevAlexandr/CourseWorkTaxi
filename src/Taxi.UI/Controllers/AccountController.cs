@@ -55,6 +55,7 @@ namespace Taxi.UI.Controllers
 		{
 			var claims = new List<Claim>
 			{
+				// TODO у каждого своя роль
 				new Claim(ClaimsIdentity.DefaultNameClaimType, login),
 				new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin")
 			};

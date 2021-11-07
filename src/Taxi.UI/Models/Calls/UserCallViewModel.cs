@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Models.Calls
@@ -9,6 +10,8 @@ namespace Taxi.UI.Models.Calls
 
 		public List<TariffViewModel> Tariffs { get; set; }
 
+		[Required(ErrorMessage = "Укажите номер телефона")]
+		[Phone(ErrorMessage = "Номер телефона некорректный")]
 		public string Phone { get; set; }
 
 		public string StartStreet { get; set; }

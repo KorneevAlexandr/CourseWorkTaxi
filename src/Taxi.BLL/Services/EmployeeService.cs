@@ -233,7 +233,7 @@ namespace Taxi.BLL.Services
 				Name = employee.Name,
 				PositionId = employee.PositionId,
 				Surname = employee.Surname,
-				PositionName = employee.Position.Name,
+				//PositionName = employee.Position.Name,
 			};
 		}
 	}
