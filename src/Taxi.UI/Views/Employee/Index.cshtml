@@ -43,6 +43,10 @@
 			<td>@item.DateStartOfWork.ToShortDateString()</td>
 			<td>@item.PositionName</td>
 			<td>
+				@if (!item.Registered)
+				{
+					<a asp-controller="Account" asp-action="Register" asp-route-id="@item.Id">Зарегистрировать |</a>
+				}
 				<a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
 				<a asp-action="Update" asp-route-id="@item.Id">Изменить</a>
 			</td>

@@ -18,6 +18,8 @@ namespace Taxi.UI.Models.Employees
 
 		public string PositionName { get; set; }
 
+		public bool Registered { get; set; }
+
 		public List<PositionViewModel> Positions { get; set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,22 +9,60 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
+using Taxi.UI.Data;
 using Taxi.UI.Models.Accounts;
 
 namespace Taxi.UI.Controllers
 {
 	public class AccountController : Controller
 	{
+		private readonly UserManager<User> _userManager;
+		private readonly SignInManager<User> _signInManager;
 		private readonly IEmployeeService _employeeService;
 
-		public AccountController(IEmployeeService employeeService)
+		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, 
+			IEmployeeService employeeService)
 		{
 			_employeeService = employeeService;
+			_userManager = userManager;
+			_signInManager = signInManager;
 		}
 
-		public IActionResult Index()
+		[HttpGet]
+		public async Task<IActionResult> Register(int id)
 		{
-			return RedirectToAction("Login");
+			var employee = await _employeeService.GetAsync(id);
+			var model = new RegisterViewModel 
+			{ 
+				EmployeeId = id,
+				DataEmployee = $"{employee.Surname} {employee.Name}, {employee.PositionName}",
+			};
+
+			return View(model);
+		}
+
+		public async Task<IActionResult> Register(RegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = new User
+				{
+					Email = model.Email,
+					UserName = model.Email,
+					EmployeeId = model.EmployeeId,
+				};
+
+				var result = await _userManager.CreateAsync(user, model.Password);
+				if (result.Succeeded)
+				{
+					var roleName = await GetUserRoleAsync(user.EmployeeId);
+
+					await _userManager.AddToRoleAsync(user, roleName);
+					await _signInManager.SignInAsync(user, false);
+					return RedirectToAction("Index", "Home");
+				}
+			}
+			return View(model);
 		}
 
 		[HttpGet]
@@ -34,36 +73,37 @@ namespace Taxi.UI.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(AccountViewModel account)
+		public async Task<IActionResult> Login(AccountViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
-				var employeeId = await _employeeService.EmployeeIsAutorizeAsync(account.Login, account.Password);
-				if (employeeId != 0)
+				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+				if (result.Succeeded)
 				{
-					var employee = await _employeeService.GetAsync(employeeId);
-					await Authenticate(account.Login, employee.PositionName);
 					return RedirectToAction("Index", "Home");
-					//return FindUrlAction(user);
+				}
+				else
+				{
+					return RedirectToAction("Index", "Home");
 				}
 			}
 
-			return View(account);
+			return View(model);
 		}
 
-		private async Task Authenticate(string login, string positionName)
+		private async Task<string> GetUserRoleAsync(int employeeId)
 		{
-			var claims = new List<Claim>
+			var employee = await _employeeService.GetAsync(employeeId);
+			if (employee.PositionName.Equals("Водитель"))
 			{
-				// TODO у каждого своя роль
-				new Claim(ClaimsIdentity.DefaultNameClaimType, login),
-				new Claim(ClaimsIdentity.DefaultRoleClaimType, "Admin")
-			};
+				return TaxiRoles.Driver.ToString();
+			}
+			else if (employee.PositionName.Equals("Диспетчер"))
+			{
+				return TaxiRoles.Dispatcher.ToString();
+			}
 
-			var claimsIdentity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
-				ClaimsIdentity.DefaultRoleClaimType);
-
-			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+			return TaxiRoles.Employee.ToString();
 		}
 
 	}

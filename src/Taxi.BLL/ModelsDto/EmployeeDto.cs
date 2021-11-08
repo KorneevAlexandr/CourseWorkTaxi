@@ -20,6 +20,5 @@ namespace Taxi.BLL.ModelsDto
 
 		public string PositionName { get; set; }
 
-		public string Login { get; set; }
 	}
 }

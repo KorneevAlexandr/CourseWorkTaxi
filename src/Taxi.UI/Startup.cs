@@ -39,7 +39,6 @@ namespace Taxi.UI
 			services.AddScoped<IModelService, ModelService>(options => new ModelService(connectionString));
 			services.AddScoped<IPositionService, PositionService>(options => new PositionService(connectionString));
 
-
 			services.AddDbContext<IdentityTaxiContext>(options =>
 				options.UseSqlServer(connectionString));
 			services.AddIdentity<User, IdentityRole>()

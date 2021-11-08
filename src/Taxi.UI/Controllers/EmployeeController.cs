@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
-using Taxi.UI.Models.Brands;
-using Taxi.UI.Models.CarModels;
+using Taxi.UI.Data;
 using Taxi.UI.Models.Employees;
 using Taxi.UI.Models.Positions;
 
@@ -18,12 +18,13 @@ namespace Taxi.UI.Controllers
 
 		private readonly IEmployeeService _employeeService;
 		private readonly IPositionService _positionService;
-		
+		private readonly UserManager<User> _userManager;
 
-		public EmployeeController(IEmployeeService employeeService, IPositionService positionService)
+		public EmployeeController(IEmployeeService employeeService, IPositionService positionService, UserManager<User> userManager)
 		{
 			_employeeService = employeeService;
 			_positionService = positionService;
+			_userManager = userManager;
 			_currentPage = 0;
 		}
 
@@ -59,6 +60,7 @@ namespace Taxi.UI.Controllers
 					Surname = x.Surname,
 					PositionName = x.PositionName,
 					DateStartOfWork = x.DateStartOfWork,
+					Registered = _userManager.Users.Where(user => user.EmployeeId == x.Id).Any(),
 				}).ToList(),
 				Positions = modelPositions,
 			};

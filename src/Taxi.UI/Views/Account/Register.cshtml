@@ -1,0 +1,19 @@
+﻿@model Taxi.UI.Models.Accounts.RegisterViewModel
+
+@{
+	ViewData["Title"] = "Регистрация сотрудника";
+}
+
+<p>Добавление аккаунта для сотрудника: <h3>@Model.DataEmployee</h3></p>
+
+<form asp-action="Register" asp-controller="Account" method="post">
+	<input type="number" asp-for="EmployeeId" value="@(Model.EmployeeId)" />
+
+	<label>Введите email: </label><br />
+	<input type="text" asp-for="Email" value="" /><br /><br />
+
+	<label>Введите пароль: </label><br />
+	<input type="password" asp-for="Password" value="" /><br /><br />
+
+	<input type="submit" value="Зарегистрировать" />
+</form>

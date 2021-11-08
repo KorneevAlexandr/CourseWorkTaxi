@@ -13,12 +13,10 @@ namespace Taxi.BLL.Services
 	public class EmployeeService : IEmployeeService
 	{
 		private readonly IEmployeeRepository _employeeRepository;
-		private readonly IAccountRepository _accountRepository;
 		private readonly IPositionService _positionService;
 
 		public EmployeeService(string connectionString)
 		{
-			_accountRepository = new AccountRepository(connectionString);
 			_employeeRepository = new EmployeeRepository(connectionString);
 			_positionService = new PositionService(connectionString);
 		}
@@ -102,23 +100,10 @@ namespace Taxi.BLL.Services
 		public async Task<EmployeeDto> GetAsync(int id)
 		{
 			var item = await _employeeRepository.GetAsync(id);
-			return ItemConvert(item);
-		}
-
-		/// <summary>
-		/// Применять, предварительно проверив логин!
-		/// </summary>
-		/// <param name="login"></param>
-		/// <returns></returns>
-		public async Task<EmployeeDto> GetAsync(string login)
-		{
-			var account = await _accountRepository.GetAsync(login);
-			if (account == null)
-			{
-				return null;
-			}
-			var item = await _employeeRepository.GetAsync(account.EmployeeId);
-			return ItemConvert(item);
+			var position = await _positionService.GetAsync(item.PositionId);
+			var dtoItem = ItemConvert(item);
+			dtoItem.PositionName = position.Name;
+			return dtoItem;
 		}
 
 		public async Task<EmployeeDto> GetRandomAsync(int positionId)
@@ -131,40 +116,6 @@ namespace Taxi.BLL.Services
 			return randomEmployees;
 		}
 
-		public async Task<int> EmployeeIsAutorizeAsync(string login, string password)
-		{
-			var account = await _accountRepository.GetAsync(login);
-			if (account.Password.Equals(password))
-			{
-				return account.EmployeeId;
-			}
-			return 0;
-		}
-
-		public async Task CreateAuthorizeAsync(EmployeeDto employee, string login, string pasword)
-		{
-			await _employeeRepository.CreateAsync(ItemConvert(employee));
-			var item = await _employeeRepository.GetLastAsync();
-
-			var account = new Account
-			{
-				Login = login,
-				Password = pasword,
-				EmployeeId = item.Id,
-			};
-			await _accountRepository.CreateAsync(account);
-		}
-
-		public async Task<bool> IsUniqueLoginAsync(string login)
-		{
-			var item = await _accountRepository.GetAsync(login);
-			if (item == null)
-			{
-				return true;
-			}
-			return false;
-		}
-
 		public async Task CreateAsync(EmployeeDto entity)
 		{
 			await _employeeRepository.CreateAsync(ItemConvert(entity));
@@ -172,11 +123,6 @@ namespace Taxi.BLL.Services
 
 		public async Task DeleteAsync(int id)
 		{
-			var item = await _accountRepository.GetByEmployeeAsync(id);
-			if (item != null)
-			{
-				await _accountRepository.DeleteAsync(item.EmployeeId);
-			}
 			await _employeeRepository.DeleteAsync(id);
 		}
 
@@ -185,13 +131,6 @@ namespace Taxi.BLL.Services
 			await _employeeRepository.UpdateAsync(ItemConvert(entity));
 		}
 
-		public async Task UpdateAuthorizeAsync(int employeeId, string login, string password)
-		{
-			var item = await _accountRepository.GetByEmployeeAsync(employeeId);
-			item.Login = login;
-			item.Password = password;
-			await _accountRepository.UpdateAsync(item);
-		}
 
 		private async Task<IEnumerable<EmployeeDto>> ConvertCollection(IQueryable<Employee> items)
 		{
@@ -200,12 +139,7 @@ namespace Taxi.BLL.Services
 			
 			foreach (var item in listEmployees)
 			{
-				var account = await _accountRepository.GetByEmployeeAsync(item.Id);
 				var position = await _positionService.GetAsync(item.PositionId);
-				if (account != null)
-				{
-					item.Login = account.Login;
-				}
 				item.PositionName = position.Name;
 			}
 
