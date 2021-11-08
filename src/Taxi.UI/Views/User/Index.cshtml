@@ -1,0 +1,17 @@
+﻿@model Taxi.UI.Models.Users.UserViewModel;
+
+@{
+	ViewData["Title"] = "Личный кабинет";
+}
+
+<h2>@Model.Surname @Model.Name</h2>
+<h3>@Model.PositionName</h3><br />
+<h3>@Model.Email</h3><br />
+
+<p>@Model.StartWork.ToShortDateString()</p>
+
+
+<br />
+<form method="post">
+	<input type="submit" asp-controller="Account" asp-action="Logout" value="Выйти" />
+</form>

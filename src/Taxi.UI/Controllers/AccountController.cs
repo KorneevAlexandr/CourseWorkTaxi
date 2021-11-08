@@ -66,9 +66,9 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Login()
+		public IActionResult Login(string returnUrl = null)
 		{
-			return View();
+			return View(new AccountViewModel { ReturnUrl = returnUrl, });
 		}
 
 		[HttpPost]
@@ -80,15 +80,23 @@ namespace Taxi.UI.Controllers
 				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Index", "Home");
+					return Redirect(model.ReturnUrl);
 				}
 				else
 				{
-					return RedirectToAction("Index", "Home");
+					ModelState.AddModelError("", "Неверный логин или пароль");
 				}
 			}
 
 			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Logout()
+		{
+			await _signInManager.SignOutAsync();
+			return RedirectToAction("Index", "Home");
 		}
 
 		private async Task<string> GetUserRoleAsync(int employeeId)
