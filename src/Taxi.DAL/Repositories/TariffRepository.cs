@@ -7,13 +7,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class TariffRepository : ICompleteRepository<Tariff>
+	internal class TariffRepository : ICompleteRepository<Tariff>
 	{
 		private readonly TaxiContext _context;
 
-		public TariffRepository(string connectionString)
+		public TariffRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Tariff>> GetAllAsync()

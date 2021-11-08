@@ -5,16 +5,9 @@ namespace Taxi.DAL.Data
 {
 	internal class TaxiContext : DbContext
 	{
-		private readonly string _connectionString;
-
-		public TaxiContext(string conntectionString)
+		public TaxiContext(DbContextOptions<TaxiContext> options)
+			: base(options)
 		{
-			_connectionString = conntectionString;
-		}
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer(_connectionString);
 		}
 
 		public DbSet<Account> Accounts { get; set; }

@@ -9,13 +9,13 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class ModelService : IModelService
+	internal class ModelService : IModelService
 	{
 		private readonly IModelRepository _modelRepository;
 
-		public ModelService(string connectionString)
+		public ModelService(IModelRepository modelRepository)
 		{
-			_modelRepository = new ModelRepository(connectionString);
+			_modelRepository = modelRepository;
 		}
 
 		public async Task<IEnumerable<ModelDto>> GetAllByBrandAsync(int id)

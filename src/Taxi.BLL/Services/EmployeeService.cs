@@ -10,15 +10,15 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class EmployeeService : IEmployeeService
+	internal class EmployeeService : IEmployeeService
 	{
 		private readonly IEmployeeRepository _employeeRepository;
-		private readonly IPositionService _positionService;
+		private readonly ICompleteRepository<Position> _positionRepository;
 
-		public EmployeeService(string connectionString)
+		public EmployeeService(IEmployeeRepository employeeRepository, ICompleteRepository<Position> positionRepository)
 		{
-			_employeeRepository = new EmployeeRepository(connectionString);
-			_positionService = new PositionService(connectionString);
+			_employeeRepository = employeeRepository;
+			_positionRepository = positionRepository;
 		}
 
 		public async Task<IEnumerable<EmployeeDto>> GetAllAsync(int skip, int take)
@@ -100,7 +100,7 @@ namespace Taxi.BLL.Services
 		public async Task<EmployeeDto> GetAsync(int id)
 		{
 			var item = await _employeeRepository.GetAsync(id);
-			var position = await _positionService.GetAsync(item.PositionId);
+			var position = await _positionRepository.GetAsync(item.PositionId);
 			var dtoItem = ItemConvert(item);
 			dtoItem.PositionName = position.Name;
 			return dtoItem;
@@ -139,7 +139,7 @@ namespace Taxi.BLL.Services
 			
 			foreach (var item in listEmployees)
 			{
-				var position = await _positionService.GetAsync(item.PositionId);
+				var position = await _positionRepository.GetAsync(item.PositionId);
 				item.PositionName = position.Name;
 			}
 

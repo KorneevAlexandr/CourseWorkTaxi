@@ -9,13 +9,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class CallRepository : ICallRepository
+	internal class CallRepository : ICallRepository
 	{
 		private readonly TaxiContext _context;
 
-		public CallRepository(string connectionString)
+		public CallRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Call>> GetAllAsync(int tariffId, DateTime? day, int driverId, int dispatherId, int skip, int take)

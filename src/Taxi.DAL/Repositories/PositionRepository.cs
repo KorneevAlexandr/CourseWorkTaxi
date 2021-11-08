@@ -7,13 +7,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class PositionRepository : ICompleteRepository<Position>
+	internal class PositionRepository : ICompleteRepository<Position>
 	{
 		private readonly TaxiContext _context;
 
-		public PositionRepository(string connectionString)
+		public PositionRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Position>> GetAllAsync()

@@ -9,13 +9,13 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class PositionService : IPositionService
+	internal class PositionService : IPositionService
 	{
 		private readonly ICompleteRepository<Position> _positionRepository;
 
-		public PositionService(string connectionString)
+		public PositionService(ICompleteRepository<Position> positionRepository)
 		{
-			_positionRepository = new PositionRepository(connectionString);
+			_positionRepository = positionRepository;
 		}
 
 		public async Task<IEnumerable<PositionDto>> GetAllAsync()

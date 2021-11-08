@@ -5,17 +5,16 @@ using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.DAL.Domain;
 using Taxi.DAL.Interfaces.Repositories;
-using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class BrandService : IBrandService
+	internal class BrandService : IBrandService
 	{
 		private readonly ICompleteRepository<Brand> _brandRepository;
 
-		public BrandService(string connectionString)
+		public BrandService(ICompleteRepository<Brand> brandRepository)
 		{
-			_brandRepository = new BrandRepository(connectionString);
+			_brandRepository = brandRepository;
 		}
 
 		public async Task<IEnumerable<BrandDto>> GetAllAsync()

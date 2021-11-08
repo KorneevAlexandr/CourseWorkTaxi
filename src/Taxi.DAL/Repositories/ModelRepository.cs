@@ -7,13 +7,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class ModelRepository : IModelRepository
+	internal class ModelRepository : IModelRepository
 	{
 		private readonly TaxiContext _context;
 
-		public ModelRepository(string connectionString)
+		public ModelRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Model>> GetAllByBrandAsync(int brandId)

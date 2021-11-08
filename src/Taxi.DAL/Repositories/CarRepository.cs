@@ -8,13 +8,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class CarRepository : ICarRepository
+	internal class CarRepository : ICarRepository
 	{
 		private readonly TaxiContext _context;
 
-		public CarRepository(string connectionString)
+		public CarRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Car>> GetAllAsync(int brandId, int mileage, int price, int issueYear, int skip, int take)

@@ -8,13 +8,13 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class EmployeeRepository : IEmployeeRepository
+	internal class EmployeeRepository : IEmployeeRepository
 	{
 		private readonly TaxiContext _context;
 
-		public EmployeeRepository(string connectionString)
+		public EmployeeRepository(TaxiContext context)
 		{
-			_context = new TaxiContext(connectionString);
+			_context = context;
 		}
 
 		public async Task<IQueryable<Employee>> GetAllAsync(

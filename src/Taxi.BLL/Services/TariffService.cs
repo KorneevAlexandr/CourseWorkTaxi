@@ -9,13 +9,13 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class TariffService : ITariffService
+	internal class TariffService : ITariffService
 	{
 		private readonly ICompleteRepository<Tariff> _tariffRepository;
 
-		public TariffService(string connectionString)
+		public TariffService(ICompleteRepository<Tariff> tariffRepository)
 		{
-			_tariffRepository = new TariffRepository(connectionString);
+			_tariffRepository = tariffRepository;
 		}
 
 		public async Task<IEnumerable<TariffDto>> GetAllAsync()

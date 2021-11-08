@@ -11,15 +11,15 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class CallService : ICallService
+	internal class CallService : ICallService
 	{
 		private readonly ICallRepository _callRepository;
 		private readonly IEmployeeRepository _employeeRepository;
 
-		public CallService(string connectonString)
+		public CallService(ICallRepository callRepository, IEmployeeRepository employeeRepository)
 		{
-			_callRepository = new CallRepository(connectonString);
-			_employeeRepository = new EmployeeRepository(connectonString);
+			_callRepository = callRepository;
+			_employeeRepository = employeeRepository;
 		}
 
 		public async Task<IEnumerable<CallDto>> GetAllAsync(int tariffId, DateTime? day, int driverId, int dispatherId, int skip, int take)

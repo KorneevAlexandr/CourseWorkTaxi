@@ -15,6 +15,7 @@ using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.BLL.Services;
 using Taxi.UI.Data;
+using Taxi.BLL.Extensions;
 
 namespace Taxi.UI
 {
@@ -30,14 +31,7 @@ namespace Taxi.UI
 		public void ConfigureServices(IServiceCollection services)
 		{
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
-
-			services.AddScoped<IEmployeeService, EmployeeService>(options => new EmployeeService(connectionString));
-			services.AddScoped<IBrandService, BrandService>(options => new BrandService(connectionString));
-			services.AddScoped<ICarService, CarService>(options => new CarService(connectionString));
-			services.AddScoped<ICallService, CallService>(options => new CallService(connectionString));
-			services.AddScoped<ITariffService, TariffService>(options => new TariffService(connectionString));
-			services.AddScoped<IModelService, ModelService>(options => new ModelService(connectionString));
-			services.AddScoped<IPositionService, PositionService>(options => new PositionService(connectionString));
+			services.InjectServices(connectionString);
 
 			services.AddDbContext<IdentityTaxiContext>(options =>
 				options.UseSqlServer(connectionString));

@@ -10,13 +10,13 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class CarService : ICarService
+	internal class CarService : ICarService
 	{
 		private readonly ICarRepository _carRepository;
 
-		public CarService(string connectionString)
+		public CarService(ICarRepository carRepository)
 		{
-			_carRepository = new CarRepository(connectionString);
+			_carRepository = carRepository;
 		}
 
 		public async Task<IEnumerable<CarDto>> GetAllAsync(int brandId, int mileage, int price, int issueYear, int skip, int take)
