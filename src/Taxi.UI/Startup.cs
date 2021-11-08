@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.BLL.Services;
+using Taxi.UI.Data;
 
 namespace Taxi.UI
 {
@@ -35,6 +38,12 @@ namespace Taxi.UI
 			services.AddScoped<ITariffService, TariffService>(options => new TariffService(connectionString));
 			services.AddScoped<IModelService, ModelService>(options => new ModelService(connectionString));
 			services.AddScoped<IPositionService, PositionService>(options => new PositionService(connectionString));
+
+
+			services.AddDbContext<IdentityTaxiContext>(options =>
+				options.UseSqlServer(connectionString));
+			services.AddIdentity<User, IdentityRole>()
+				.AddEntityFrameworkStores<IdentityTaxiContext>();
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
