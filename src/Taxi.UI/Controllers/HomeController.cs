@@ -45,6 +45,11 @@ namespace Taxi.UI.Controllers
 				}).ToList(),
 			};
 
+			if (ReadAndDeleteCookies(ref model))
+			{
+				ModelState.AddModelError("", "К сожалению, по выбранному вами тарифу машин нет.. Выберите другой тариф");
+			}
+
 			return View(model);
 		}
 
@@ -58,6 +63,7 @@ namespace Taxi.UI.Controllers
 			}
 			catch
 			{
+				WriteCookies(model.Phone, model.StartStreet, model.EndStreet, model.StartHomeNumber.ToString(), model.EndHomeNumber.ToString());
 				return RedirectToAction("Index");
 			}
 
@@ -107,6 +113,7 @@ namespace Taxi.UI.Controllers
 				Price = model.Price,
 			};
 
+			DeleteCookies();
 			await _callService.CreateAsync(call);
 			model.IsSuccessed = true;
 			return View(model);
@@ -116,6 +123,48 @@ namespace Taxi.UI.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+
+		private void WriteCookies(string phone, string startStreet, string endStreet, string startHome, string endHome)
+		{
+			HttpContext.Response.Cookies.Append("StartStreet", startStreet);
+			HttpContext.Response.Cookies.Append("EndStreet", endStreet);
+			HttpContext.Response.Cookies.Append("StartHome", startHome.ToString());
+			HttpContext.Response.Cookies.Append("EndHome", endHome.ToString());
+			HttpContext.Response.Cookies.Append("Phone", phone);
+		}
+
+		private bool ReadAndDeleteCookies(ref UserCallViewModel model)
+		{
+			if (!HttpContext.Request.Cookies.Keys.Contains("Phone"))
+			{
+				return false;
+			}
+
+			HttpContext.Request.Cookies.TryGetValue("Phone", out string phone);
+			HttpContext.Request.Cookies.TryGetValue("StartStreet", out string startStreet);
+			HttpContext.Request.Cookies.TryGetValue("StartHome", out string startHome);
+			HttpContext.Request.Cookies.TryGetValue("EndStreet", out string endStreet);
+			HttpContext.Request.Cookies.TryGetValue("EndHome", out string endHome);
+
+			model.Phone = phone;
+			model.StartStreet = startStreet;
+			model.EndStreet = endStreet;
+			model.StartHomeNumber = Convert.ToInt32(startHome);
+			model.EndHomeNumber = Convert.ToInt32(endHome);
+
+			DeleteCookies();
+
+			return true;
+		}
+
+		private void DeleteCookies()
+		{
+			HttpContext.Response.Cookies.Delete("Phone");
+			HttpContext.Response.Cookies.Delete("StartStreet");
+			HttpContext.Response.Cookies.Delete("StartHome");
+			HttpContext.Response.Cookies.Delete("EndStreet");
+			HttpContext.Response.Cookies.Delete("EndHome");
 		}
 	}
 }

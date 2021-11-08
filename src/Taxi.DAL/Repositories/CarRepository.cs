@@ -102,7 +102,7 @@ namespace Taxi.DAL.Repositories
 				throw new InvalidOperationException("Машины с заданном тарифом нет.");
 			}
 
-			var randomCarId = await carsByTariffId.Skip(random.Next(0, --countSelectedCars))
+			var randomCarId = await carsByTariffId.Skip(random.Next(0, countSelectedCars))
 				.Take(1).FirstOrDefaultAsync();
 
 			return await GetAsync(randomCarId);

@@ -5,6 +5,7 @@
 }
 
 <form asp-controller="Home" asp-action="IndexCall" method="get">
+	<div class="validation" asp-validation-summary="ModelOnly"></div>
 
 	<label>Номер телефона</label><br />
 	<input type="text" asp-for="Phone" value="@Model.Phone" /><br />
@@ -20,11 +21,14 @@
 	<label>Тариф</label>
 	@if (Model.TariffId != 0)
 	{
-		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name", 
-			Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId)))"></select><br /><br />
+		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+					Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId)))"></select><br /><br />
 	}
-	<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
-
+	else
+	{
+		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
+	}
+	<span asp-validation-for="TariffId" />
 
 
 	<input type="submit" value="Заказать" />
