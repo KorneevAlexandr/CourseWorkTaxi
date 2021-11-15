@@ -66,9 +66,13 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Login(string returnUrl = null)
+		public IActionResult Login()
 		{
-			return View(new AccountViewModel { ReturnUrl = returnUrl, });
+			if (HttpContext.Request.QueryString.HasValue)
+			{
+				return Redirect("~/Account/Login");
+			}
+			return View();
 		}
 
 		[HttpPost]
@@ -77,10 +81,10 @@ namespace Taxi.UI.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
 				if (result.Succeeded)
 				{
-					return Redirect(model.ReturnUrl);
+					return RedirectToAction("Index", "User");
 				}
 				else
 				{
