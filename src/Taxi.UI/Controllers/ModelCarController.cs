@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
+using Taxi.UI.Filters;
 using Taxi.UI.Models.Brands;
 using Taxi.UI.Models.CarModels;
 
@@ -97,6 +98,7 @@ namespace Taxi.UI.Controllers
 			return Redirect($"~/ModelCar/Index?Id={model.BrandId}");
 		}
 
+		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
 		{

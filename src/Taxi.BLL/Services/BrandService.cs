@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Taxi.BLL.Exceptions;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.DAL.Domain;
@@ -49,7 +50,15 @@ namespace Taxi.BLL.Services
 
 		public async Task DeleteAsync(int id)
 		{
-			await _brandRepository.DeleteAsync(id);
+			try
+			{
+				await _brandRepository.DeleteAsync(id);
+			}
+			catch
+			{
+				throw new InvalidDeleteOperationException("Нельзя удалить данные об этой марке автомобиля, так как от нее зависят другие данные. " +
+					"Удалите или измените зависимые данные (модели автомобилей и сами автомобили) и повторите попытку.", "Марка автомобиля");
+			}
 		}
 
 		public async Task UpdateAsync(BrandDto entity)

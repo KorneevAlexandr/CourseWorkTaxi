@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.UI.Data;
+using Taxi.UI.Filters;
 using Taxi.UI.Models.Employees;
 using Taxi.UI.Models.Positions;
 
@@ -98,6 +99,7 @@ namespace Taxi.UI.Controllers
 			return Redirect($"~/Employee/Index?positionId={model.PositionId}");
 		}
 
+		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
 		{

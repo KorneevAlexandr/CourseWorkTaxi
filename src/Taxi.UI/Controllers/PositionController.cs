@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
+using Taxi.UI.Filters;
 using Taxi.UI.Models.Positions;
 
 namespace Taxi.UI.Controllers
@@ -46,6 +47,7 @@ namespace Taxi.UI.Controllers
 			return RedirectToAction("Index");
 		}
 
+		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
 		{

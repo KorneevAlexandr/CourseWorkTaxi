@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Taxi.BLL.Exceptions;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.DAL.Domain;
@@ -37,7 +38,15 @@ namespace Taxi.BLL.Services
 
 		public async Task DeleteAsync(int id)
 		{
-			await _tariffRepository.DeleteAsync(id);
+			try
+			{
+				await _tariffRepository.DeleteAsync(id);
+			}
+			catch
+			{
+				throw new InvalidDeleteOperationException("Нельзя удалить данные об этом тарифе, так как от него зависят данные об автомобилях и вызовах." +
+					"Удалите или измените зависимые данные (автомобили и вызовы) и повторите попытку.", "Тариф");
+			}
 		}
 
 		public async Task UpdateAsync(TariffDto entity)

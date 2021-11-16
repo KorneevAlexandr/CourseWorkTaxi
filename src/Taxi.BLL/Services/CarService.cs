@@ -6,7 +6,7 @@ using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.DAL.Domain;
 using Taxi.DAL.Interfaces.Repositories;
-using Taxi.DAL.Repositories;
+using Taxi.BLL.Exceptions;
 
 namespace Taxi.BLL.Services
 {
@@ -68,7 +68,15 @@ namespace Taxi.BLL.Services
 
 		public async Task DeleteAsync(int id)
 		{
-			await _carRepository.DeleteAsync(id);
+			try
+			{
+				await _carRepository.DeleteAsync(id);
+			}
+			catch
+			{
+				throw new InvalidDeleteOperationException("Нельзя удалить данные об этом автомобиле, так от него зависят данные заказов, которые он выполнил. " +
+					"Удалите зависимые данные (заказы) и повторите попытку.", "Автомобиль");
+			}
 		}
 
 		public async Task UpdateAsync(CarDto entity)
