@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,21 @@ namespace Taxi.UI.Filters
 				{
 					Content = deleteException.Message + deleteException.NameValue,
 				};
+
+				var logTemplate = string.Concat("An exception filter was invoked while trying to delete data. Object to remove: '",
+					deleteException.NameValue, "'.");
+				Log.Warning(logTemplate);
+
+				context.ExceptionHandled = true;
+			}
+			else
+			{
+				context.Result = new ContentResult
+				{
+					Content = "Нельзя удалить выбранный объект",
+				};
+
+				Log.Warning("An exception filter was invoked while trying to delete data.");
 
 				context.ExceptionHandled = true;
 			}

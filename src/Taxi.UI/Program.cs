@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,27 @@ namespace Taxi.UI
 {
 	public class Program
 	{
-		public static void Main(string[] args)
-		{
-			CreateHostBuilder(args).Build().Run();
-		}
+        public static void Main(string[] args)
+        {
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+            try
+            {
+                Log.Information("Start application.");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Start application failed.");
+            }
+            finally
+            {
+                Log.Information("Application closed.");
+                Log.CloseAndFlush();
+            }
+        }
 
-		public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{

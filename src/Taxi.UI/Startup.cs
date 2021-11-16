@@ -16,6 +16,7 @@ using Taxi.BLL.ModelsDto;
 using Taxi.BLL.Services;
 using Taxi.UI.Data;
 using Taxi.BLL.Extensions;
+using Taxi.UI.Diagnostics;
 
 namespace Taxi.UI
 {
@@ -75,6 +76,8 @@ namespace Taxi.UI
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
+			app.UseRequestSerilog();
 
 			app.UseEndpoints(endpoints =>
 			{
