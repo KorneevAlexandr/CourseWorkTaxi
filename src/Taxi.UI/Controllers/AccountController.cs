@@ -66,6 +66,12 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
+		public IActionResult AccessDenied()
+		{
+			return Redirect("~/Account/Login");
+		}
+
+		[HttpGet]
 		public IActionResult Login()
 		{
 			if (HttpContext.Request.QueryString.HasValue)

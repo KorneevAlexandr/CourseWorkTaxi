@@ -16,7 +16,7 @@ namespace Taxi.UI.Controllers
 {
 	public class CarController : Controller
 	{
-		private const int AMOUNT = 2;
+		private const int AMOUNT = 10;
 		private int _currentPage;
 
 		private readonly IPositionService _poisitionService;

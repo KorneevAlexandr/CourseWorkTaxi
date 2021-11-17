@@ -39,6 +39,14 @@ namespace Taxi.UI
 
 			services.AddDbContext<IdentityTaxiContext>(options =>
 				options.UseSqlServer(connectionString));
+			services.AddIdentity<User, IdentityRole>(opts =>
+			{
+				opts.Password.RequiredLength = 1;   // минимальная длина
+				opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+				opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+				opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+				opts.Password.RequireDigit = false; // требуются ли цифры
+			}).AddEntityFrameworkStores<IdentityTaxiContext>();
 
 			var initializeSettings = Configuration.GetSection(nameof(DataInitializeSettings));
 			services.InjectInitializers(new InitializeOptions
@@ -48,15 +56,6 @@ namespace Taxi.UI
 				CountCalls = initializeSettings.GetValue<int>(nameof(DataInitializeSettings.CountCalls)),
 				CountEmployees = initializeSettings.GetValue<int>(nameof(DataInitializeSettings.CountEmployees)),
 			});
-		
-			services.AddIdentity<User, IdentityRole>(opts =>
-			{
-				opts.Password.RequiredLength = 1;   // минимальная длина
-				opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
-				opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
-				opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
-				opts.Password.RequireDigit = false; // требуются ли цифры
-			}).AddEntityFrameworkStores<IdentityTaxiContext>();
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>

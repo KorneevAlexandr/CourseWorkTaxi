@@ -15,9 +15,9 @@ namespace Taxi.DataInitialization.Extensions
 			DataInitializeOptions.CountCalls = options.CountCalls;
 			DataInitializeOptions.CountEmployees = options.CountEmployees;
 
+			services.AddScoped<IInitializer, EmployeeInitializer>();
 			services.AddScoped<IInitializer, CarInitializer>();
 			services.AddScoped<IInitializer, CallInitializer>();
-			services.AddScoped<IInitializer, EmployeeInitializer>();
 
 			return services;
 		}

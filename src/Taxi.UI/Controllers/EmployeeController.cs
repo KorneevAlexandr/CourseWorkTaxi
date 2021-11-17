@@ -14,7 +14,7 @@ namespace Taxi.UI.Controllers
 {
 	public class EmployeeController : Controller
 	{
-		private const int AMOUNT = 2;
+		private const int AMOUNT = 10;
 		private int _currentPage;
 
 		private readonly IEmployeeService _employeeService;

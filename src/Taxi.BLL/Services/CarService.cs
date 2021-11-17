@@ -84,16 +84,6 @@ namespace Taxi.BLL.Services
 			await _carRepository.UpdateAsync(ItemConvert(entity));
 		}
 
-		//private async Task<IEnumerable<CarDto>> CollectionConvert(IEnumerable<Car> items)
-		//{
-		//	var cars = items.ToList();
-		//	foreach (var car in cars)
-		//	{
-		//		var mechanic = await _employeeRepository.GetAsync(car.MechanicId);
-		//		var 
-		//	}
-		//}
-
 		private static CarDto ItemConvert(Car car)
 		{
 			return new CarDto

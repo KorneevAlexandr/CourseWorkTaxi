@@ -13,7 +13,7 @@ namespace Taxi.UI.Controllers
 {
 	public class CallController : Controller
 	{
-		private const int AMOUNT = 2;
+		private const int AMOUNT = 20;
 		private int _currentPage;
 
 		private readonly ICallService _callService;

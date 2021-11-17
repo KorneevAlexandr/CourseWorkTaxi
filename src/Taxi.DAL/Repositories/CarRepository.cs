@@ -69,7 +69,7 @@ namespace Taxi.DAL.Repositories
 		public IQueryable<Car> GetAllForTI(DateTime dateStart, DateTime dateEnd)
 		{
 			return _context.Cars.Include(x => x.Model).Include(x => x.Mechanic).Include(x => x.Driver).Include(x => x.Tariff)
-				.Where(x => x.LastTI >= dateStart && x.LastTI <= dateEnd);
+				.Where(x => x.LastTI >= dateStart && x.LastTI <= dateEnd || x.LastTI <= dateStart);
 		}
 
 		public async Task<IQueryable<Car>> GetAllAsync(int skip, int take)

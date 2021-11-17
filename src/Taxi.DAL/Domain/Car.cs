@@ -10,7 +10,7 @@ namespace Taxi.DAL.Domain
 		[Key]
 		public int Id { get; set; }
 
-		[MaxLength(7)]
+		[MaxLength(9)]
 		public string RegistrationNumber { get; set; }
 
 		[Required]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -9,6 +10,7 @@ using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Driver")]
 	public class TariffController : Controller
 	{
 		private readonly ITariffService _tariffService;
