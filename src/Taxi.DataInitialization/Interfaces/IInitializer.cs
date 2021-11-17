@@ -4,6 +4,8 @@ namespace Taxi.DataInitialization.Interfaces
 {
 	public interface IInitializer
 	{
-		Task InitializeAsync(int count);
+		Task InitializeAsync();
+
+		bool Initialize { get; }
 	}
 }

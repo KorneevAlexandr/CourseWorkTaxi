@@ -17,6 +17,9 @@ using Taxi.BLL.Services;
 using Taxi.UI.Data;
 using Taxi.BLL.Extensions;
 using Taxi.UI.Diagnostics;
+using Taxi.UI.Settings;
+using Taxi.DataInitialization.Extensions;
+using Taxi.DataInitialization.Options;
 
 namespace Taxi.UI
 {
@@ -36,7 +39,16 @@ namespace Taxi.UI
 
 			services.AddDbContext<IdentityTaxiContext>(options =>
 				options.UseSqlServer(connectionString));
-				
+
+			var initializeSettings = Configuration.GetSection(nameof(DataInitializeSettings));
+			services.InjectInitializers(new InitializeOptions
+			{
+				Initialize = initializeSettings.GetValue<bool>(nameof(DataInitializeSettings.DataInitialize)),
+				CountCars = initializeSettings.GetValue<int>(nameof(DataInitializeSettings.CountCars)),
+				CountCalls = initializeSettings.GetValue<int>(nameof(DataInitializeSettings.CountCalls)),
+				CountEmployees = initializeSettings.GetValue<int>(nameof(DataInitializeSettings.CountEmployees)),
+			});
+		
 			services.AddIdentity<User, IdentityRole>(opts =>
 			{
 				opts.Password.RequiredLength = 1;   // минимальная длина
@@ -71,6 +83,8 @@ namespace Taxi.UI
 			}
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
+
+			app.UseDataInitialize();
 
 			app.UseRouting();
 
