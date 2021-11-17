@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Taxi.BLL\Taxi.BLL.csproj" />
+    <ProjectReference Include="..\Taxi.DataInitialization\Taxi.DataInitialization.csproj" />
   </ItemGroup>
 
 </Project>

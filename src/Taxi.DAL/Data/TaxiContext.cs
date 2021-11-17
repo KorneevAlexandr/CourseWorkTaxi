@@ -3,7 +3,7 @@ using Taxi.DAL.Domain;
 
 namespace Taxi.DAL.Data
 {
-	internal class TaxiContext : DbContext
+	public class TaxiContext : DbContext
 	{
 		public TaxiContext(DbContextOptions<TaxiContext> options)
 			: base(options)
