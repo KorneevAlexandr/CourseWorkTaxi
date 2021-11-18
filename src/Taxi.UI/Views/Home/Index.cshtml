@@ -4,8 +4,8 @@
 	ViewData["Title"] = "Заказ такси";
 }
 
-<form asp-controller="Home" asp-action="IndexCall" method="get">
-	<div class="validation" asp-validation-summary="ModelOnly"></div>
+<form asp-controller="Home" asp-action="Index" method="post">
+	<div class="validation" asp-validation-summary="All"></div>
 
 	<label>Номер телефона</label><br />
 	<input type="text" asp-for="Phone" value="@Model.Phone" /><br />

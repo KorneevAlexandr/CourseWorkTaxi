@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
+using Taxi.UI.Data;
 using Taxi.UI.Models.Calls;
 using Taxi.UI.Models.Employees;
 using Taxi.UI.Models.Tariffs;
@@ -20,14 +23,16 @@ namespace Taxi.UI.Controllers
 		private readonly IPositionService _positionService;
 		private readonly IEmployeeService _employeeService;
 		private readonly ITariffService _tariffService;
+		private readonly UserManager<User> _userManager;
 
 		public CallController(IPositionService positionService, IEmployeeService employeeService,
-			ICallService callService, ITariffService tariffService)
+			ICallService callService, ITariffService tariffService, UserManager<User> userManager)
 		{
 			_callService = callService;
 			_employeeService = employeeService;
 			_tariffService = tariffService;
 			_positionService = positionService;
+			_userManager = userManager;
 			_currentPage = 0;
 		}
 
@@ -136,5 +141,76 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
+		public async Task<IActionResult> DispatcherCalls(int? page, int? tariffId, DateTime? date, int? driverId)
+		{
+			
+			_currentPage = page == null ? 0 : page.Value - 1;
+			var selectedTariffId = tariffId == null ? 0 : tariffId.Value;
+			var selectedDriverId = driverId == null ? 0 : driverId.Value;
+			date = date == null ? DateTime.Now : date;
+
+			var user = await _userManager.Users.FirstOrDefaultAsync(us => us.Email.Equals(User.Identity.Name));
+			var selectedDispatherId = user.EmployeeId;
+
+			var countCalls = await _callService.GetCountAsync(selectedTariffId, date, selectedDriverId, selectedDispatherId);
+			var calls = await _callService.GetAllAsync(selectedTariffId, date, selectedDriverId, selectedDispatherId,
+				_currentPage * AMOUNT, AMOUNT);
+
+			// TODO : хардкод
+			// добавить имена ролей на русском в конфигурационный файл
+			var positions = await _positionService.GetAllAsync();
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
+			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
+
+			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);
+
+			var tariffs = await _tariffService.GetAllAsync();
+
+			var modelTariffs = new List<TariffViewModel>
+				{ new TariffViewModel { Id = 0, Name = "Любой" } };
+			var modelDrivers = new List<EmployeesSelectViewModel>
+				{ new EmployeesSelectViewModel { Id = 0, FullName = "Любой" } };
+
+			modelDrivers.AddRange(drivers.Select(x => new EmployeesSelectViewModel
+			{
+				Id = x.Id,
+				FullName = $"{x.Surname} {x.Name}",
+			}));
+			modelTariffs.AddRange(tariffs.Select(x => new TariffViewModel
+			{
+				Id = x.Id,
+				Name = x.Name,
+			}));
+
+			var model = new CallCollectionViewModel
+			{
+				CountPages = countCalls % AMOUNT == 0
+					? (int)(countCalls / AMOUNT) : (int)(countCalls / AMOUNT) + 1,
+				CurrentPage = _currentPage + 1,
+				Drivers = modelDrivers,
+				Tariffs = modelTariffs,
+
+				TariffId = selectedTariffId,
+				Date = date,
+				DispatherId = selectedDispatherId,
+				DriverId = selectedDriverId,
+
+				Calls = calls.Select(x => new CallViewModel
+				{
+					Id = x.Id,
+					Phone = x.Phone,
+					Price = x.Price,
+					CallDateTime = x.CallDateTime,
+					StartStreet = x.StartStreet,
+					EndStreet = x.EndStreet,
+					StartHomeNumber = x.StartHomeNumber,
+					EndHomeNumber = x.EndHomeNumber,
+					DriverFullName = x.DriverFullName,
+					DispatherFullName = x.DispatherFullName,
+				}).ToList(),
+			};
+
+			return View(model);
+		}
 	}
 }

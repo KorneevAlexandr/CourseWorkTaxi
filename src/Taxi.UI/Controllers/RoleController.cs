@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,22 @@ namespace Taxi.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
+        public IActionResult UserList()
+        {
+            var users = _userManager.Users.ToList();
+            return View(users); 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            User user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+            return RedirectToAction("UserList");
+        }
 
         public async Task<IActionResult> Edit(string userId)
         {
@@ -86,24 +102,22 @@ namespace Taxi.UI.Controllers
             return NotFound();
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(string userId, List<string> roles)
+        public async Task<IActionResult> Edit(string userId, string role)
         {
             // получаем пользователя
             var user = await _userManager.FindByIdAsync(userId);
+            var currentUser = await _userManager.Users.FirstOrDefaultAsync(us => us.Email.Equals(User.Identity.Name));
             if (user != null)
             {
+                if (currentUser.Equals(user))
+                {
+                    return RedirectToAction("UserList");
+                }
                 // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
-                // получаем все роли
-                var allRoles = _roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
-                var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
-                var removedRoles = userRoles.Except(roles);
 
-                await _userManager.AddToRolesAsync(user, addedRoles);
-
-                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+                await _userManager.AddToRoleAsync(user, role);
+                await _userManager.RemoveFromRoleAsync(user, userRoles.FirstOrDefault());
 
                 return RedirectToAction("UserList");
             }

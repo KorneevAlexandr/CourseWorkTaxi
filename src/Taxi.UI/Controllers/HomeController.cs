@@ -45,32 +45,49 @@ namespace Taxi.UI.Controllers
 				}).ToList(),
 			};
 
-			if (ReadAndDeleteCookies(ref model))
-			{
-				ModelState.AddModelError("", "К сожалению, по выбранному вами тарифу машин нет.. Выберите другой тариф");
-			}
+			return View(model);
+		}
 
+		[HttpPost]
+		public async Task<IActionResult> IndexAsync(UserCallViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				CarDto car;
+				try
+				{
+					car = await _carService.GetRandomCarByTariff(model.TariffId);
+				}
+				catch
+				{
+					ModelState.AddModelError("", "К сожалению, по выбранному вами тарифу машин нет.. Выберите другой тариф");
+					return View(model);
+				}
+
+				WriteCookies(model.Phone, model.StartStreet, model.EndStreet, model.StartHomeNumber.ToString(), model.EndHomeNumber.ToString(), model.TariffId.ToString());
+				return RedirectToAction("IndexCall");
+			}
+			var tariffs = await _tariffService.GetAllAsync();
+			model.Tariffs = tariffs.Select(x => new TariffViewModel
+			{
+				Id = x.Id,
+				Name = x.Name,
+			}).ToList();
 			return View(model);
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> IndexCall(UserCallViewModel model)
+		public async Task<IActionResult> IndexCall()
 		{
-			CarDto car;
-			try
-			{
-				car = await _carService.GetRandomCarByTariff(model.TariffId);
-			}
-			catch
-			{
-				WriteCookies(model.Phone, model.StartStreet, model.EndStreet, model.StartHomeNumber.ToString(), model.EndHomeNumber.ToString());
-				return RedirectToAction("Index");
-			}
+			var model = new UserCallViewModel();
+			ReadAndDeleteCookies(ref model);
+
+			var car = await _carService.GetRandomCarByTariff(model.TariffId);
 
 			var modelCar = await _modelService.GetAsync(car.ModelId);
 			var driver = await _employeeService.GetAsync(car.DriverId);
 			var tariff = await _tariffService.GetAsync(model.TariffId);
-			
+
 			// TODO : хардкод
 			// добавить имена ролей на русском в конфигурационный файл
 			var positions = await _positionService.GetAllAsync();
@@ -94,6 +111,7 @@ namespace Taxi.UI.Controllers
 			};
 
 			return View(viewModel);
+
 		}
 
 		[HttpPost]
@@ -125,13 +143,23 @@ namespace Taxi.UI.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 
-		private void WriteCookies(string phone, string startStreet, string endStreet, string startHome, string endHome)
+		private void WriteCookies(string phone, string startStreet, string endStreet, string startHome, string endHome, string tariffId)
 		{
-			HttpContext.Response.Cookies.Append("StartStreet", startStreet);
-			HttpContext.Response.Cookies.Append("EndStreet", endStreet);
-			HttpContext.Response.Cookies.Append("StartHome", startHome.ToString());
-			HttpContext.Response.Cookies.Append("EndHome", endHome.ToString());
-			HttpContext.Response.Cookies.Append("Phone", phone);
+			WriteCook("StartStreet", startStreet);
+			WriteCook("StartStreet", startStreet);
+			WriteCook("EndStreet", endStreet);
+			WriteCook("StartHome", startHome.ToString());
+			WriteCook("EndHome", endHome.ToString());
+			WriteCook("Phone", phone);
+			WriteCook("TariffId", tariffId.ToString());
+		}
+
+		private void WriteCook(string key, string value)
+		{
+			if (value != null && value != string.Empty)
+			{
+				HttpContext.Response.Cookies.Append(key, value);
+			}
 		}
 
 		private bool ReadAndDeleteCookies(ref UserCallViewModel model)
@@ -146,12 +174,14 @@ namespace Taxi.UI.Controllers
 			HttpContext.Request.Cookies.TryGetValue("StartHome", out string startHome);
 			HttpContext.Request.Cookies.TryGetValue("EndStreet", out string endStreet);
 			HttpContext.Request.Cookies.TryGetValue("EndHome", out string endHome);
+			HttpContext.Request.Cookies.TryGetValue("TariffId", out string tariffId);
 
 			model.Phone = phone;
 			model.StartStreet = startStreet;
 			model.EndStreet = endStreet;
 			model.StartHomeNumber = Convert.ToInt32(startHome);
 			model.EndHomeNumber = Convert.ToInt32(endHome);
+			model.TariffId = Convert.ToInt32(tariffId);
 
 			DeleteCookies();
 
@@ -165,6 +195,7 @@ namespace Taxi.UI.Controllers
 			HttpContext.Response.Cookies.Delete("StartHome");
 			HttpContext.Response.Cookies.Delete("EndStreet");
 			HttpContext.Response.Cookies.Delete("EndHome");
+			HttpContext.Response.Cookies.Delete("TariffId");
 		}
 	}
 }
