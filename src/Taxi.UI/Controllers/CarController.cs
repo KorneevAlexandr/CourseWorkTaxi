@@ -68,6 +68,7 @@ namespace Taxi.UI.Controllers
 				Price = selectedPrice,
 				CountPages = countCars % AMOUNT == 0
 					? (int)(countCars / AMOUNT) : (int)(countCars / AMOUNT) + 1,
+				CurrentPage = _currentPage + 1,
 				Brands = modelBrands,
 
 				Cars = cars.Select(x => new CarViewModel

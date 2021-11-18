@@ -15,6 +15,8 @@ namespace Taxi.UI.Models.Cars
 
 		public int CountPages { get; set; }
 
+		public int CurrentPage { get; set; }
+
 		public List<BrandViewModel> Brands { get; set; }
 
 		public List<CarViewModel> Cars { get; set; }

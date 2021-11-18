@@ -11,6 +11,8 @@ namespace Taxi.UI.Models.Employees
 
 		public int CountPages { get; set; }
 
+		public int CurrentPage { get; set; }
+
 		public List<PositionViewModel> Positions { get; set; }
 
 		public List<EmployeeViewModel> Employees { get; set; }

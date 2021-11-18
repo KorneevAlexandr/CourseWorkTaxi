@@ -83,6 +83,7 @@ namespace Taxi.UI.Controllers
 			{
 				CountPages = countCalls % AMOUNT == 0
 					? (int)(countCalls / AMOUNT) : (int)(countCalls / AMOUNT) + 1,
+				CurrentPage = _currentPage+1,
 				Drivers = modelDrivers,
 				Dispathers = modelDispathers,
 				Tariffs = modelTariffs,

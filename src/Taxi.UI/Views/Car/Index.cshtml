@@ -75,9 +75,6 @@
     }
 </table>
 
-    @for (int i = 0; i < Model.CountPages; i++)
-	{
-		<input type="submit" asp-action="Index" name="page" value="@(i + 1)" />
-	}
+	<pagination count-pages="Model.CountPages" name="page" asp-action="Index" asp-controller="Car" current-page="Model.CurrentPage"></pagination>
 
 </form>

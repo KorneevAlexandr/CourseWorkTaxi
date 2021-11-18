@@ -36,32 +36,26 @@ namespace Taxi.UI.Controllers
 
 			if (Id == null)
 			{
-				model = new ModelCollectionViewModel
-				{
-					Models = new List<ModelViewModel>(),
-					Brands = modelBrands,
-				};
-			}
-			else
-			{
-				var models = await _modelService.GetAllByBrandAsync(Id.Value);
-				model = new ModelCollectionViewModel
-				{
-					Id = Id.Value,
-					Brands = modelBrands,
-					Models = models.Select(x => new ModelViewModel
-					{
-						Id = x.Id,
-						Body = x.Body,
-						Fuel = x.Fuel,
-						HP = x.HP,
-						Name = x.Name,
-						Price = x.Price,
-					}).ToList(),
-				};
+				Id = modelBrands.FirstOrDefault().Id;
 			}
 
-			return View(model);
+			var models = await _modelService.GetAllByBrandAsync(Id.Value);
+			model = new ModelCollectionViewModel
+			{
+				Id = Id.Value,
+				Brands = modelBrands,
+				Models = models.Select(x => new ModelViewModel
+				{
+					Id = x.Id,
+					Body = x.Body,
+					Fuel = x.Fuel,
+					HP = x.HP,
+					Name = x.Name,
+					Price = x.Price,
+				}).ToList(),
+			};
+		
+		return View(model);
 		}
 
 		[HttpGet]

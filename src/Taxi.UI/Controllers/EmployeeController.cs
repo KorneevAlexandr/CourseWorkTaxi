@@ -54,6 +54,7 @@ namespace Taxi.UI.Controllers
 				SelectedPositionId = selectedPositionId,
 				CountPages = countEmployees % AMOUNT == 0
 					? (int)(countEmployees / AMOUNT) : (int)(countEmployees / AMOUNT) + 1,
+				CurrentPage = _currentPage + 1,
 				Employees = employees.Select(x => new EmployeeViewModel
 				{
 					Id = x.Id,

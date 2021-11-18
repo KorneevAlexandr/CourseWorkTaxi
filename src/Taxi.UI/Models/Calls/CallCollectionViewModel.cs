@@ -17,6 +17,8 @@ namespace Taxi.UI.Models.Calls
 
 		public int CountPages { get; set; }
 
+		public int CurrentPage { get; set; }
+
 		public List<TariffViewModel> Tariffs { get; set; }
 
 		public List<EmployeesSelectViewModel> Drivers { get; set; }
