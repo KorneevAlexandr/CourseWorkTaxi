@@ -58,8 +58,7 @@ namespace Taxi.UI.Controllers
 					var roleName = await GetUserRoleAsync(user.EmployeeId);
 
 					await _userManager.AddToRoleAsync(user, roleName);
-					await _signInManager.SignInAsync(user, false);
-					return RedirectToAction("Index", "Home");
+					return RedirectToAction("Index", "Employee");
 				}
 			}
 			return View(model);

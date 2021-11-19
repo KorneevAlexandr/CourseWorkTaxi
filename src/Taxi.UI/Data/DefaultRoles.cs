@@ -5,6 +5,8 @@
 		Admin,
 		Employee,
 		Driver,
-		Dispatcher
+		Dispatcher,
+		CarManager,
+		PersonnelManager,
 	}
 }

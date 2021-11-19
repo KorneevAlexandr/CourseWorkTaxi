@@ -3,35 +3,23 @@
 
 <h2>Изменение ролей для пользователя @Model.UserEmail</h2>
 
-<form method="post">
-
-	<input name="color" type="radio" value="red" />
-	<span>красный</span> <br />
-	<input name="color" type="radio" value="blue" />
-	<span>синий</span> <br />
-	<input checked="checked" name="color" type="radio" value="green" />
-	<span>зеленый</span>
-
-	<p>
-		<input type="submit" value="Отправить" />
-	</p>
-</form>
-
 <form asp-action="Edit" method="post">
 	<input type="hidden" name="userId" value="@Model.UserId" />
 	<div class="form-group">
 		@for (int i = 0; i < Model.AllRoles.Count; i++)
 		{
-			if (i != Model.AllRoles.Count - 1)
-			{
-				<input name="role" type="radio" value="@Model.AllRoles[i].Name" />
-				<span>@Model.AllRoles[i].Name</span> <br />
-			}
-			else
+
+			if (Model.UserRoles.Contains(Model.AllRoles[i].Name))
 			{
 				<input checked="checked" name="role" type="radio" value="@Model.AllRoles[i].Name" />
 				<span>@Model.AllRoles[i].Name</span> <br />
 			}
+			else
+			{
+				<input name="role" type="radio" value="@Model.AllRoles[i].Name" />
+				<span>@Model.AllRoles[i].Name</span> <br />
+			}
+
 		}
 	</div>
 	<button type="submit" class="btn btn-primary">Сохранить</button>

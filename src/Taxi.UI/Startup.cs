@@ -20,6 +20,7 @@ using Taxi.UI.Diagnostics;
 using Taxi.UI.Settings;
 using Taxi.DataInitialization.Extensions;
 using Taxi.DataInitialization.Options;
+using Taxi.UI.Initializers;
 
 namespace Taxi.UI
 {
@@ -47,6 +48,9 @@ namespace Taxi.UI
 				opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
 				opts.Password.RequireDigit = false; // требуются ли цифры
 			}).AddEntityFrameworkStores<IdentityTaxiContext>();
+
+			services.AddScoped<IDefaultInitializer, RoleDefaultInitializer>();
+			services.AddScoped<IDefaultInitializer, PositionDefaultInitializer>();
 
 			var initializeSettings = Configuration.GetSection(nameof(DataInitializeSettings));
 			services.InjectInitializers(new InitializeOptions
@@ -83,6 +87,7 @@ namespace Taxi.UI
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
+			app.UseDefaultDataInitilize();
 			app.UseDataInitialize();
 
 			app.UseRouting();
