@@ -22,6 +22,30 @@ namespace Taxi.DAL.Repositories
 			return items.AsQueryable();
 		}
 
+		public async Task<IQueryable<Model>> GetAllAsync(int brandId, int skip, int take)
+		{
+			IQueryable<Model> items = await Task.Run(() => _context.Models.Include(model => model.Brand));
+			if (brandId != 0)
+			{
+				items = items.Where(model => model.BrandId == brandId);
+			}
+			return items.Skip(skip).Take(take);
+		}
+
+		public async Task<int> GetCountAsync(int brandId)
+		{
+			int count;
+			if (brandId == 0)
+			{
+				count = await _context.Models.CountAsync();
+			}
+			else
+			{
+				count = await _context.Models.CountAsync(model => model.BrandId == brandId);
+			}
+			return count;
+		}
+
 		public async Task<Model> GetAsync(int id)
 		{
 			var item = await _context.Models.Include(x => x.Brand).FirstOrDefaultAsync(x => x.Id == id);

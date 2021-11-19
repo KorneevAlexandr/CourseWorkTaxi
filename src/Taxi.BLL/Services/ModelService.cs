@@ -25,6 +25,17 @@ namespace Taxi.BLL.Services
 			return items.Select(x => ItemConvert(x));
 		}
 
+		public async Task<IEnumerable<ModelDto>> GetAllAsync(int brandId, int skip, int take)
+		{
+			var items = await _modelRepository.GetAllAsync(brandId, skip, take);
+			return items.Select(item => ItemConvert(item));
+		}
+
+		public async Task<int> GetCountAsync(int brandId)
+		{
+			return await _modelRepository.GetCountAsync(brandId);
+		}
+
 		public async Task<ModelDto> GetAsync(int id)
 		{
 			var item = await _modelRepository.GetAsync(id);
@@ -54,7 +65,7 @@ namespace Taxi.BLL.Services
 			await _modelRepository.UpdateAsync(ItemConvert(entity));
 		}
 
-		private ModelDto ItemConvert(Model model)
+		private static ModelDto ItemConvert(Model model)
 		{
 			return new ModelDto
 			{
@@ -69,7 +80,7 @@ namespace Taxi.BLL.Services
 			};
 		}
 
-		private Model ItemConvert(ModelDto model)
+		private static Model ItemConvert(ModelDto model)
 		{
 			return new Model
 			{

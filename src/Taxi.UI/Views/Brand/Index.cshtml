@@ -6,7 +6,7 @@
 
 <form asp-action="Create" method="post">
 	<label>Введите имя: </label>
-	<input type="text" name="Name" />
+	<input type="text" required maxlength="30" name="Name" />
 
 	<input type="submit" value="Добавить">
 </form>

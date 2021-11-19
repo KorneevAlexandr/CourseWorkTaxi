@@ -6,13 +6,13 @@
 
 <form action="Create" method="post">
 	<label>Название тарифа</label><br />
-	<input type="text" name="Name" /><br /><br />
+	<input type="text" required maxlength="40" name="Name" /><br /><br />
 
 	<label>Описание тарифа</label><br />
-	<textarea name="Description"></textarea><br /><br />
+	<textarea required maxlength="40" name="Description"></textarea><br /><br />
 
 	<label>Стоимость тарифа, за км</label><br />
-	<input type="text" name="Price" /><br /><br />
+	<input type="number" required min="1" max="1000000" name="Price" /><br /><br />
 
 	<input type="submit" value="Создать" /><br /><br />
 </form>

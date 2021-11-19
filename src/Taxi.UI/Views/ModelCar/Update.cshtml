@@ -17,11 +17,20 @@
 	<label>Название</label><br />
 	<input type="text" name="Name" value="@Model.Name" /><br /><br />
 
-	<label>Топливо</label><br />
-	<input type="text" name="Fuel" value="@Model.Fuel" /><br /><br />
 
-	<label>Кузов</label><br />
-	<input type="text" name="Body" value="@Model.Body" /><br /><br />
+	<p>
+		<label>Вид топлива</label><br />
+		<select asp-for="FuelId" asp-items="@(new SelectList(Model.Fuels, "Id", "Name",
+															 Model.Fuels.FirstOrDefault(x => x.Id == Model.FuelId)))">
+		</select>
+	</p>
+
+	<p>
+		<label>Кузов</label><br />
+		<select asp-for="BodyId" asp-items="@(new SelectList(Model.Bodys, "Id", "Name",
+															 Model.Bodys.FirstOrDefault(x => x.Id == Model.FuelId)))">
+		</select>
+	</p>
 
 	<label>Мощность, л.с.</label><br />
 	<input type="number" name="HP" value="@Model.HP" /><br /><br />

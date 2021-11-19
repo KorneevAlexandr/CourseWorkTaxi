@@ -8,13 +8,13 @@
 	<input style="display: none" name="Id" type="number" value="@Model.Id" />
 
 	<label>Название тарифа</label><br />
-	<input type="text" name="Name" value="@Model.Name" /><br /><br />
+	<input type="text" required maxlength="40" name="Name" value="@Model.Name" /><br /><br />
 
 	<label>Описание тарифа</label><br />
-	<textarea name="Description">@Model.Description</textarea><br /><br />
+	<textarea required maxlength="200" name="Description">@Model.Description</textarea><br /><br />
 
 	<label>Стоимость тарифа, за км</label><br />
-	<input type="text" name="Price" value="@Model.Price" /><br /><br />
+	<input type="number" required min="1" max="1000000" name="Price" value="@Model.Price" /><br /><br />
 
 	<input type="submit" value="Изменить" /><br /><br />
 </form>

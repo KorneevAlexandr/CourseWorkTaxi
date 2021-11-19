@@ -12,8 +12,11 @@ namespace Taxi.UI.Controllers
 {
 	public class ModelCarController : Controller
 	{
+		private const int AMOUNT = 2;
+
 		private readonly IBrandService _brandService;
 		private readonly IModelService _modelService;
+		private int _currentPage;
 
 		public ModelCarController(
 			IBrandService brandService, 
@@ -24,8 +27,11 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index(int? Id)
+		public async Task<IActionResult> Index(int? id, int? page)
 		{
+			var selectedId = id == null ? 0 : id.Value;
+			_currentPage = page == null ? 0 : page.Value - 1;
+
 			ModelCollectionViewModel model;
 			var brands = await _brandService.GetAllAsync();
 			var modelBrands = brands.Select(x => new BrandViewModel
@@ -33,16 +39,16 @@ namespace Taxi.UI.Controllers
 				Id = x.Id,
 				Name = x.Name,
 			}).ToList();
+			modelBrands.Insert(0, new BrandViewModel { Id = 0, Name = "Любая" });
 
-			if (Id == null)
-			{
-				Id = modelBrands.FirstOrDefault().Id;
-			}
-
-			var models = await _modelService.GetAllByBrandAsync(Id.Value);
+			var models = await _modelService.GetAllAsync(selectedId, AMOUNT * _currentPage, AMOUNT);
+			var countModels = await _modelService.GetCountAsync(selectedId);
 			model = new ModelCollectionViewModel
 			{
-				Id = Id.Value,
+				CountPages = countModels % AMOUNT == 0
+					? (int)(countModels / AMOUNT) : (int)(countModels / AMOUNT) + 1,
+				CurrentPage = _currentPage + 1,
+				Id = selectedId,
 				Brands = modelBrands,
 				Models = models.Select(x => new ModelViewModel
 				{
@@ -69,6 +75,8 @@ namespace Taxi.UI.Controllers
 			}).ToList();
 			var model = new ModelViewModel
 			{
+				Bodys = BodysData.Bodys,
+				Fuels = FuelsData.Fuels,
 				Brands = modelBrands,
 			};
 
@@ -81,8 +89,8 @@ namespace Taxi.UI.Controllers
 			var modelDto = new ModelDto
 			{
 				Name = model.Name,
-				Body = model.Body,
-				Fuel = model.Fuel,
+				Body = BodysData.GetBodyName(model.BodyId),
+				Fuel = FuelsData.GetFuelName(model.FuelId),
 				HP = model.HP,
 				Price = model.Price,
 				BrandId = model.BrandId,
@@ -118,8 +126,10 @@ namespace Taxi.UI.Controllers
 			{
 				Id = model.Id,
 				Name = model.Name,
-				Body = model.Body,
-				Fuel = model.Fuel,
+				BodyId = BodysData.GetBodyId(model.Body),
+				Bodys = BodysData.Bodys,
+				FuelId = FuelsData.GetFuelId(model.Fuel),
+				Fuels = FuelsData.Fuels,
 				HP = model.HP,
 				Price = model.Price,
 				BrandId = model.BrandId,
@@ -139,8 +149,8 @@ namespace Taxi.UI.Controllers
 			{
 				Id = model.Id,
 				Name = model.Name,
-				Body = model.Body,
-				Fuel = model.Fuel,
+				Body = BodysData.GetBodyName(model.BodyId),
+				Fuel = FuelsData.GetFuelName(model.FuelId),
 				HP = model.HP,
 				Price = model.Price,
 				BrandId = model.BrandId,

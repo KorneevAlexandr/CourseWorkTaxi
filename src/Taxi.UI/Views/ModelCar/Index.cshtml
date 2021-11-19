@@ -21,7 +21,7 @@
 	</p>
 
 	<input type="submit" value="Найти" />
-</form>
+
 
 <table class=" table table-striped">
 	<tr>
@@ -49,3 +49,7 @@
 	}
 
 </table>
+
+		<pagination count-pages="Model.CountPages" name="page" asp-action="Index" asp-controller="ModelCar" current-page="Model.CurrentPage"></pagination>
+
+</form>

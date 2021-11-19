@@ -10,8 +10,6 @@ namespace Taxi.DAL.Data
 		{
 		}
 
-		public DbSet<Account> Accounts { get; set; }
-
 		public DbSet<Brand> Brands { get; set; }
 
 		public DbSet<Call> Calls { get; set; }

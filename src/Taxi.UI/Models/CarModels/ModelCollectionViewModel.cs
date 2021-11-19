@@ -10,6 +10,10 @@ namespace Taxi.UI.Models.CarModels
 		/// </summary>
 		public int Id { get; set; }
 
+		public int CountPages { get; set; }
+
+		public int CurrentPage { get; set; }
+
 		public List<BrandViewModel> Brands { get; set; }
 
 		public List<ModelViewModel> Models { get; set; }

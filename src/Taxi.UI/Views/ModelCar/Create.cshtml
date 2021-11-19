@@ -9,14 +9,19 @@
 		<select asp-for="BrandId" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
 	</p>
 
+
 	<label>Название</label><br />
 	<input type="text" name="Name" /><br /><br />
 
-	<label>Топливо</label><br />
-	<input type="text" name="Fuel" /><br /><br />
+	<p>
+		<label>Вид топлива</label><br />
+		<select asp-for="FuelId" asp-items="@(new SelectList(Model.Fuels, "Id", "Name"))"></select>
+	</p>
 
-	<label>Кузов</label><br />
-	<input type="text" name="Body" /><br /><br />
+	<p>
+		<label>Кузов</label><br />
+		<select asp-for="BodyId" asp-items="@(new SelectList(Model.Bodys, "Id", "Name"))"></select>
+	</p>
 
 	<label>Мощность, л.с.</label><br />
 	<input type="number" name="HP" /><br /><br />
