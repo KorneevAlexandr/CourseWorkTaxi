@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.UI.Data;
@@ -31,9 +32,11 @@ namespace Taxi.UI.Controllers
 		{
 			var user = _userManager.Users.FirstOrDefault(us => us.Email.Equals(User.Identity.Name));
 			var employee = await _employeeService.GetAsync(user.EmployeeId);
+			var role = User.Claims.Where(claim => claim.Type.Equals(ClaimTypes.Role)).FirstOrDefault().Value;
 
 			var model = new UserViewModel
 			{
+				RoleName = role,
 				Email = user.Email,
 				Name = employee.Name,
 				Surname = employee.Surname,

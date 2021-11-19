@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
+using Taxi.UI.Data;
 using Taxi.UI.Filters;
 using Taxi.UI.Models.Brands;
 using Taxi.UI.Models.CarModels;
@@ -103,11 +104,9 @@ namespace Taxi.UI.Controllers
 			var models = await _modelService.GetAllByBrandAsync(brandId.Value);
 			var tariffs = await _tariffService.GetAllAsync();
 
-			// TODO : хардкод
-			// добавить имена ролей на русском в конфигурационный файл
 			var positions = await _poisitionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
-			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals("Механик")); // и тут!
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString()));
+			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Механик.ToString())); 
 
 			if (driverPosition == null || mechanicPosition == null)
 			{
@@ -199,11 +198,9 @@ namespace Taxi.UI.Controllers
 			var models = await _modelService.GetAllByBrandAsync(brand.Id);
 			var tariffs = await _tariffService.GetAllAsync();
 
-			// TODO : хардкод
-			// добавить имена ролей на русском в конфигурационный файл
 			var positions = await _poisitionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
-			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals("Механик")); // и тут!
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString())); // тут!
+			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Механик.ToString())); // и тут!
 
 			if (driverPosition == null || mechanicPosition == null)
 			{
@@ -311,7 +308,6 @@ namespace Taxi.UI.Controllers
 			}
 			var car = await _carService.GetAsync(id.Value);
 
-			// TODO : возможно, исправить на указание даты прохождение ТО
 			car.LastTI = DateTime.Now;
 			await _carService.UpdateAsync(car);
 			return RedirectToAction("ShowTICars");

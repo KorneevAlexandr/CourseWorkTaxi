@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
+using Taxi.UI.Data;
 using Taxi.UI.Models;
 using Taxi.UI.Models.Calls;
 using Taxi.UI.Models.Tariffs;
@@ -88,10 +89,8 @@ namespace Taxi.UI.Controllers
 			var driver = await _employeeService.GetAsync(car.DriverId);
 			var tariff = await _tariffService.GetAsync(model.TariffId);
 
-			// TODO : хардкод
-			// добавить имена ролей на русском в конфигурационный файл
 			var positions = await _positionService.GetAllAsync();
-			var dispatherPosition = positions.FirstOrDefault(x => x.Name.Equals("Диспетчер")); // и тут!
+			var dispatherPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Диспетчер.ToString())); 
 
 			var dispather = await _employeeService.GetRandomAsync(dispatherPosition.Id);
 

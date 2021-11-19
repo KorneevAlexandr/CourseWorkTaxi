@@ -47,12 +47,10 @@ namespace Taxi.UI.Controllers
 			var countCalls = await _callService.GetCountAsync(selectedTariffId, date, selectedDriverId, selectedDispatherId);
 			var calls = await _callService.GetAllAsync(selectedTariffId, date, selectedDriverId, selectedDispatherId,
 				_currentPage * AMOUNT, AMOUNT);
-
-			// TODO : хардкод
-			// добавить имена ролей на русском в конфигурационный файл
+			
 			var positions = await _positionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
-			var dispatherPosition = positions.FirstOrDefault(x => x.Name.Equals("Диспетчер")); // и тут!
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString()));
+			var dispatherPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Диспетчер.ToString()));
 			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
 			var countDispathers = await _employeeService.GetCountAsync(dispatherPosition.Id, 0);
 
@@ -156,10 +154,8 @@ namespace Taxi.UI.Controllers
 			var calls = await _callService.GetAllAsync(selectedTariffId, date, selectedDriverId, selectedDispatherId,
 				_currentPage * AMOUNT, AMOUNT);
 
-			// TODO : хардкод
-			// добавить имена ролей на русском в конфигурационный файл
 			var positions = await _positionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals("Водитель")); // тут!
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString()));
 			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
 
 			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);

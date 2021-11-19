@@ -16,5 +16,7 @@ namespace Taxi.UI.Models.Users
 		public DateTime StartWork { get; set; }
 
 		public string PositionName { get; set; }
+
+		public string RoleName { get; set; }
 	}
 }

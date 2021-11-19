@@ -89,8 +89,8 @@ namespace Taxi.DataInitialization.Initializers
 			{
 				endStreet = _streets[_random.Next(0, _streets.Length)];
 			}
-			var startHome = _random.Next(0, 301);
-			var endHome = _random.Next(0, 301);
+			var startHome = _random.Next(1, 301);
+			var endHome = _random.Next(1, 301);
 			var dateTime = new DateTime(
 				_random.Next(minYear, DateTime.Now.Year + 1), _random.Next(1, 13), _random.Next(1, 29), 
 				_random.Next(0, 24), _random.Next(0, 60), 0);

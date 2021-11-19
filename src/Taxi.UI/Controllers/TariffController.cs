@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
+using Taxi.UI.Data;
 using Taxi.UI.Filters;
 using Taxi.UI.Models.Brands;
 using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Controllers
 {
-	[Authorize(Roles = "Driver")]
+	[Authorize(Roles = nameof(DefaultRoles.Admin))]
 	public class TariffController : Controller
 	{
 		private readonly ITariffService _tariffService;
