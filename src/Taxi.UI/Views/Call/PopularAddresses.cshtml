@@ -1,10 +1,8 @@
 ﻿@model Taxi.UI.Models.Calls.CallAddressCollectionViewModel;
 
 @{
-	ViewData["Title"] = "Популярные адреса";
+	ViewData["Title"] = "Популярные адреса вызовов по месяцам за " + @DateTime.Now.Year.ToString() + " год";
 }
-
-<br /><h3>Популярные адреса вызовов по месяцам за @DateTime.Now.Year.ToString() год</h3><br />
 
 <table class="table table-striped">
 	<tr>

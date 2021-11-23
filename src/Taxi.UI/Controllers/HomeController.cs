@@ -103,7 +103,7 @@ namespace Taxi.UI.Controllers
 				CarName = $"{modelCar.BrandName} {modelCar.Name}",
 				RegistrationName = $"{car.RegistrationNumber}",
 				TariffName = tariff.Name,
-				Price = random.Next(2, 10) * tariff.Price,
+				Price = random.Next(9, 15) * tariff.Price,
 				DispatherId = dispather.Id,
 				DriverId = driver.Id,
 				CarId = car.Id,

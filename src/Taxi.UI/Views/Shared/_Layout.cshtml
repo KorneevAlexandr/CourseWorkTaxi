@@ -11,6 +11,133 @@
 	}
 }
 
+
+<style>
+
+	* {
+		font-size: 17px;
+	}
+
+	.opacity-90 {
+		opacity: 0.9;
+	}
+	.opacity-80 {
+		opacity: 0.8;
+	}
+	.opacity-70 {
+		opacity: 0.7;
+	}
+	.opacity-60 {
+		opacity: 0.6;
+	}
+
+	main {
+		margin-top: 3%;
+	}
+
+	header {
+		background: none;
+		background-color: white;
+		width: 100%;
+		box-shadow: 0px 2px 4px #F9CD00;
+	}
+
+	.header-photo {
+		float: left;
+		width: 80px;
+		height: 60px;
+		padding: 0px 10px 0px 10px;
+		background-color: #F9CD00;
+		border-bottom: 2px solid #F9CD00;
+	}
+
+	.header-title {
+		display: table;
+		width: 160px;
+		height: 60px;
+		margin-left: 40px;
+		float: left;
+		justify-content: center;
+	}
+
+	.header-title a {
+		display: table-cell;
+		font-size: 24px;
+		font-weight: 600;
+		vertical-align: middle;
+	}
+
+	.header-nav {
+		margin-left: 40px;
+		height: 60px;
+		float: left;
+		width: 1000px;
+	}
+	.header-block-link {
+		display: table;
+		height: 59px;
+		float: left;
+		width: 100px;
+		justify-content: center;
+		text-align: center;
+		background-color: #fcfcfc;
+		box-shadow: 0px 0 2px silver;
+		transition: 0.12s;
+	}
+	.header-block-link:hover {
+		background-color: #F9CD00;
+		box-shadow: 0px 0 7px #F9CD00;
+		transition: 0.12s;
+	}
+	.header-link {
+		display: table-cell;
+		text-decoration: none;
+		vertical-align: middle;
+		text-align: center;
+		transition: 0.12s;
+	}
+	.header-link:hover {
+		text-decoration: none;
+		transition: 0.12s;
+	}
+
+	.header-login-block {
+		display: table;
+		justify-content: center;
+		text-align: center;
+		margin-top: 12px;
+		height: 36px;
+		float: left;
+		transition: 0.15s;
+	}
+	.header-login-link {
+		font-size: 16px;
+		color: black;
+		width: 80%;
+		height: 36px;
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		text-decoration: none;
+		background-color: #F9CD00;
+		box-shadow: 2px #F9CD00;
+		transition: 0.15s;
+	}
+
+	.header-login-link:hover {
+		text-decoration: none;
+		background-color: #222;
+		color: white;
+		transition: 0.15s;
+	}
+
+	footer {
+		background: no-repeat;
+		background-color: #fbfbfb;
+	}
+
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,122 +148,122 @@
 	<link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Taxi.UI</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
 
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
-						</li>
+	<header style="width: 100%; height: 60px;">
+		<div class="header-photo">
+			<img src="~/images/taxi.png" width="60" height="60" />
+		</div>
+		<div class="header-title">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Такси Гомель</a>
+		</div>
 
-						@if (stringRoles.Contains(DefaultRoles.Dispatcher.ToString()))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Call" asp-action="DispatcherCalls">Рабочие вызовы</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
-							</li>
-						}
-
-						@if (stringRoles.Contains(DefaultRoles.Driver.ToString()))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Car" asp-action="Index">Автомобили</a>
-							</li>
-						}
-
-						@if (stringRoles.Contains(DefaultRoles.CarManager.ToString()))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Brand" asp-action="Index">Марки</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="ModelCar" asp-action="Index">Модели</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Car" asp-action="Index">Машины</a>
-							</li>
-						}
-
-						@if (stringRoles.Contains(DefaultRoles.PersonnelManager.ToString()))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Employee" asp-action="Index">Сотрудники</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Role" asp-action="UserList">Аккаунты</a>
-							</li>
-						}
-
-						@if (stringRoles.Contains(DefaultRoles.Admin.ToString()))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Tariff" asp-action="Index">Тарифы</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Brand" asp-action="Index">Марки</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="ModelCar" asp-action="Index">Модели</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Car" asp-action="Index">Машины</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Employee" asp-action="Index">Сотрудники</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Аккаунты</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Position" asp-action="Index">Должности</a>
-							</li>
-						}
-
-						@if (!User.Identity.IsAuthenticated)
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="User" asp-action="Index">Войти</a>
-							</li>
-						}
-						@if (User.Identity.IsAuthenticated)
-						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="User" asp-action="Index">Личный кабинет</a>
-							</li>
-						}
-
-					</ul>
-				</div>
-
+		<nav class="header-nav">
+			<div class="header-block-link">
+				<a class="header-link text-dark" asp-controller="Home" asp-action="Index">Главная</a>
 			</div>
+
+			@if (stringRoles.Contains(DefaultRoles.Dispatcher.ToString()))
+			{
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Call" asp-action="DispatcherCalls">Рабочие вызовы</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
+				</div>
+			}
+
+			@if (stringRoles.Contains(DefaultRoles.Driver.ToString()))
+			{
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Car" asp-action="Index">Автомобили</a>
+				</div>
+			}
+
+			@if (stringRoles.Contains(DefaultRoles.CarManager.ToString()))
+			{
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Brand" asp-action="Index">Марки</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="ModelCar" asp-action="Index">Модели</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Car" asp-action="Index">Машины</a>
+				</div>
+			}
+
+			@if (stringRoles.Contains(DefaultRoles.PersonnelManager.ToString()))
+			{
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Employee" asp-action="Index">Сотрудники</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Position" asp-action="Index">Должности</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Role" asp-action="UserList">Аккаунты</a>
+				</div>
+			}
+
+			@if (stringRoles.Contains(DefaultRoles.Admin.ToString()))
+			{
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Tariff" asp-action="Index">Тарифы</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Brand" asp-action="Index">Марки</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="ModelCar" asp-action="Index">Модели</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Car" asp-action="Index">Машины</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Call" asp-action="Index">Вызовы</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Employee" asp-action="Index">Сотрудники</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Position" asp-action="Index">Должности</a>
+				</div>
+				<div class="header-block-link">
+					<a class="header-link text-dark" asp-controller="Role" asp-action="UserList">Аккаунты</a>
+				</div>
+			}
 		</nav>
+
+		@if (!User.Identity.IsAuthenticated)
+		{
+			<div class="header-login-block">
+				<a class="header-login-link" asp-controller="User" asp-action="Index">Войти</a>
+			</div>
+		}
+		@if (User.Identity.IsAuthenticated)
+		{
+			<div class="header-login-block">
+				<a class="header-login-link" asp-controller="User" asp-action="Index">Личный кабинет</a>
+			</div>
+		}
 	</header>
+
 	<div class="container">
 		<main role="main" class="pb-3">
+			<h3>@ViewData["Title"]</h3><br />
 			@RenderBody()
 		</main>
 	</div>
 
-	<footer class="border-top footer text-muted">
+	<footer style="box-shadow: 0px -2px 4px #F9CD00;" class="border-top footer text-muted">
 		<div class="container">
-			&copy; 2021 - Taxi.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			&copy; 2021 - Такси-Гомель. Все права защищены.
 		</div>
 	</footer>
+
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

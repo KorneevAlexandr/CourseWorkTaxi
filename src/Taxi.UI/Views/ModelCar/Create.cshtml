@@ -5,30 +5,41 @@
 }
 
 <form asp-action="Create" asp-controller="ModelCar" method="post">
-	<p>
-		<select asp-for="BrandId" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
-	</p>
 
+	<div class="form-row w-50">
+		<div class="form-group col">
+			<label>Марка автомобиля</label>
+			<select asp-for="BrandId" class="form-control" asp-items="@(new SelectList(Model.Brands, "Id", "Name"))"></select>
+		</div>
+		<div class="form-group col">
+			<label>Название</label>
+			<input type="text" class="form-control" required maxlength="30" name="Name" />
+		</div>
+	</div>
 
-	<label>Название</label><br />
-	<input type="text" name="Name" /><br /><br />
+	<div class="form-row w-50">
+		<div class="form-group col">
+			<label>Вид топлива</label>
+			<select asp-for="FuelId" class="form-control" asp-items="@(new SelectList(Model.Fuels, "Id", "Name"))"></select>
+		</div>
+		<div class="form-group col">
+			<label>Кузов</label><br />
+			<select asp-for="BodyId" class="form-control" asp-items="@(new SelectList(Model.Bodys, "Id", "Name"))"></select>
+		</div>
+	</div>
 
-	<p>
-		<label>Вид топлива</label><br />
-		<select asp-for="FuelId" asp-items="@(new SelectList(Model.Fuels, "Id", "Name"))"></select>
-	</p>
+	<div class="form-row w-50">
+		<div class="form-group col">
+			<label>Мощность, л.с.</label>
+			<input type="number" class="form-control" required min="50" max="2000" name="HP" />
+		</div>
+		<div class="form-group col">
+			<label>Цена</label><br />
+			<input type="number" class="form-control" required min="0" max="1000000000" name="Price" />
+		</div>
+	</div>
 
-	<p>
-		<label>Кузов</label><br />
-		<select asp-for="BodyId" asp-items="@(new SelectList(Model.Bodys, "Id", "Name"))"></select>
-	</p>
+	<input type="submit" class="btn btn-success mt-3" value="Создать" />
 
-	<label>Мощность, л.с.</label><br />
-	<input type="number" name="HP" /><br /><br />
-
-	<label>Цена</label><br />
-	<input type="text" name="Price" /><br /><br />
-
-	<input type="submit" value="Создать" />
 </form>
 

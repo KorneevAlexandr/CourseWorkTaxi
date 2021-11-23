@@ -111,16 +111,28 @@ namespace Taxi.UI.Controllers
 		private async Task<string> GetUserRoleAsync(int employeeId)
 		{
 			var employee = await _employeeService.GetAsync(employeeId);
-			if (employee.PositionName.Equals("Водитель"))
+			if (employee.PositionName.Equals(DefaultPositions.Водитель.ToString()))
 			{
-				return TaxiRoles.Driver.ToString();
+				return DefaultRoles.Driver.ToString();
 			}
-			else if (employee.PositionName.Equals("Диспетчер"))
+			else if (employee.PositionName.Equals(DefaultPositions.Диспетчер.ToString()))
 			{
-				return TaxiRoles.Dispatcher.ToString();
+				return DefaultRoles.Dispatcher.ToString();
+			}
+			else if (employee.PositionName.Equals(DefaultPositions.Администратор.ToString()))
+			{
+				return DefaultRoles.Admin.ToString();
+			}
+			else if (employee.PositionName.Equals(DefaultPositions.Механик.ToString()))
+			{
+				return DefaultRoles.Employee.ToString();
+			}
+			else if (employee.PositionName.Equals(DefaultPositions.Модератор.ToString()))
+			{
+				return DefaultRoles.CarManager.ToString();
 			}
 
-			return TaxiRoles.Employee.ToString();
+			return DefaultRoles.Employee.ToString();
 		}
 
 	}

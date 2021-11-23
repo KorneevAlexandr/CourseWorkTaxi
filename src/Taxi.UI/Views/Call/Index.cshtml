@@ -1,54 +1,67 @@
 ﻿@model Taxi.UI.Models.Calls.CallCollectionViewModel;
 
+@{
+	ViewData["Title"] = "Вызовы";
+}
 
-<a asp-action="PopularAddresses">Популярные адреса по месяцам этого года</a>
-<br />
+<div class="form-group">
+	<a class="btn btn-warning" asp-action="PopularAddresses">Популярные адреса по месяцам этого года</a>
+</div>
 
-<form asp-action="Index" method="get">
-
-	<label>Водитель</label>
-	@if (Model.DriverId != 0)
-	{
-		<select name="driverId" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
+<form asp-action="Index" class="mt-4" method="get">
+	<div class="form-row float-left">
+		<div class="form-group w-25">
+			<label>Водитель</label>
+			@if (Model.DriverId != 0)
+			{
+				<select name="driverId" class="form-control" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
 			Model.Drivers.FirstOrDefault(x => x.Id == Model.DriverId).FullName))"></select>
-	}
-	else
-	{
-		<select name="driverId" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select>
-	}
-
-	<label>Диспетчер</label>
-	@if (Model.DispatherId != 0)
-	{
-		<select name="dispatherId" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName",
+			}
+			else
+			{
+				<select name="driverId" class="form-control" asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select>
+			}
+		</div>
+		<div class="form-group ml-2" style="width: 20%;">
+			<label>Диспетчер</label>
+			@if (Model.DispatherId != 0)
+			{
+				<select name="dispatherId" class="form-control" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName",
 			Model.Dispathers.FirstOrDefault(x => x.Id == Model.DispatherId).FullName))"></select>
-	}
-	else
-	{
-		<select name="dispatherId" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName"))"></select>
-	}
-
-	<label>Тариф</label>
-	@if (Model.TariffId != 0)
-	{
-		<select name="tariffId" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+			}
+			else
+			{
+				<select name="dispatherId" class="form-control" asp-for="DispatherId" asp-items="@(new SelectList(Model.Dispathers, "Id", "FullName"))"></select>
+			}
+		</div>
+		<div class="form-group ml-2" style="width: 20%;">
+			<label>Тариф</label>
+			@if (Model.TariffId != 0)
+			{
+				<select name="tariffId" class="form-control" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
 			Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId).Name))"></select>
-	}
-	else
-	{
-		<select name="tariffId" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select>
-	}
-
-	<label>Год и день</label>
-	@if (Model.Date != null)
-	{
-		<input type="date" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
-	}
-	else
-	{
-		<input type="date" name="date" asp-for="Date" />
-	}
-	<input type="submit" value="Найти" /><br />
+			}
+			else
+			{
+				<select name="tariffId" class="form-control" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select>
+			}
+		</div>
+		<div class="form-group ml-2" style="width: 20%;">
+			<label>Год и день</label>
+			@if (Model.Date != null)
+			{
+				<input type="date" class="form-control" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
+			}
+			else
+			{
+				<input type="date" class="form-control" name="date" asp-for="Date" />
+			}
+		</div>
+		<div class="float-left ml-3 mt-4">
+			<label></label>
+			<input type="submit" class="form-control btn btn-info" value="Найти" />
+		</div>
+	</div>
 
 	<table class=" table table-striped">
 		<tr>

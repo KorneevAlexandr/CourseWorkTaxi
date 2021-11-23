@@ -11,22 +11,22 @@
 	<select name="ModelId" asp-items="@(new SelectList(Model.Models, "Id", "Name"))"></select><br /><br />
 
 	<label>Регистрационный номер</label><br />
-	<input type="text" name="RegistrationNumber" /><br /><br />
+	<input type="text" required maxlength="9" name="RegistrationNumber" /><br /><br />
 
 	<label>Номер кузова</label><br />
-	<input type="number" name="BodyNumber" /><br /><br />
+	<input type="number" required max="@Math.Pow(10, 10)" name="BodyNumber" /><br /><br />
 
 	<label>Номер двигателя</label><br />
-	<input type="number" name="EngineNumber" /><br /><br />
+	<input type="number" required max="@Math.Pow(10, 10)" name="EngineNumber" /><br /><br />
 
 	<label>Пробег</label><br />
-	<input type="number" name="Mileage" /><br /><br />
+	<input type="number" required max="10000000" min="0" name="Mileage" /><br /><br />
 
 	<label>Год выпуска</label><br />
-	<input type="number" name="IssueYear" /><br /><br />
+	<input type="number" required maxlength="4" min="1900" max="@DateTime.Now.Year" name="IssueYear" /><br /><br />
 
 	<label>Дата последнего ТО</label><br />
-	<input type="text" name="LastTI" /><br /><br />
+	<input type="date" name="LastTI" /><br /><br />
 
 	<label>Тариф, относящийся к автомобилю</label>
 	<select name="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />

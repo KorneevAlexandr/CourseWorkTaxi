@@ -4,32 +4,69 @@
 	ViewData["Title"] = "Заказ такси";
 }
 
-<form asp-controller="Home" asp-action="Index" method="post">
+<style>
+	.wrapper {
+		margin-top: 5%;
+	}
+	
+	.validation-form {
+		width: 60%;
+	}
+
+	.validation {
+		float: right;
+		margin-top: 5%;
+		margin-right: 3%;
+	}
+</style>
+
+
+<div class="wrapper">
 	<div class="validation" asp-validation-summary="All"></div>
 
-	<label>Номер телефона</label><br />
-	<input type="text" asp-for="Phone" value="@Model.Phone" /><br />
+	<form class="validation-form" asp-controller="Home" asp-action="Index" method="post">
 
-	<label>Адрес отправления</label><br>
-	<input type="text" asp-for="StartStreet" value="@Model.StartStreet" />
-	<input type="number" asp-for="StartHomeNumber" value="@Model.StartHomeNumber" /><br />
+		<div class="form-row">
+			<div class="form-group">
+				<label>Номер телефона</label>
+				<input type="text" class="form-control" asp-for="Phone" value="@Model.Phone" />
+			</div>
+			<div class="form-group col-md-5">
+				<label>Тариф</label>
+				@if (Model.TariffId != 0)
+				{
+					<select class="form-control w-75" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+					Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId)))"></select>
+				}
+				else
+				{
+					<select class="form-control w-75" asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select>
+				}
+			</div>
+		</div>
 
-	<label>Адрес прибытия</label><br>
-	<input type="text" asp-for="EndStreet" value="@Model.EndStreet" />
-	<input type="number" asp-for="EndHomeNumber" value="@Model.EndHomeNumber" /><br />
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label>Начальная улица</label>
+				<input type="text" class="form-control " asp-for="StartStreet" value="@Model.StartStreet" />
+			</div>
+			<div class="form-group col-md-5">
+				<label>Начальный дом</label>
+				<input type="number" class="form-control w-50" asp-for="StartHomeNumber" value="@Model.StartHomeNumber" />
+			</div>
+		</div>
 
-	<label>Тариф</label>
-	@if (Model.TariffId != 0)
-	{
-		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
-					Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId)))"></select><br /><br />
-	}
-	else
-	{
-		<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
-	}
-	<span asp-validation-for="TariffId" />
+		<div class="form-row">
+			<div class="form-group col-md-5">
+				<label>Конечная улица</label>
+				<input type="text" class="form-control" asp-for="EndStreet" value="@Model.EndStreet" />
+			</div>
+			<div class="form-group col-md-5">
+				<label>Конечный дом</label>
+				<input type="number" class="form-control w-50" asp-for="EndHomeNumber" value="@Model.EndHomeNumber" /><br />
+			</div>
+		</div>
 
-
-	<input type="submit" value="Заказать" />
-</form>
+		<input type="submit" class="btn btn-warning" value="Заказать" />
+	</form>
+</div>

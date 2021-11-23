@@ -5,11 +5,14 @@
 }
 
 <form asp-action="Update" method="post">
-	<input style="display: none" type="number" name="Id" value="@Model.Id" />
+	<div class="form-group">
+		<input style="display: none" type="number" name="Id" value="@Model.Id" />
 
-	<label>Введите имя: </label>
-	<input type="text" required maxlength="30" name="Name" value="@Model.Name"/>
+		<label>Введите новое название марки: </label>
+		<input type="text" class="form-control w-25" required maxlength="30" name="Name" value="@Model.Name" />
 
-	<input type="submit" value="Изменить">
+		<input type="submit" class="btn btn-primary mt-3" value="Изменить">
+	</div>
 </form>
+
 

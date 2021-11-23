@@ -4,33 +4,72 @@
 	ViewData["Title"] = "Подробности заказа";
 }
 
-<form asp-controller="Home" asp-action="IndexCall" method="post">
+<style>
+	.wrapper {
+		margin-top: 5%;
+	}
 
-	<label>Номер телефона</label><br />
-	<input type="text" asp-for="UserCall.Phone" value="@Model.UserCall.Phone" /><br />
+	.validation-form {
+		width: 60%;
+	}
 
-	<label>Адрес отправления</label><br />
-	<input type="text" asp-for="UserCall.StartStreet" value="@Model.UserCall.StartStreet" />
-	<input type="number" asp-for="UserCall.StartHomeNumber" value="@Model.UserCall.StartHomeNumber" /><br />
+	.validation {
+		float: right;
+		margin-top: 5%;
+		margin-right: 3%;
+	}
+</style>
 
-	<label>Адрес прибытия</label><br />
-	<input type="text" asp-for="UserCall.EndStreet" value="@Model.UserCall.EndStreet" />
-	<input type="number" asp-for="UserCall.EndHomeNumber" value="@Model.UserCall.EndHomeNumber" /><br />
+<div class="wrapper">
+<form class="validation-form" asp-controller="Home" asp-action="IndexCall" method="post">
 
-	<label>Тариф</label>
-	<p>@Model.TariffName</p><br />
+	<div class="form-row">
+		<div class="form-group">
+			<label>Номер телефона</label>
+			<input type="text" readonly class="form-control" asp-for="UserCall.Phone" value="@Model.UserCall.Phone" />
+		</div>
+		<div class="form-group col-md-5">
+			<label>Тариф</label>
+			<input type="text" readonly class="form-control" value="@Model.TariffName" />
+		</div>
+	</div>
 
-	<label>Водитель</label><br />
-	<p>@Model.DriverFullName</p><br />
+	<div class="form-row">
+		<div class="form-group col-md-5">
+			<label>Начальная улица</label>
+			<input type="text" readonly class="form-control " asp-for="UserCall.StartStreet" value="@Model.UserCall.StartStreet" />
+		</div>
+		<div class="form-group col-md-5">
+			<label>Начальный дом</label>
+			<input type="number" readonly class="form-control w-50" asp-for="UserCall.StartHomeNumber" value="@Model.UserCall.StartHomeNumber" />
+		</div>
+	</div>
 
-	<label>Автомобиль</label><br />
-	<p>@Model.CarName</p><br />
+	<div class="form-row">
+		<div class="form-group col-md-5">
+			<label>Конечная улица</label>
+			<input type="text" readonly class="form-control" asp-for="UserCall.EndStreet" value="@Model.UserCall.EndStreet" />
+		</div>
+		<div class="form-group col-md-5">
+			<label>Конечный дом</label>
+			<input type="number" readonly class="form-control w-50" asp-for="UserCall.EndHomeNumber" value="@Model.UserCall.EndHomeNumber" /><br />
+		</div>
+	</div>
 
-	<label>Регистрационный номер</label><br />
-	<p>@Model.RegistrationName</p><br />
-
-	<label>Стоимость</label><br />
-	<p name="Price">@Model.Price</p><br />
+	<ul class="list-group w-75 mb-4">
+		<li class="list-group-item">
+			<b>Водитель: </b>@Model.DriverFullName
+		</li>
+		<li class="list-group-item">
+			<b>Автомобиль: </b>@Model.CarName
+		</li>
+		<li class="list-group-item">
+			<b>Регистрационный номер: </b>@Model.RegistrationName
+		</li>
+		<li class="list-group-item">
+			<b>Цена: </b>@Model.Price
+		</li>
+	</ul>
 
 	<input style="display: none" type="number" asp-for="DriverId" value="@Model.DriverId" />
 	<input style="display: none" type="number" asp-for="DispatherId" value="@Model.DispatherId" />
@@ -43,11 +82,11 @@
 
 	@if (Model.IsSuccessed)
 	{
-		<h2>Заказ подтвержден</h2>
+		<h2 style="color: green;">Заказ подтвержден</h2>
 	}
 	else
 	{
-		<input type="submit" value="Подтвердить" />
+		<input class="btn btn-warning" type="submit" value="Подтвердить" />
 	}
 </form>
-
+</div>

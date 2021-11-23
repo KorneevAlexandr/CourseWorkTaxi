@@ -13,19 +13,19 @@
 		Model.Models.FirstOrDefault(x => x.Id == Model.ModelId).Name))"></select><br /><br />
 
 	<label>Регистрационный номер</label><br />
-	<input type="text" name="RegistrationNumber" value="@Model.RegistrationNumber" /><br /><br />
+	<input type="text" required maxlength="9" name="RegistrationNumber" value="@Model.RegistrationNumber" /><br /><br />
 
 	<label>Номер кузова</label><br />
-	<input type="number" name="BodyNumber" value="@Model.BodyNumber" /><br /><br />
+	<input type="number" required max="@Math.Pow(10, 10)" name="BodyNumber" value="@Model.BodyNumber" /><br /><br />
 
 	<label>Номер двигателя</label><br />
-	<input type="number" name="EngineNumber" value="@Model.EngineNumber" /><br /><br />
+	<input type="number" required max="@Math.Pow(10, 10)" name="EngineNumber" value="@Model.EngineNumber" /><br /><br />
 
 	<label>Пробег</label><br />
-	<input type="number" name="Mileage" value="@Model.Mileage" /><br /><br />
+	<input type="number" required max="10000000" min="0" name="Mileage" value="@Model.Mileage" /><br /><br />
 
 	<label>Год выпуска</label><br />
-	<input type="number" name="IssueYear" value="@Model.IssueYear" /><br /><br />
+	<input type="date" required maxlength="4" max="@DateTime.Now.Year" min="1900" name="IssueYear" value="@Model.IssueYear" /><br /><br />
 
 	<label>Дата последнего ТО</label><br />
 	<input type="text" name="LastTI" value="@Model.LastTI.ToShortDateString()" /><br /><br />

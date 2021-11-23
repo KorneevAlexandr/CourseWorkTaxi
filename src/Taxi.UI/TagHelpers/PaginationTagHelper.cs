@@ -81,12 +81,12 @@ namespace Taxi.UI.TagHelpers
 
 		private string GetInputString(int value)
 		{
-			return $"<input type='submit' name='{Name}' asp-controller='{AspController}' asp-action='{AspAction}' value='{value}' />";
+			return $"<input type='submit' style='background-color: #D3D3D3; color: black;' class='btn opacity-80 ml-1 mr-1' name='{Name}' asp-controller='{AspController}' asp-action='{AspAction}' value='{value}' />";
 		}
 
 		private string GetCurrentInputString(int value)
 		{
-			return $"<input type='submit' style='color: red' name='{Name}' asp-controller='{AspController}' asp-action='{AspAction}' value='{value}' />";
+			return $"<input type='submit' style='box-shadow: 0px 0px 6px #6F7880' class='btn btn-secondary ml-1 mr-1' name='{Name}' asp-controller='{AspController}' asp-action='{AspAction}' value='{value}' />";
 		}
 	}
 }

@@ -5,14 +5,17 @@
 }
 
 <form action="Create" method="post">
-	<label>Название тарифа</label><br />
-	<input type="text" required maxlength="40" name="Name" /><br /><br />
-
-	<label>Описание тарифа</label><br />
-	<textarea required maxlength="40" name="Description"></textarea><br /><br />
-
-	<label>Стоимость тарифа, за км</label><br />
-	<input type="number" required min="1" max="1000000" name="Price" /><br /><br />
-
-	<input type="submit" value="Создать" /><br /><br />
+	<div class="form-group w-25">
+		<label>Название тарифа</label>
+		<input type="text" class="form-control" required maxlength="40" name="Name" />
+	</div>
+	<div class="form-group w-25">
+		<label>Описание тарифа</label>
+		<textarea class="form-control" rows="7" cols="50" style="resize: none;" required maxlength="200" name="Description"></textarea>
+	</div>
+	<div class="form-group w-25">
+		<label>Стоимость тарифа, за км</label>
+		<input type="number" class="form-control" required min="1" max="1000000" name="Price" />
+	</div>
+		<input type="submit" class="btn btn-success" value="Создать" />
 </form>
