@@ -108,7 +108,7 @@ namespace Taxi.DAL.Repositories
 
 		public async Task<Call> GetAsync(int id)
 		{
-			var item = await _context.Calls.FirstOrDefaultAsync(x => x.Id == id);
+			var item = await _context.Calls.Include(x => x.Car).Include(x => x.Dispather).FirstOrDefaultAsync(x => x.Id == id);
 			return item;
 		}
 

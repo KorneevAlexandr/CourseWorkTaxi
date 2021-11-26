@@ -1,0 +1,15 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole;
+
+@{
+	ViewData["Title"] = "Удаление роли";
+}
+
+<ul class="list-group w-25 mt-2">
+	<li class="list-group-item">
+		<b>Роль: </b>@Model.Name
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" class="btn btn-danger mt-4" value="Удалить" asp-action="DeleteRolePost" asp-route-id="@Model.Id" />
+</form>

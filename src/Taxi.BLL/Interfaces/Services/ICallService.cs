@@ -13,6 +13,8 @@ namespace Taxi.BLL.Interfaces.Services
 		
 		Task<IEnumerable<CallDto>> GetAllAsync(int tariffId, DateTime? day, int driverId, int mechanicId, int skip, int take);
 
+		Task<CallDto> GetAsync(int id);
+
 		Task<IEnumerable<CallAddressDto>> GetPopularStartStreets();
 
 		Task<IEnumerable<CallAddressDto>> GetPopularEndStreets();

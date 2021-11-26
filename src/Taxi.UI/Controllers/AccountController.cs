@@ -60,6 +60,10 @@ namespace Taxi.UI.Controllers
 					await _userManager.AddToRoleAsync(user, roleName);
 					return RedirectToAction("Index", "Employee");
 				}
+				else
+				{
+					ModelState.AddModelError("", "Аккаунт с таким Email уже существует");
+				}
 			}
 			return View(model);
 		}

@@ -1,0 +1,33 @@
+﻿@model Taxi.UI.Models.Calls.CallViewModel;
+
+@{
+	ViewData["Title"] = "Удаление вызова";
+}
+
+<ul class="list-group w-50">
+	<li class="list-group-item">
+		<b>Телефон: </b> @Model.Phone
+	</li>
+	<li class="list-group-item">
+		<b>Время вызова: </b>@Model.CallDateTime.ToShortDateString() @Model.CallDateTime.ToShortTimeString()
+	</li>
+	<li class="list-group-item">
+		<b>Начальный адрес: </b>@Model.StartStreet, @Model.StartHomeNumber
+	</li>
+	<li class="list-group-item">
+		<b>Конечный адрес: </b>@Model.EndStreet, @Model.EndHomeNumber
+	</li>
+	<li class="list-group-item">
+		<b>Цена: </b>@Model.Price
+	</li>
+	<li class="list-group-item">
+		<b>Водитель: </b>@Model.DriverFullName
+	</li>
+	<li class="list-group-item">
+		<b>Диспетчер: </b>@Model.DispatherFullName
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" class="btn btn-danger mt-5" asp-action="DeleteCall" asp-route-id="@Model.Id" value="Удалить" />
+</form>

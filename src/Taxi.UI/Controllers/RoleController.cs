@@ -4,9 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Taxi.BLL.Interfaces.Services;
 using Taxi.UI.Data;
 using Taxi.UI.Models.Accounts;
+using Taxi.UI.Models.Users;
 
 namespace Taxi.UI.Controllers
 {
@@ -14,11 +17,14 @@ namespace Taxi.UI.Controllers
     {
         private RoleManager<IdentityRole> _roleManager;
         private UserManager<User> _userManager;
+        private readonly IEmployeeService _employeeService;
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager,
+            IEmployeeService employeeService)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            _employeeService = employeeService;
         }
 
         public IActionResult Index()
@@ -52,13 +58,20 @@ namespace Taxi.UI.Controllers
             return View(name);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteRole(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
+            return View(role);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRolePost(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
             if (role != null)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                await _roleManager.DeleteAsync(role);
             }
             return RedirectToAction("Index");
         }
@@ -69,8 +82,28 @@ namespace Taxi.UI.Controllers
             return View(users); 
         }
 
-        [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var employee = await _employeeService.GetAsync(user.EmployeeId);
+            var role = User.Claims.Where(claim => claim.Type.Equals(ClaimTypes.Role)).FirstOrDefault().Value;
+
+            var model = new UserViewModel
+            {
+                UserId = userId,
+                RoleName = role,
+                Email = user.Email,
+                Name = employee.Name,
+                Surname = employee.Surname,
+                StartWork = employee.DateStartOfWork,
+                PositionName = employee.PositionName,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserPost(string userId)
         {
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)

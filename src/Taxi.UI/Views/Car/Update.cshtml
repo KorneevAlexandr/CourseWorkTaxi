@@ -6,42 +6,69 @@
 
 <form action="Update" method="post">
 	<input style="display: none" type="number" name="Id" value="@Model.Id" />
-	<label>Марка: @Model.BrandName</label><br /><br />
 
-	<label>Модель автомобиля</label>
-	<select asp-for="ModelId" asp-items="@(new SelectList(Model.Models, "Id", "Name", 
-		Model.Models.FirstOrDefault(x => x.Id == Model.ModelId).Name))"></select><br /><br />
+	<ul class="list-group w-25 mb-4">
+		<li class="list-group-item">
+			<b>Марка автомобиля: </b>@Model.BrandName
+		</li>
+	</ul>
 
-	<label>Регистрационный номер</label><br />
-	<input type="text" required maxlength="9" name="RegistrationNumber" value="@Model.RegistrationNumber" /><br /><br />
+	<div class="form-row">
+		<div class="form-group w-25">
+			<label>Модель автомобиля</label>
+			<select asp-for="ModelId" class="form-control" asp-items="@(new SelectList(Model.Models, "Id", "Name",
+				Model.Models.FirstOrDefault(x => x.Id == Model.ModelId).Name))"></select>
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Регистрационный номер</label>
+			<input type="text" class="form-control" required maxlength="9" name="RegistrationNumber" value="@Model.RegistrationNumber" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Номер кузова</label>
+			<input type="number" class="form-control" required max="@Math.Pow(10, 10)" name="BodyNumber" value="@Model.BodyNumber" />
+		</div>
+	</div>
 
-	<label>Номер кузова</label><br />
-	<input type="number" required max="@Math.Pow(10, 10)" name="BodyNumber" value="@Model.BodyNumber" /><br /><br />
+	<div class="form-row">
+		<div class="form-group w-25">
+			<label>Номер двигателя</label>
+			<input type="number" class="form-control" required max="@Math.Pow(10, 10)" name="EngineNumber" value="@Model.EngineNumber" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Пробег</label>
+			<input type="number" class="form-control" required max="10000000" min="0" name="Mileage" value="@Model.Mileage" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Год выпуска</label>
+			<input type="date" class="form-control" required maxlength="4" max="@DateTime.Now.Year" min="1900" name="IssueYear" value="@Model.IssueYear" />
+		</div>
+	</div>
 
-	<label>Номер двигателя</label><br />
-	<input type="number" required max="@Math.Pow(10, 10)" name="EngineNumber" value="@Model.EngineNumber" /><br /><br />
+	<div class="form-row mt-3">
+		<div class="form-group w-25">
+			<label>Дата последнего ТО</label>
+			<input type="text" class="form-control" name="LastTI" value="@Model.LastTI.ToShortDateString()" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Тариф, относящийся к автомобилю</label>
+			<select asp-for="TariffId" class="form-control" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
+		Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId).Name))"></select>
+		</div>
+	</div>
 
-	<label>Пробег</label><br />
-	<input type="number" required max="10000000" min="0" name="Mileage" value="@Model.Mileage" /><br /><br />
+	<div class="form-row mt-3">
+		<div class="form-group w-25">
+			<label>Водитель</label>
+			<select asp-for="DriverId" class="form-control" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
+		Model.Drivers.FirstOrDefault(x => x.Id == Model.DriverId).FullName))"></select>
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Механик</label>
+			<select asp-for="MechanicId" class="form-control" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName",
+		Model.Mechanics.FirstOrDefault(x => x.Id == Model.MechanicId).FullName))"></select>
+		</div>
+	</div>
 
-	<label>Год выпуска</label><br />
-	<input type="date" required maxlength="4" max="@DateTime.Now.Year" min="1900" name="IssueYear" value="@Model.IssueYear" /><br /><br />
+	<input type="submit" class="btn btn-primary mt-3" value="Изменить" />
 
-	<label>Дата последнего ТО</label><br />
-	<input type="text" name="LastTI" value="@Model.LastTI.ToShortDateString()" /><br /><br />
-
-	<label>Тариф, относящийся к автомобилю</label>
-	<select asp-for="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name",
-		Model.Tariffs.FirstOrDefault(x => x.Id == Model.TariffId).Name))"></select><br /><br />
-
-	<label>Водитель</label>
-	<select asp-for="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName",
-		Model.Drivers.FirstOrDefault(x => x.Id == Model.DriverId).FullName))"></select><br /><br />
-
-	<label>Механик</label>
-	<select asp-for="MechanicId" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName",
-		Model.Mechanics.FirstOrDefault(x => x.Id == Model.MechanicId).FullName))"></select><br /><br />
-
-	<input type="submit" value="Изменить" />
 </form>
-

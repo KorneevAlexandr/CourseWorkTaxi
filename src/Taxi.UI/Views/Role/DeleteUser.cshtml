@@ -1,0 +1,27 @@
+﻿@model Taxi.UI.Models.Users.UserViewModel;
+
+@{
+	ViewData["Title"] = "Удаление аккаунта";
+}
+
+<ul class="list-group w-50">
+	<li class="list-group-item">
+		<b>Email: </b>@Model.Email
+	</li>
+	<li class="list-group-item">
+		<b>Роль пользователя: </b>@Model.RoleName
+	</li>
+	<li class="list-group-item">
+		<b>Имя: </b>@Model.Surname @Model.Name
+	</li>
+	<li class="list-group-item">
+		<b>Должность: </b>@Model.PositionName
+	</li>
+	<li class="list-group-item">
+		<b>Начало работы: </b> @Model.StartWork.ToShortDateString()
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" value="Удалить" class="btn btn-danger mt-4" asp-action="DeleteUserPost" asp-route-userid="@Model.UserId" />
+</form>

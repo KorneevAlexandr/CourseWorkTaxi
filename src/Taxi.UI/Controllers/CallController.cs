@@ -139,6 +139,34 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var call = await _callService.GetAsync(id);
+			var model = new CallViewModel
+			{
+				Id = call.Id,
+				DispatherFullName = call.DispatherFullName,
+				DriverFullName = call.DriverFullName,
+				EndStreet = call.EndStreet,
+				CallDateTime = call.CallDateTime,
+				EndHomeNumber = call.EndHomeNumber,
+				Phone = call.Phone,
+				Price = call.Price,
+				StartHomeNumber = call.StartHomeNumber,
+				StartStreet = call.StartStreet,
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> DeleteCall(int id)
+		{
+			await _callService.DeleteAsync(id);
+			return Redirect("~/Call/Index");
+		}
+
 		public async Task<IActionResult> DispatcherCalls(int? page, int? tariffId, DateTime? date, int? driverId)
 		{
 			

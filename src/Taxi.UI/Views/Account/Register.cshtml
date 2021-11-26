@@ -4,16 +4,32 @@
 	ViewData["Title"] = "Регистрация сотрудника";
 }
 
-<p>Добавление аккаунта для сотрудника: <h3>@Model.DataEmployee</h3></p>
+<ul class="list-group w-50 mb-4 mt-2">
+	<li class="list-group-item">
+		<b>Сотрудник: </b>@Model.DataEmployee
+	</li>
+</ul>
 
 <form asp-action="Register" asp-controller="Account" method="post">
 	<input style="display:none" type="number" asp-for="EmployeeId" value="@(Model.EmployeeId)" />
+	<input style="display:none" type="text" asp-for="DataEmployee" value="@(Model.DataEmployee)" />
 
-	<label>Введите email: </label><br />
-	<input type="text" asp-for="Email" value="" /><br /><br />
+	<div class="form-row">
+		<div class="form-group" style="width: 30%">
+			<div class="form-group">
+				<label>Введите email: </label>
+				<input type="text" class="form-control" asp-for="Email" value="" />
+			</div>
+			<div class="form-group">
+				<label>Введите пароль: </label>
+				<input type="password" class="form-control" asp-for="Password" value="" />
+			</div>
+		</div>
+		<div class="form-group" style="margin-left: 20%">
+			<div class="validation text-danger" asp-validation-summary="All"></div>
+		</div>
+	</div>
+				
+	<input type="submit" class="btn btn-warning mt-2" value="Зарегистрировать" />
 
-	<label>Введите пароль: </label><br />
-	<input type="password" asp-for="Password" value="" /><br /><br />
-
-	<input type="submit" value="Зарегистрировать" />
 </form>

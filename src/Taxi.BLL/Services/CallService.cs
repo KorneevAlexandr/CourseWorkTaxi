@@ -38,6 +38,13 @@ namespace Taxi.BLL.Services
 			await _callRepository.CreateAsync(ItemConvert(entity));
 		}
 
+		public async Task<CallDto> GetAsync(int id)
+		{
+			var call = await _callRepository.GetAsync(id);
+			var callDto = await CollectionConvert(new List<Call> { call });
+			return callDto.FirstOrDefault();
+		}
+
 		public async Task DeleteAsync(int id)
 		{
 			await _callRepository.DeleteAsync(id);

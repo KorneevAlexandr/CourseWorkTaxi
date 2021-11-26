@@ -5,11 +5,29 @@
 }
 
 <form method="post" asp-controller="Account" asp-action="Login">
-	<label>Введите email: </label><br />
-	<input type="text" asp-for="Email" value="" /><br /><br />
 
-	<label>Введите пароль: </label><br />
-	<input type="password" asp-for="Password" value="" /><br /><br />
+	<div class="form-row">
+		<div class="form-group" style="width: 30%">
+			<div class="form-group">
+				<label>Введите email: </label>
+				@if (Model != null)
+				{
+					<input type="text" class="form-control" asp-for="Email" value="@Model.Email" />
+				}
+				else
+				{
+					<input type="text" class="form-control" asp-for="Email" />
+				}
+			</div>
+			<div class="form-group">
+				<label>Введите пароль: </label>
+				<input type="password" class="form-control" asp-for="Password" value="" />
+			</div>
+		</div>
+		<div class="form-group" style="margin-left: 20%">
+			<div class="validation text-danger" asp-validation-summary="All"></div>
+		</div>
+	</div>
 
-	<input type="submit" value="Войти" />
+		<input type="submit" class="btn btn-warning" value="Войти" />
 </form>

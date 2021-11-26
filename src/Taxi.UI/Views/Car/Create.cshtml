@@ -5,39 +5,65 @@
 }
 
 <form action="Create" method="post">
-	<label>Марка: @Model.BrandName</label><br /><br />
+	<ul class="list-group w-25 mb-4">
+		<li class="list-group-item d-inline">
+			<b>Марка автомобиля: </b>@Model.BrandName
+		</li>
+	</ul>
 
-	<label>Модель автомобиля</label>
-	<select name="ModelId" asp-items="@(new SelectList(Model.Models, "Id", "Name"))"></select><br /><br />
+	<div class="form-row">
+		<div class="form-group w-25">
+			<label>Модель автомобиля</label>
+			<select name="ModelId" class="form-control" asp-items="@(new SelectList(Model.Models, "Id", "Name"))"></select>
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Регистрационный номер</label>
+			<input type="text" class="form-control" required maxlength="9" name="RegistrationNumber" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Номер кузова</label>
+			<input type="number" class="form-control" required max="@Math.Pow(10, 10)" name="BodyNumber" />
+		</div>
+	</div>
 
-	<label>Регистрационный номер</label><br />
-	<input type="text" required maxlength="9" name="RegistrationNumber" /><br /><br />
+	<div class="form-row mt-2">
+		<div class="form-group w-25">
+			<label>Номер двигателя</label>
+			<input type="number" class="form-control" required max="@Math.Pow(10, 10)" name="EngineNumber" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Пробег</label>
+			<input type="number" class="form-control" required max="10000000" min="0" name="Mileage" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Год выпуска</label>
+			<input type="number" class="form-control" required maxlength="4" min="1900" max="@DateTime.Now.Year" name="IssueYear" />
+		</div>
+	</div>
 
-	<label>Номер кузова</label><br />
-	<input type="number" required max="@Math.Pow(10, 10)" name="BodyNumber" /><br /><br />
+	<div class="form-row mt-3">
+		<div class="form-group w-25">
+			<label>Дата последнего ТО</label>
+			<input type="date" class="form-control" name="LastTI" />
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Тариф, относящийся к автомобилю</label>
+			<select name="TariffId" class="form-control" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select>
+		</div>
+	</div>
 
-	<label>Номер двигателя</label><br />
-	<input type="number" required max="@Math.Pow(10, 10)" name="EngineNumber" /><br /><br />
+	<div class="form-row mt-2">
+		<div class="form-group w-25">
+			<label>Водитель</label>
+			<select name="DriverId" class="form-control" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select>
+		</div>
+		<div class="form-group w-25 ml-3">
+			<label>Механик</label>
+			<select name="MechanicId" class="form-control" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName"))"></select>
+		</div>
+	</div>
 
-	<label>Пробег</label><br />
-	<input type="number" required max="10000000" min="0" name="Mileage" /><br /><br />
-
-	<label>Год выпуска</label><br />
-	<input type="number" required maxlength="4" min="1900" max="@DateTime.Now.Year" name="IssueYear" /><br /><br />
-
-	<label>Дата последнего ТО</label><br />
-	<input type="date" name="LastTI" /><br /><br />
-
-	<label>Тариф, относящийся к автомобилю</label>
-	<select name="TariffId" asp-items="@(new SelectList(Model.Tariffs, "Id", "Name"))"></select><br /><br />
-
-	<label>Водитель</label>
-	<select name="DriverId" asp-items="@(new SelectList(Model.Drivers, "Id", "FullName"))"></select><br /><br />
-
-	<label>Механик</label>
-	<select name="MechanicId" asp-items="@(new SelectList(Model.Mechanics, "Id", "FullName"))"></select><br /><br />
-
-	<input type="submit" value="Добавить" />
+	<input type="submit" class="btn btn-success mt-3" value="Создать" />
 
 </form>
 
