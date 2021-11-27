@@ -13,10 +13,9 @@ namespace Taxi.UI.Filters
 			if (!context.ExceptionHandled && context.Exception is InvalidDeleteOperationException)
 			{
 				var deleteException = ((InvalidDeleteOperationException)(context.Exception));
-				context.Result = new ContentResult
-				{
-					Content = deleteException.Message + deleteException.NameValue,
-				};
+				context.Result = new RedirectResult("~/Home/DeleteError");
+				context.HttpContext.Response.Cookies.Append("DeleteErrorMessage",
+					deleteException.Message + deleteException.NameValue);
 
 				var logTemplate = string.Concat("An exception filter was invoked while trying to delete data. Object to remove: '",
 					deleteException.NameValue, "'.");
@@ -26,10 +25,8 @@ namespace Taxi.UI.Filters
 			}
 			else
 			{
-				context.Result = new ContentResult
-				{
-					Content = context.Exception.Message,
-				};
+				context.Result = new RedirectResult("~/Home/DeleteError");
+				context.HttpContext.Response.Cookies.Append("DeleteErrorMessage", context.Exception.Message);
 
 				Log.Warning("An exception filter was invoked while trying to delete data.");
 

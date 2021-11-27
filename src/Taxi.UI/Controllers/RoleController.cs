@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
+using Taxi.BLL.ModelsDto;
 using Taxi.UI.Data;
 using Taxi.UI.Filters;
 using Taxi.UI.Models.Accounts;

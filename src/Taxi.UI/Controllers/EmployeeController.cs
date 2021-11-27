@@ -133,6 +133,8 @@ namespace Taxi.UI.Controllers
 				return RedirectToAction("Index");
 			}
 			var employee = await _employeeService.GetAsync(id.Value);
+			var user = await _userManager.Users.FirstOrDefaultAsync(us => us.EmployeeId == id.Value);
+			await _userManager.DeleteAsync(user);
 			await _employeeService.DeleteAsync(id.Value);
 			return Redirect($"~/Employee/Index?positionId={employee.PositionId}");
 		}

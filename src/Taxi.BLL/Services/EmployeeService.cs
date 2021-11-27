@@ -101,6 +101,10 @@ namespace Taxi.BLL.Services
 		public async Task<EmployeeDto> GetAsync(int id)
 		{
 			var item = await _employeeRepository.GetAsync(id);
+			if (item == null)
+			{
+				return new EmployeeDto();
+			}
 			var position = await _positionRepository.GetAsync(item.PositionId);
 			var dtoItem = ItemConvert(item);
 			dtoItem.PositionName = position.Name;

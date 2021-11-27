@@ -52,6 +52,13 @@ namespace Taxi.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> IndexAsync(UserCallViewModel model)
 		{
+			var tariffs = await _tariffService.GetAllAsync();
+			model.Tariffs = tariffs.Select(x => new TariffViewModel
+			{
+				Id = x.Id,
+				Name = x.Name,
+			}).ToList();
+
 			if (ModelState.IsValid)
 			{
 				CarDto car;
@@ -65,15 +72,16 @@ namespace Taxi.UI.Controllers
 					return View(model);
 				}
 
+				if (model.StartStreet.Equals(model.EndStreet) && model.StartHomeNumber == model.EndHomeNumber)
+				{
+					ModelState.AddModelError("", "Начальный и конечный адрес не могут совпадать");
+					return View(model);
+				}
+
 				WriteCookies(model.Phone, model.StartStreet, model.EndStreet, model.StartHomeNumber.ToString(), model.EndHomeNumber.ToString(), model.TariffId.ToString());
 				return RedirectToAction("IndexCall");
 			}
-			var tariffs = await _tariffService.GetAllAsync();
-			model.Tariffs = tariffs.Select(x => new TariffViewModel
-			{
-				Id = x.Id,
-				Name = x.Name,
-			}).ToList();
+
 			return View(model);
 		}
 
@@ -140,6 +148,13 @@ namespace Taxi.UI.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+
+		public IActionResult DeleteError()
+		{
+			HttpContext.Request.Cookies.TryGetValue("DeleteErrorMessage", out string value);
+			ViewData["Message"] = value;
+			return View();
 		}
 
 		private void WriteCookies(string phone, string startStreet, string endStreet, string startHome, string endHome, string tariffId)

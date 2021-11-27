@@ -1,4 +1,6 @@
-﻿@model Taxi.UI.Models.Calls.CallCollectionViewModel;
+﻿@using Taxi.UI.Models;
+
+@model Taxi.UI.Models.Calls.CallCollectionViewModel;
 
 @{
 	ViewData["Title"] = "Вызовы";
@@ -47,10 +49,10 @@
 			}
 		</div>
 		<div class="form-group ml-2" style="width: 20%;">
-			<label>Год и день</label>
+			<label>Дата</label>
 			@if (Model.Date != null)
 			{
-				<input type="date" class="form-control" name="date" asp-for="Date" value="@Model.Date.Value.ToShortDateString()" />
+				<input type="date" class="form-control" name="date" asp-for="Date" value="@Model.Date.Value.GetHtmlInputFormat()" />
 			}
 			else
 			{

@@ -1,4 +1,6 @@
-﻿@model Taxi.UI.Models.Cars.CarCreateUpdateViewModel;
+﻿@using Taxi.UI.Models;
+
+@model Taxi.UI.Models.Cars.CarCreateUpdateViewModel;
 
 @{
 	ViewData["Title"] = "Добавление автомобиля";
@@ -44,7 +46,7 @@
 	<div class="form-row mt-3">
 		<div class="form-group w-25">
 			<label>Дата последнего ТО</label>
-			<input type="date" class="form-control" name="LastTI" />
+			<input type="date" class="form-control" min="@DateTimeExtensions.MinDate" max="@DateTimeExtensions.MaxDate" name="LastTI" />
 		</div>
 		<div class="form-group w-25 ml-3">
 			<label>Тариф, относящийся к автомобилю</label>
