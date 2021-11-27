@@ -4,21 +4,35 @@
 	ViewData["Title"] = "Личный кабинет";
 }
 
-<h2>Имя: @Model.Surname @Model.Name</h2>
-<h3>Должность: @Model.PositionName</h3><br />
-<h3>Роль пользователя: @Model.RoleName</h3><br />
-<h3>Email: @Model.Email</h3><br />
 
-<p>Начало работы: @Model.StartWork.ToShortDateString()</p>
+<div class="input-group w-75">
+	<span class="input-group-text">Имя: </span>
+	<input type="text" class="form-control bg-white" disabled value="@Model.Surname @Model.Name" />
 
+	<span class="input-group-text ml-3">Должность: </span>
+	<input type="text" class="form-control bg-white" disabled value="@Model.PositionName" />
+</div>
 
-<br />
-<form method="post">
-	<input type="submit" asp-controller="Account" asp-action="Logout" value="Выйти" />
+<div class="input-group w-75 mt-5">
+	<span class="input-group-text">Email: </span>
+	<input type="text" class="form-control bg-white" disabled value="@Model.Email" />
+
+	<span class="input-group-text ml-3">Роль: </span>
+	<input type="text" class="form-control bg-white" disabled value="@Model.RoleName" />
+</div>
+
+<div class="input-group w-25 mt-5">
+	<span class="input-group-text">Начало работы: </span>
+	<input type="text" class="form-control bg-white" disabled value="@Model.StartWork.ToShortDateString()" />
+</div>
+
+<form method="get" class="mt-5">
+	<input type="submit" class="btn btn-warning opacity-80" asp-controller="User" asp-action="ChangeEmail" value="Изменить Email" />
 </form>
 <form method="get">
-	<input type="submit" asp-controller="User" asp-action="ChangeEmail" value="Изменить email" />
+	<input type="submit" class="btn btn-warning opacity-80" asp-controller="User" asp-action="ChangePassword" value="Изменить пароль" />
 </form>
-<form method="get">
-	<input type="submit" asp-controller="User" asp-action="ChangePassword" value="Изменить пароль" />
+<form method="post" class="mt-4">
+	<input type="submit" class="btn btn-secondary" asp-controller="Account" asp-action="Logout" value="Выйти" />
 </form>
+

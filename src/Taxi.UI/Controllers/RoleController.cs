@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.UI.Data;
+using Taxi.UI.Filters;
 using Taxi.UI.Models.Accounts;
 using Taxi.UI.Models.Users;
 
@@ -102,12 +103,17 @@ namespace Taxi.UI.Controllers
             return View(model);
         }
 
+        [DeleteExceptionFilter]
         [HttpPost]
         public async Task<IActionResult> DeleteUserPost(string userId)
         {
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
+                if (user.UserName.Equals(User.Identity.Name))
+                {
+                    throw new InvalidOperationException("Нельзя удалить текущего пользователя.");
+                }
                 await _userManager.DeleteAsync(user);
             }
             return RedirectToAction("UserList");

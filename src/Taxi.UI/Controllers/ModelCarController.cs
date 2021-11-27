@@ -12,7 +12,7 @@ namespace Taxi.UI.Controllers
 {
 	public class ModelCarController : Controller
 	{
-		private const int AMOUNT = 2;
+		private const int AMOUNT = 5;
 
 		private readonly IBrandService _brandService;
 		private readonly IModelService _modelService;
@@ -100,9 +100,25 @@ namespace Taxi.UI.Controllers
 			return Redirect($"~/ModelCar/Index?Id={model.BrandId}");
 		}
 
-		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
+		{
+			var modelCar = await _modelService.GetAsync(id.Value);
+			var model = new ModelViewModel
+			{
+				Id = modelCar.Id,
+				Body = modelCar.Body,
+				Fuel = modelCar.Fuel,
+				HP = modelCar.HP,
+				Name = modelCar.Name,
+				Price = modelCar.Price,
+			};
+			return View(model);
+		}
+
+		[DeleteExceptionFilter]
+		[HttpPost]
+		public async Task<IActionResult> DeleteModelCar(int? id)
 		{
 			if (id == null)
 			{

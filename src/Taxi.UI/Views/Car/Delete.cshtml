@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Taxi.UI.Models.Cars.CarViewModel;
+
 @{
+	ViewData["Title"] = "Удаление автомобиля";
 }
+
+<ul class="list-group w-50">
+	<li class="list-group-item">
+		<b>Модель автомобиля: </b> @Model.ModelName
+	</li>
+	<li class="list-group-item">
+		<b>Гос. знак: </b> @Model.RegistrationNumber
+	</li>
+	<li class="list-group-item">
+		<b>Год выпуска: </b> @Model.IssueYear
+	</li>
+	<li class="list-group-item">
+		<b>Дата последнего ТО: </b> @Model.LastTI.ToShortDateString()
+	</li>
+	<li class="list-group-item">
+		<b>Пробег: </b> @Model.Mileage
+	</li>
+	<li class="list-group-item">
+		<b>Номер двигателя: </b> @Model.EngineNumber
+	</li>
+	<li class="list-group-item">
+		<b>Номер кузова: </b> @Model.BodyNumber
+	</li>
+	<li class="list-group-item">
+		<b>Тариф: </b> @Model.TariffName
+	</li>
+	<li class="list-group-item">
+		<b>Водитель: </b> @Model.DriverFullName
+	</li>
+	<li class="list-group-item">
+		<b>Механик: </b> @Model.MechanicFullName
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" class="btn btn-danger mt-5" asp-action="DeleteCar" asp-route-id="@Model.Id" value="Удалить" />
+</form>

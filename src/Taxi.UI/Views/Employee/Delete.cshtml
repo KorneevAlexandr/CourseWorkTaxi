@@ -1,5 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Taxi.UI.Models.Employees.EmployeeViewModel;
+
 @{
+	ViewData["Title"] = "Удаление сотрудника";
 }
+
+<ul class="list-group w-50">
+	<li class="list-group-item">
+		<b>Имя: </b> @Model.Name
+	</li>
+	<li class="list-group-item">
+		<b>Фамилия: </b> @Model.Surname
+	</li>
+	<li class="list-group-item">
+		<b>Должность: </b> @Model.PositionName
+	</li>
+	<li class="list-group-item">
+		<b>Начало работы: </b> @Model.DateStartOfWork.ToShortDateString()
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" class="btn btn-danger mt-5" asp-action="DeleteEmployee" asp-route-id="@Model.Id" value="Удалить" />
+</form>

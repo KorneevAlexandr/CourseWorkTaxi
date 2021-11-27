@@ -22,6 +22,8 @@
 	</li>
 </ul>
 
+<div asp-validation-summary="All" class="text-danger"></div>
+
 <form method="post">
 	<input type="submit" value="Удалить" class="btn btn-danger mt-4" asp-action="DeleteUserPost" asp-route-userid="@Model.UserId" />
 </form>

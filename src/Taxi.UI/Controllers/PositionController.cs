@@ -47,9 +47,21 @@ namespace Taxi.UI.Controllers
 			return RedirectToAction("Index");
 		}
 
+		public async Task<IActionResult> Delete(int id)
+		{
+			var position = await _positionService.GetAsync(id);
+			var model = new PositionViewModel
+			{
+				Id = position.Id,
+				Name = position.Name,
+				Description = position.Description,
+			};
+			return View(model);
+		}
+
 		[DeleteExceptionFilter]
-		[HttpGet]
-		public async Task<IActionResult> Delete(int? id)
+		[HttpPost]
+		public async Task<IActionResult> DeletePosition(int? id)
 		{
 			if (id == null)
 			{

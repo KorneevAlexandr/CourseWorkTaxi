@@ -38,6 +38,21 @@ namespace Taxi.UI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
 		{
+			var tariff = await _tariffService.GetAsync(id.Value);
+			var model = new TariffViewModel
+			{
+				Id = tariff.Id,
+				Description = tariff.Description,
+				Name = tariff.Name,
+				Price = tariff.Price,
+			};
+			return View(model);
+		}
+
+		[DeleteExceptionFilter]
+		[HttpPost]
+		public async Task<IActionResult> DeleteTariff(int? id)
+		{
 			if (id == null)
 			{
 				return RedirectToAction("Index");

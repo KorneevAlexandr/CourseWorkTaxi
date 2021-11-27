@@ -46,9 +46,21 @@ namespace Taxi.UI.Controllers
 			return RedirectToAction("Index");
 		}
 
-		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
+		{
+			var brand = await _brandService.GetAsync(id.Value);
+			var model = new BrandViewModel
+			{
+				Id = brand.Id,
+				Name = brand.Name,
+			};
+			return View(model);
+		}
+
+		[DeleteExceptionFilter]
+		[HttpPost]
+		public async Task<IActionResult> DeleteBrand(int? id)
 		{
 			if (id == null)
 			{

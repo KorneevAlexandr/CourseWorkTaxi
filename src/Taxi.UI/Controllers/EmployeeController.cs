@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -66,6 +67,14 @@ namespace Taxi.UI.Controllers
 				}).ToList(),
 				Positions = modelPositions,
 			};
+			foreach (var item in model.Employees)
+			{
+				if (item.Registered)
+				{
+					var user = await _userManager.Users.FirstOrDefaultAsync(user => user.EmployeeId == item.Id);
+					item.Email = user.UserName;
+				}
+			}
 
 			return View(model);
 		}
@@ -100,9 +109,24 @@ namespace Taxi.UI.Controllers
 			return Redirect($"~/Employee/Index?positionId={model.PositionId}");
 		}
 
-		[DeleteExceptionFilter]
 		[HttpGet]
-		public async Task<IActionResult> Delete(int? id)
+		public async Task<IActionResult> Delete(int id)
+		{
+			var employee = await _employeeService.GetAsync(id);
+			var model = new EmployeeViewModel
+			{
+				Id = employee.Id,
+				Name = employee.Name,
+				Surname = employee.Surname,
+				PositionName = employee.PositionName,
+				DateStartOfWork = employee.DateStartOfWork,
+			};
+			return View(model);
+		}
+
+		[DeleteExceptionFilter]
+		[HttpPost]
+		public async Task<IActionResult> DeleteEmployee(int? id)
 		{
 			if (id == null)
 			{

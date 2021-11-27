@@ -18,7 +18,7 @@
 	{
 		<tr>
 			<td>@item.Name</td>
-			<td>@item.Description</td>
+			<td>@string.Join("", item.Description.Take(30))</td>
 			<td>
 				<a asp-action="Update" class="btn btn-primary opacity-90" asp-route-id="@item.Id">
 					Изменить

@@ -56,6 +56,11 @@ namespace Taxi.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
 		{
+			if (model.NewPassword == null || model.OldPassword == null)
+			{
+				ModelState.AddModelError("", "Заполните все поля");
+				return View(model);
+			}
 			var user = _userManager.Users.FirstOrDefault(us => us.Email.Equals(User.Identity.Name));
 
 			var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
@@ -79,6 +84,12 @@ namespace Taxi.UI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
 		{
+			if (model.NewEmail == null || model.Password == null)
+			{
+				ModelState.AddModelError("", "Заполните все поля");
+				return View(model);
+			}
+
 			var user = _userManager.Users.FirstOrDefault(us => us.Email.Equals(User.Identity.Name));
 			user.Email = model.NewEmail;
 			user.UserName = model.NewEmail;
@@ -97,8 +108,11 @@ namespace Taxi.UI.Controllers
 					ModelState.AddModelError("", "Указанный email уже занят!");
 				}
 			}
+			else
+			{
+				ModelState.AddModelError("", "Неверный пароль");
+			}
 
-			ModelState.AddModelError("", "Неверный пароль");
 			return View(model);
 		}
 

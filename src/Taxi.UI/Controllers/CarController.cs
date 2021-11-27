@@ -17,7 +17,7 @@ namespace Taxi.UI.Controllers
 {
 	public class CarController : Controller
 	{
-		private const int AMOUNT = 10;
+		private const int AMOUNT = 8;
 		private int _currentPage;
 
 		private readonly IPositionService _poisitionService;
@@ -170,9 +170,31 @@ namespace Taxi.UI.Controllers
 			return Redirect($"~/Car/Index?brandId={brand.Id}");
 		}
 
-		[DeleteExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
+		{
+			var car = await _carService.GetAsync(id.Value);
+			var model = new CarViewModel
+			{
+				Id = car.Id,
+				ModelName = car.ModelName,
+				DriverFullName = car.DriverFullName,
+				MechanicFullName = car.MechanicFullName,
+				BodyNumber = car.BodyNumber,
+				EngineNumber = car.EngineNumber,
+				IssueYear = car.IssueYear,
+				Mileage = car.Mileage,
+				RegistrationNumber = car.RegistrationNumber,
+				LastTI = car.LastTI,
+				TariffName = car.TariffName,
+				Price = car.Price,
+			};
+			return View(model);
+		}
+
+		[DeleteExceptionFilter]
+		[HttpPost]
+		public async Task<IActionResult> DeleteCar(int? id)
 		{
 			if (id == null)
 			{

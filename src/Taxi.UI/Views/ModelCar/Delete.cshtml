@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Taxi.UI.Models.CarModels.ModelViewModel;
+
 @{
+	ViewData["Title"] = "Удаление модели автомобиля";
 }
+
+<ul class="list-group w-50">
+	<li class="list-group-item">
+		<b>Название: </b> @Model.Name
+	</li>
+	<li class="list-group-item">
+		<b>Кузов: </b> @Model.Body
+	</li>
+	<li class="list-group-item">
+		<b>Топливо: </b> @Model.Fuel
+	</li>
+	<li class="list-group-item">
+		<b>Мощность, л.с: </b> @Model.HP
+	</li>
+	<li class="list-group-item">
+		<b>Цена: </b> @Model.Price
+	</li>
+</ul>
+
+<form method="post">
+	<input type="submit" class="btn btn-danger mt-5" asp-action="DeleteModelCar" asp-route-id="@Model.Id" value="Удалить" />
+</form>
