@@ -63,6 +63,13 @@ namespace Taxi.BLL.Services
 
 		public async Task CreateAsync(CarDto entity)
 		{
+			var count = await _carRepository.GetCountAsync();
+			var cars = await _carRepository.GetAllAsync(0, count);
+			if (cars.Where(car => car.RegistrationNumber.Equals(entity.RegistrationNumber)).Any())
+			{
+				throw new InvalidCreateOperationException($"Указанный вами регистрационный номер '{entity.RegistrationNumber}' " +
+					$"уже существует. Вернитесь назад и укажите, пожалуйста, другой регистрационный номер автомобиля.");
+			}
 			await _carRepository.CreateAsync(ItemConvert(entity));
 		}
 
@@ -81,6 +88,14 @@ namespace Taxi.BLL.Services
 
 		public async Task UpdateAsync(CarDto entity)
 		{
+			var count = await _carRepository.GetCountAsync();
+			var cars = await _carRepository.GetAllAsync(0, count);
+			if (cars.Where(car => car.RegistrationNumber.Equals(entity.RegistrationNumber)
+				&& car.Id != entity.Id).Any())
+			{
+				throw new InvalidCreateOperationException($"Указанный вами регистрационный номер '{entity.RegistrationNumber}' " +
+					$"уже существует. Вернитесь назад и укажите, пожалуйста, другой регистрационный номер автомобиля.");
+			}
 			await _carRepository.UpdateAsync(ItemConvert(entity));
 		}
 

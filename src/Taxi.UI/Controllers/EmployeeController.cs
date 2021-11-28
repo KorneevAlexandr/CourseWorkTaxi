@@ -30,6 +30,7 @@ namespace Taxi.UI.Controllers
 			_currentPage = 0;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? positionId, int? yearStanding)
 		{
 			_currentPage = page == null ? 0 : page.Value - 1;
@@ -124,7 +125,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeleteEmployee(int? id)
 		{

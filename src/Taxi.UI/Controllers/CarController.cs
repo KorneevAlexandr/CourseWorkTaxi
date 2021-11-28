@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Taxi.BLL.Exceptions;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.UI.Data;
@@ -38,6 +39,7 @@ namespace Taxi.UI.Controllers
 			_tariffService = tariffService;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? brandId, int? mileage, int? price, int? issueYear)
 		{
 			_currentPage = page == null ? 0 : page.Value - 1;
@@ -100,55 +102,11 @@ namespace Taxi.UI.Controllers
 				return RedirectToAction("Index");
 			}
 
-			var brand = await _brandService.GetAsync(brandId.Value);
-			var models = await _modelService.GetAllByBrandAsync(brandId.Value);
-			var tariffs = await _tariffService.GetAllAsync();
-
-			var positions = await _poisitionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString()));
-			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Механик.ToString())); 
-
-			if (driverPosition == null || mechanicPosition == null)
-			{
-				return NotFound();
-			}
-
-			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
-			var countMechanics = await _employeeService.GetCountAsync(mechanicPosition.Id, 0);
-			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);
-			var mechanics = await _employeeService.GetAllAsync(0, mechanicPosition.Id, 0, countMechanics);
-
-			var model = new CarCreateUpdateViewModel
-			{
-				BrandName = brand.Name,
-				Models = models.Select(x => new ModelSelectViewModel
-				{
-					Id = x.Id,
-					Name = x.Name,
-				}).ToList(),
-
-				Tariffs = tariffs.Select(x => new TariffViewModel
-				{
-					Id = x.Id,
-					Name = x.Name,
-				}).ToList(),
-
-				Drivers = drivers.Select(x => new EmployeesSelectViewModel
-				{
-					Id = x.Id,
-					FullName = $"{x.Surname} {x.Name}",
-				}).ToList(),
-
-				Mechanics = mechanics.Select(x => new EmployeesSelectViewModel
-				{
-					Id = x.Id,
-					FullName = $"{x.Surname} {x.Name}",
-				}).ToList(),
-			};
-
+			var model = await GetCreateCarModel(brandId.Value);
 			return View(model);
 		}
 
+		[OperationExceptionFilter]
 		public async Task<IActionResult> Create(CarCreateUpdateViewModel model)
 		{
 			var car = new CarDto
@@ -192,7 +150,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeleteCar(int? id)
 		{
@@ -217,66 +175,26 @@ namespace Taxi.UI.Controllers
 			var car = await _carService.GetAsync(id.Value);
 			var modelCar = await _modelService.GetAsync(car.ModelId);
 			var brand = await _brandService.GetAsync(modelCar.BrandId);
-			var models = await _modelService.GetAllByBrandAsync(brand.Id);
-			var tariffs = await _tariffService.GetAllAsync();
 
-			var positions = await _poisitionService.GetAllAsync();
-			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString())); // тут!
-			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Механик.ToString())); // и тут!
+			var model = await GetCreateCarModel(brand.Id);
 
-			if (driverPosition == null || mechanicPosition == null)
-			{
-				return NotFound();
-			}
-
-			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
-			var countMechanics = await _employeeService.GetCountAsync(mechanicPosition.Id, 0);
-			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);
-			var mechanics = await _employeeService.GetAllAsync(0, mechanicPosition.Id, 0, countMechanics);
-
-			var model = new CarCreateUpdateViewModel
-			{
-				BodyNumber = car.BodyNumber,
-				EngineNumber = car.EngineNumber,
-				RegistrationNumber = car.RegistrationNumber,
-				DriverId = car.DriverId,
-				IssueYear = car.IssueYear,
-				LastTI = car.LastTI,
-				Mileage = car.Mileage,
-				MechanicId = car.MechanicId,
-				ModelId = car.ModelId,
-				Id = car.Id,
-				TariffId = car.TariffId,
-				BrandName = brand.Name,
-
-				Models = models.Select(x => new ModelSelectViewModel
-				{
-					Id = x.Id,
-					Name = x.Name,
-				}).ToList(),
-
-				Tariffs = tariffs.Select(x => new TariffViewModel
-				{
-					Id = x.Id,
-					Name = x.Name,
-				}).ToList(),
-
-				Drivers = drivers.Select(x => new EmployeesSelectViewModel
-				{
-					Id = x.Id,
-					FullName = $"{x.Surname} {x.Name}",
-				}).ToList(),
-
-				Mechanics = mechanics.Select(x => new EmployeesSelectViewModel
-				{
-					Id = x.Id,
-					FullName = $"{x.Surname} {x.Name}",
-				}).ToList(),
-			};
+			model.BodyNumber = car.BodyNumber;
+			model.EngineNumber = car.EngineNumber;
+			model.RegistrationNumber = car.RegistrationNumber;
+			model.DriverId = car.DriverId;
+			model.IssueYear = car.IssueYear;
+			model.LastTI = car.LastTI;
+			model.Mileage = car.Mileage;
+			model.MechanicId = car.MechanicId;
+			model.ModelId = car.ModelId;
+			model.Id = car.Id;
+			model.TariffId = car.TariffId;
+			model.BrandName = brand.Name;
 
 			return View(model);
 		}
 
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> Update(CarCreateUpdateViewModel model)
 		{
@@ -333,6 +251,52 @@ namespace Taxi.UI.Controllers
 			car.LastTI = DateTime.Now;
 			await _carService.UpdateAsync(car);
 			return RedirectToAction("ShowTICars");
+		}
+
+		private async Task<CarCreateUpdateViewModel> GetCreateCarModel(int brandId)
+		{
+			var brand = await _brandService.GetAsync(brandId);
+			var models = await _modelService.GetAllByBrandAsync(brandId);
+			var tariffs = await _tariffService.GetAllAsync();
+
+			var positions = await _poisitionService.GetAllAsync();
+			var driverPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Водитель.ToString()));
+			var mechanicPosition = positions.FirstOrDefault(x => x.Name.Equals(DefaultPositions.Механик.ToString()));
+
+			var countDrivers = await _employeeService.GetCountAsync(driverPosition.Id, 0);
+			var countMechanics = await _employeeService.GetCountAsync(mechanicPosition.Id, 0);
+			var drivers = await _employeeService.GetAllAsync(0, driverPosition.Id, 0, countDrivers);
+			var mechanics = await _employeeService.GetAllAsync(0, mechanicPosition.Id, 0, countMechanics);
+
+			var model = new CarCreateUpdateViewModel
+			{
+				BrandName = brand.Name,
+				Models = models.Select(x => new ModelSelectViewModel
+				{
+					Id = x.Id,
+					Name = x.Name,
+				}).ToList(),
+
+				Tariffs = tariffs.Select(x => new TariffViewModel
+				{
+					Id = x.Id,
+					Name = x.Name,
+				}).ToList(),
+
+				Drivers = drivers.Select(x => new EmployeesSelectViewModel
+				{
+					Id = x.Id,
+					FullName = $"{x.Surname} {x.Name}",
+				}).ToList(),
+
+				Mechanics = mechanics.Select(x => new EmployeesSelectViewModel
+				{
+					Id = x.Id,
+					FullName = $"{x.Surname} {x.Name}",
+				}).ToList(),
+			};
+
+			return model;
 		}
 	}
 }

@@ -1,19 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Taxi.BLL.Interfaces.Services;
-using Taxi.BLL.ModelsDto;
-using Taxi.BLL.Services;
 using Taxi.UI.Data;
 using Taxi.BLL.Extensions;
 using Taxi.UI.Diagnostics;
@@ -21,6 +13,7 @@ using Taxi.UI.Settings;
 using Taxi.DataInitialization.Extensions;
 using Taxi.DataInitialization.Options;
 using Taxi.UI.Initializers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Taxi.UI
 {
@@ -68,7 +61,16 @@ namespace Taxi.UI
 					options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 				});
 
-			services.AddControllersWithViews();
+			var cacheSettings = Configuration.GetSection(nameof(CacheSettings));
+			services.AddControllersWithViews(options => 
+			{
+				options.CacheProfiles.Add("DefaultCache",
+					new CacheProfile
+					{
+						NoStore = cacheSettings.GetValue<bool>(nameof(CacheSettings.NoStore)),
+						Duration = cacheSettings.GetValue<int>(nameof(CacheSettings.Duration)),
+					});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

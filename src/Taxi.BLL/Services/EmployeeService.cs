@@ -134,7 +134,7 @@ namespace Taxi.BLL.Services
 			}
 			catch
 			{
-				throw new InvalidDeleteOperationException("Нельзя удалить данные об этом сотруднике, так как за ним закреплены автомобили." +
+				throw new InvalidDeleteOperationException("Нельзя удалить данные об этом сотруднике, так как за ним закреплены автомобили. " +
 					"Удалите или измените зависимые данные (автомобили) и повторите попытку.", "Сотрудник");
 			}
 		}

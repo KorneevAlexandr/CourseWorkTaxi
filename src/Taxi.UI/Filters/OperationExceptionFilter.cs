@@ -6,7 +6,7 @@ using Taxi.BLL.Exceptions;
 
 namespace Taxi.UI.Filters
 {
-	public class DeleteExceptionFilter : Attribute, IExceptionFilter
+	public class OperationExceptionFilter : Attribute, IExceptionFilter
 	{
 		public void OnException(ExceptionContext context)
 		{
@@ -14,11 +14,21 @@ namespace Taxi.UI.Filters
 			{
 				var deleteException = ((InvalidDeleteOperationException)(context.Exception));
 				context.Result = new RedirectResult("~/Home/DeleteError");
-				context.HttpContext.Response.Cookies.Append("DeleteErrorMessage",
-					deleteException.Message + deleteException.NameValue);
+				context.HttpContext.Response.Cookies.Append("DeleteErrorMessage", deleteException.Message);
 
 				var logTemplate = string.Concat("An exception filter was invoked while trying to delete data. Object to remove: '",
 					deleteException.NameValue, "'.");
+				Log.Warning(logTemplate);
+
+				context.ExceptionHandled = true;
+			}
+			else if (!context.ExceptionHandled && context.Exception is InvalidCreateOperationException)
+			{
+				var createException = ((InvalidCreateOperationException)(context.Exception));
+				context.Result = new RedirectResult("~/Home/DeleteError");
+				context.HttpContext.Response.Cookies.Append("DeleteErrorMessage", createException.Message);
+
+				var logTemplate = string.Concat("An exception filter was invoked while trying to create non valid data.");
 				Log.Warning(logTemplate);
 
 				context.ExceptionHandled = true;

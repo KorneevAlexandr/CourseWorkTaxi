@@ -17,6 +17,7 @@ namespace Taxi.UI.Controllers
 			_positionService = positionService;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var positions = await _positionService.GetAllAsync();
@@ -59,7 +60,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeletePosition(int? id)
 		{

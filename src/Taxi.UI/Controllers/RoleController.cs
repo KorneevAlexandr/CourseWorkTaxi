@@ -29,6 +29,7 @@ namespace Taxi.UI.Controllers
             _employeeService = employeeService;
         }
 
+        [ResponseCache(CacheProfileName = "DefaultCache")]
         public IActionResult Index()
         {
             return View(_roleManager.Roles.ToList());
@@ -104,7 +105,7 @@ namespace Taxi.UI.Controllers
             return View(model);
         }
 
-        [DeleteExceptionFilter]
+        [OperationExceptionFilter]
         [HttpPost]
         public async Task<IActionResult> DeleteUserPost(string userId)
         {

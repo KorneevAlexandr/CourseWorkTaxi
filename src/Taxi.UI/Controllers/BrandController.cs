@@ -18,6 +18,7 @@ namespace Taxi.UI.Controllers
 			_brandService = brandService;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var items = await _brandService.GetAllAsync();
@@ -58,7 +59,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeleteBrand(int? id)
 		{

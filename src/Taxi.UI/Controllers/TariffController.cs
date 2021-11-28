@@ -21,6 +21,7 @@ namespace Taxi.UI.Controllers
 			_tariffService = tariffService;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var tariffs = await _tariffService.GetAllAsync();
@@ -34,7 +35,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpGet]
 		public async Task<IActionResult> Delete(int? id)
 		{
@@ -49,7 +50,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeleteTariff(int? id)
 		{

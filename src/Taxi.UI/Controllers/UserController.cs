@@ -28,6 +28,7 @@ namespace Taxi.UI.Controllers
 			_signInManager = signInManager;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var user = _userManager.Users.FirstOrDefault(us => us.Email.Equals(User.Identity.Name));

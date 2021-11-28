@@ -27,6 +27,7 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? id, int? page)
 		{
 			var selectedId = id == null ? 0 : id.Value;
@@ -116,7 +117,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
-		[DeleteExceptionFilter]
+		[OperationExceptionFilter]
 		[HttpPost]
 		public async Task<IActionResult> DeleteModelCar(int? id)
 		{

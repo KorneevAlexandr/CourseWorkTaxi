@@ -36,6 +36,7 @@ namespace Taxi.UI.Controllers
 			_currentPage = 0;
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? tariffId, DateTime? date, int? driverId, int? dispatherId)
 		{
 			// для даты обработки нету, она принимается сервисом как Nullable
@@ -114,6 +115,7 @@ namespace Taxi.UI.Controllers
 			return View(model);
 		}
 
+		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> PopularAddresses()
 		{
 			var startAddresses = await _callService.GetPopularStartStreets();
