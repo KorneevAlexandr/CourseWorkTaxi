@@ -18,7 +18,6 @@ namespace Taxi.UI.Controllers
 			_brandService = brandService;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var items = await _brandService.GetAllAsync();

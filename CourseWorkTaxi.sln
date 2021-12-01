@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.UI", "src\Taxi.UI\Taxi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.BLL", "src\Taxi.BLL\Taxi.BLL.csproj", "{4689506E-3374-49A6-AB2D-8BA1651C91D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.DataInitialization", "src\Taxi.DataInitialization\Taxi.DataInitialization.csproj", "{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taxi.DataInitialization", "src\Taxi.DataInitialization\Taxi.DataInitialization.csproj", "{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi.Diagram", "src\Taxi.Diagram\Taxi.Diagram.csproj", "{83680B6A-0028-45ED-B575-BEB32FA81E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83680B6A-0028-45ED-B575-BEB32FA81E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83680B6A-0028-45ED-B575-BEB32FA81E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83680B6A-0028-45ED-B575-BEB32FA81E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83680B6A-0028-45ED-B575-BEB32FA81E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{3F1C1D5C-F679-4AC0-A34C-5436987CBDFA} = {EF11468C-29F2-4630-A479-5A8FA109A064}
 		{4689506E-3374-49A6-AB2D-8BA1651C91D3} = {EF11468C-29F2-4630-A479-5A8FA109A064}
 		{6DC55D2E-48F6-49EB-98CA-54D5F3BFCBDF} = {EF11468C-29F2-4630-A479-5A8FA109A064}
+		{83680B6A-0028-45ED-B575-BEB32FA81E16} = {EF11468C-29F2-4630-A479-5A8FA109A064}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1735F35D-D296-4FA8-AC43-8EE896DCD0EE}

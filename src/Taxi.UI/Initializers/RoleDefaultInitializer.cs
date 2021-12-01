@@ -28,10 +28,10 @@ namespace Taxi.UI.Initializers
 				new IdentityRole(DefaultRoles.PersonnelManager.ToString()),
 			};
 
-			var oldRole = _roleManager.Roles;
+			var oldRole = _roleManager.Roles.Select(role => role.Name);
 			foreach (var role in roles)
 			{
-				if (!oldRole.Contains(role))
+				if (!oldRole.Contains(role.Name))
 				{
 					await _roleManager.CreateAsync(role);
 				}
