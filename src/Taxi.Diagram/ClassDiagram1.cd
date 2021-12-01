@@ -1,43 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Taxi.DAL.Data.TaxiContext">
+    <Position X="1.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Brand">
+    <Position X="3.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Call">
+    <Position X="3.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Car">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Employee">
+    <Position X="1.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Model">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Position">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Domain.Tariff">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.IRepository&lt;T&gt;">
-    <Position X="3.25" Y="1" Width="1.5" />
+    <Position X="14.25" Y="0.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.IModelRepository">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="11" Y="3.25" Width="1.5" />
     <InheritanceLine Type="Taxi.DAL.Interfaces.Repositories.IRepository&lt;T&gt;" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="3.5" Y="2.68" />
-        <Point X="3.5" Y="3.123" />
-        <Point X="1.312" Y="3.123" />
-        <Point X="1.312" Y="3.5" />
+        <Point X="14.5" Y="2.43" />
+        <Point X="14.5" Y="2.873" />
+        <Point X="11.812" Y="2.873" />
+        <Point X="11.812" Y="3.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier />
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.IEmployeeRepository">
-    <Position X="2.25" Y="3.5" Width="1.5" />
+    <Position X="12.75" Y="3.25" Width="1.5" />
     <InheritanceLine Type="Taxi.DAL.Interfaces.Repositories.IRepository&lt;T&gt;" FixedFromPoint="true">
       <Path>
-        <Point X="3.5" Y="2.68" />
-        <Point X="3.5" Y="3.125" />
-        <Point X="3" Y="3.125" />
-        <Point X="3" Y="3.5" />
+        <Point X="14.5" Y="2.43" />
+        <Point X="14.5" Y="2.873" />
+        <Point X="13.5" Y="2.873" />
+        <Point X="13.5" Y="3.25" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier />
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.ICompleteRepository&lt;T&gt;">
-    <Position X="4" Y="3.5" Width="1.5" />
+    <Position X="14.5" Y="3.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.ICarRepository">
-    <Position X="5.75" Y="3.5" Width="1.5" />
+    <Position X="16.25" Y="3.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.ICallRepository">
-    <Position X="7.5" Y="3.5" Width="1.5" />
+    <Position X="18" Y="3.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

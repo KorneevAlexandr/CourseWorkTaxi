@@ -8,7 +8,7 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	internal class EmployeeRepository : IEmployeeRepository
+	public class EmployeeRepository : IEmployeeRepository
 	{
 		private readonly TaxiContext _context;
 

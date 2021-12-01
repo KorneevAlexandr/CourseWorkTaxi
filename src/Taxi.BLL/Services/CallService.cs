@@ -11,7 +11,7 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	internal class CallService : ICallService
+	public class CallService : ICallService
 	{
 		private readonly ICallRepository _callRepository;
 		private readonly IEmployeeRepository _employeeRepository;

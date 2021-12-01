@@ -9,7 +9,7 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	internal class CallRepository : ICallRepository
+	public class CallRepository : ICallRepository
 	{
 		private readonly TaxiContext _context;
 
