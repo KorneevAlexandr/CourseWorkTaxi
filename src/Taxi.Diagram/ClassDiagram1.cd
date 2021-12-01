@@ -5,7 +5,7 @@
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Brand">
-    <Position X="3.5" Y="5.5" Width="1.5" />
+    <Position X="3.5" Y="5.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Call">
@@ -17,7 +17,7 @@
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Employee">
-    <Position X="1.75" Y="5.5" Width="1.5" />
+    <Position X="1.75" Y="5.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Model">
@@ -25,12 +25,356 @@
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Position">
-    <Position X="5.25" Y="5.5" Width="1.5" />
+    <Position X="5.25" Y="5.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="Taxi.DAL.Domain.Tariff">
-    <Position X="7" Y="5.5" Width="1.5" />
+    <Position X="7" Y="5.25" Width="1.5" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Extensions.RepositoryInjection">
+    <Position X="17.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.BrandDto">
+    <Position X="1.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.CallAddressDto">
+    <Position X="3.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.CallDto">
+    <Position X="1.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.CarDto">
+    <Position X="5.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.EmployeeDto">
+    <Position X="5.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.ModelDto">
+    <Position X="3.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.PositionDto">
+    <Position X="1.75" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.ModelsDto.TariffDto">
+    <Position X="3.5" Y="11" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.Extensions.ServicesInjection">
+    <Position X="30" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.Exceptions.InvalidCreateOperationException">
+    <Position X="23.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.BLL.Exceptions.InvalidDeleteOperationException">
+    <Position X="22" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.AccountController">
+    <Position X="7.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.BrandController">
+    <Position X="9.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.CallController">
+    <Position X="11.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.CarController">
+    <Position X="15.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.EmployeeController">
+    <Position X="7.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.HomeController">
+    <Position X="9.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.ModelCarController">
+    <Position X="15.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.PositionController">
+    <Position X="11.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.RoleController">
+    <Position X="13.5" Y="11.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.TariffController">
+    <Position X="17.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Controllers.UserController">
+    <Position X="13.5" Y="9.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Accounts.AccountViewModel" Collapsed="true">
+    <Position X="7.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Accounts.ChangeRoleViewModel" Collapsed="true">
+    <Position X="9.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Accounts.RegisterViewModel" Collapsed="true">
+    <Position X="7.5" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Brands.BrandViewModel" Collapsed="true">
+    <Position X="9.25" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.CallAddressCollectionViewModel" Collapsed="true">
+    <Position X="11" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.CallAddressViewModel" Collapsed="true">
+    <Position X="12.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.CallCollectionViewModel" Collapsed="true">
+    <Position X="14.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.CallViewModel" Collapsed="true">
+    <Position X="11" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.SuccessUserCallViewModel" Collapsed="true">
+    <Position X="12.75" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Calls.UserCallViewModel" Collapsed="true">
+    <Position X="14.5" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.BodyViewModel" Collapsed="true">
+    <Position X="18" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.BodysData" Collapsed="true">
+    <Position X="16.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.FuelViewModel" Collapsed="true">
+    <Position X="16.25" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.FuelsData" Collapsed="true">
+    <Position X="14.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.ModelCollectionViewModel" Collapsed="true">
+    <Position X="18" Y="15" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.ModelSelectViewModel" Collapsed="true">
+    <Position X="16.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.CarModels.ModelViewModel" Collapsed="true">
+    <Position X="16.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Cars.CarCollectionViewModel" Collapsed="true">
+    <Position X="12.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Cars.CarCreateUpdateViewModel" Collapsed="true">
+    <Position X="14.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Cars.CarViewModel" Collapsed="true">
+    <Position X="12.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Employees.EmployeeCollectionViewModel" Collapsed="true">
+    <Position X="7.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Employees.EmployeesSelectViewModel" Collapsed="true">
+    <Position X="9.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Employees.EmployeeViewModel" Collapsed="true">
+    <Position X="7.5" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Positions.PositionViewModel" Collapsed="true">
+    <Position X="11" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Tariffs.TariffViewModel" Collapsed="true">
+    <Position X="18" Y="15.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Users.ChangeEmailViewModel" Collapsed="true">
+    <Position X="9.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Users.ChangePasswordViewModel" Collapsed="true">
+    <Position X="11" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Models.Users.UserViewModel" Collapsed="true">
+    <Position X="18" Y="16.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Data.IdentityTaxiContext">
+    <Position X="20.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Data.User">
+    <Position X="22.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.DataInitializeMiddleware">
+    <Position X="24.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.DataInitializeMiddlewareExtensions">
+    <Position X="26.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.DefaultDataInializeMiddleware">
+    <Position X="24.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.DefaultDataInializeMiddlewareExtensions">
+    <Position X="26.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.RequestSerilogMiddleware">
+    <Position X="24.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Diagnostics.RequestSerilogMiddlewareExtensions">
+    <Position X="26.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Filters.OperationExceptionFilter">
+    <Position X="22.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.TagHelpers.PaginationTagHelper">
+    <Position X="20.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Settings.DataInitializeSettings">
+    <Position X="28" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Program">
+    <Position X="26.25" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.UI.Startup">
+    <Position X="24.5" Y="14" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DataInitialization.Options.InitializeOptions">
+    <Position X="32.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DataInitialization.Extensions.InitializersInjection">
+    <Position X="31" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.BrandRepository" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.CallRepository" BaseTypeListCollapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.CarRepository" BaseTypeListCollapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.EmployeeRepository" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.ModelRepository" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.PositionRepository" BaseTypeListCollapsed="true">
+    <Position X="18" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.DAL.Repositories.TariffRepository" BaseTypeListCollapsed="true">
+    <Position X="19.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.BrandService" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.CallService" BaseTypeListCollapsed="true">
+    <Position X="24" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.CarService" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.EmployeeService" BaseTypeListCollapsed="true">
+    <Position X="27.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.ModelService" BaseTypeListCollapsed="true">
+    <Position X="29.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.PositionService" BaseTypeListCollapsed="true">
+    <Position X="31" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.BLL.Services.TariffService" BaseTypeListCollapsed="true">
+    <Position X="32.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.UI.Initializers.PositionDefaultInitializer">
+    <Position X="31" Y="13" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Taxi.UI.Initializers.RoleDefaultInitializer">
+    <Position X="32.75" Y="13" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.IRepository&lt;T&gt;">
     <Position X="14.25" Y="0.75" Width="1.5" />
@@ -70,6 +414,54 @@
   </Interface>
   <Interface Name="Taxi.DAL.Interfaces.Repositories.ICallRepository">
     <Position X="18" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.IBrandService">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="Taxi.BLL.Interfaces.Services.IService&lt;T&gt;" FixedToPoint="true">
+      <Path>
+        <Point X="28.25" Y="1.988" />
+        <Point X="28.25" Y="2.125" />
+        <Point X="22.938" Y="2.125" />
+        <Point X="22.938" Y="2.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.ICallService">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.ICarService">
+    <Position X="31" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.IEmployeeService">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.IModelService">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.IPositionService">
+    <Position X="32.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.IService&lt;T&gt;">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.BLL.Interfaces.Services.ITariffService">
+    <Position X="29.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.DataInitialization.Interfaces.IInitializer">
+    <Position X="29.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Taxi.UI.Initializers.IDefaultInitializer">
+    <Position X="32" Y="11.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Segoe UI" Size="9" />

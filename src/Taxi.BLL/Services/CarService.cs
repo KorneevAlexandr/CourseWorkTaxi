@@ -10,7 +10,7 @@ using Taxi.BLL.Exceptions;
 
 namespace Taxi.BLL.Services
 {
-	public class CarService : ICarService
+	internal class CarService : ICarService
 	{
 		private readonly ICarRepository _carRepository;
 

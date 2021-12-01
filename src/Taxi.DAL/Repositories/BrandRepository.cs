@@ -7,7 +7,7 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class BrandRepository : ICompleteRepository<Brand>
+	internal class BrandRepository : ICompleteRepository<Brand>
 	{
 		private readonly TaxiContext _context;
 

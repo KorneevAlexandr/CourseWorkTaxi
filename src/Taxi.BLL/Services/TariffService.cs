@@ -10,7 +10,7 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class TariffService : ITariffService
+	internal class TariffService : ITariffService
 	{
 		private readonly ICompleteRepository<Tariff> _tariffRepository;
 

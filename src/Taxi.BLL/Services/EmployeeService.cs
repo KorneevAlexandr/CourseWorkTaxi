@@ -11,7 +11,7 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class EmployeeService : IEmployeeService
+	internal class EmployeeService : IEmployeeService
 	{
 		private readonly IEmployeeRepository _employeeRepository;
 		private readonly ICompleteRepository<Position> _positionRepository;

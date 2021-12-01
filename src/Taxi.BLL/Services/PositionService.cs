@@ -10,7 +10,7 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class PositionService : IPositionService
+	internal class PositionService : IPositionService
 	{
 		private readonly ICompleteRepository<Position> _positionRepository;
 

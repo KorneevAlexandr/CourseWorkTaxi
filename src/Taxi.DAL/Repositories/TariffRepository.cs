@@ -7,7 +7,7 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.DAL.Repositories
 {
-	public class TariffRepository : ICompleteRepository<Tariff>
+	internal class TariffRepository : ICompleteRepository<Tariff>
 	{
 		private readonly TaxiContext _context;
 

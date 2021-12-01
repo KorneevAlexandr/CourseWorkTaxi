@@ -10,7 +10,7 @@ using Taxi.DAL.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class ModelService : IModelService
+	internal class ModelService : IModelService
 	{
 		private readonly IModelRepository _modelRepository;
 

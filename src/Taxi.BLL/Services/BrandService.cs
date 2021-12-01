@@ -9,7 +9,7 @@ using Taxi.DAL.Interfaces.Repositories;
 
 namespace Taxi.BLL.Services
 {
-	public class BrandService : IBrandService
+	internal class BrandService : IBrandService
 	{
 		private readonly ICompleteRepository<Brand> _brandRepository;
 
