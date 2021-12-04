@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using Taxi.UI.Models.Positions;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, PersonnelManager")]
 	public class EmployeeController : Controller
 	{
 		private const int AMOUNT = 10;
@@ -30,7 +32,6 @@ namespace Taxi.UI.Controllers
 			_currentPage = 0;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? positionId, int? yearStanding)
 		{
 			_currentPage = page == null ? 0 : page.Value - 1;

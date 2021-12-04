@@ -11,7 +11,7 @@ using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Controllers
 {
-	[Authorize(Roles = nameof(DefaultRoles.Admin))]
+	[Authorize(Roles = "Admin")]
 	public class TariffController : Controller
 	{
 		private readonly ITariffService _tariffService;
@@ -21,7 +21,6 @@ namespace Taxi.UI.Controllers
 			_tariffService = tariffService;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var tariffs = await _tariffService.GetAllAsync();

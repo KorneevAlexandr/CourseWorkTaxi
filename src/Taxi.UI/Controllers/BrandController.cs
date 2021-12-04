@@ -9,6 +9,7 @@ using Taxi.UI.Models.Brands;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, CarManager")]
 	public class BrandController : Controller
 	{
 		private readonly IBrandService _brandService;

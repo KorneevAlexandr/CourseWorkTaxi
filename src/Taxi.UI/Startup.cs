@@ -35,11 +35,11 @@ namespace Taxi.UI
 				options.UseSqlServer(connectionString));
 			services.AddIdentity<User, IdentityRole>(opts =>
 			{
-				opts.Password.RequiredLength = 5;   // минимальная длина
-				opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
-				opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
-				opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
-				opts.Password.RequireDigit = false; // требуются ли цифры
+				opts.Password.RequiredLength = 5;   // min length
+				opts.Password.RequireNonAlphanumeric = false;
+				opts.Password.RequireLowercase = false;
+				opts.Password.RequireUppercase = false;
+				opts.Password.RequireDigit = false;
 			}).AddEntityFrameworkStores<IdentityTaxiContext>();
 
 			services.AddScoped<IDefaultInitializer, RoleDefaultInitializer>();
@@ -73,7 +73,6 @@ namespace Taxi.UI
 			});
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -83,7 +82,6 @@ namespace Taxi.UI
 			else
 			{
 				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 			app.UseHttpsRedirection();

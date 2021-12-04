@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -8,6 +9,7 @@ using Taxi.UI.Models.Positions;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, PersonnelManager")]
 	public class PositionController : Controller
 	{
 		private readonly IPositionService _positionService;
@@ -17,7 +19,6 @@ namespace Taxi.UI.Controllers
 			_positionService = positionService;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index()
 		{
 			var positions = await _positionService.GetAllAsync();

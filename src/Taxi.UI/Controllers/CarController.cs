@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Taxi.BLL.Exceptions;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.BLL.ModelsDto;
 using Taxi.UI.Data;
@@ -16,6 +16,7 @@ using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, CarManager, Driver")]
 	public class CarController : Controller
 	{
 		private const int AMOUNT = 8;
@@ -39,7 +40,6 @@ namespace Taxi.UI.Controllers
 			_tariffService = tariffService;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? brandId, int? mileage, int? price, int? issueYear)
 		{
 			_currentPage = page == null ? 0 : page.Value - 1;

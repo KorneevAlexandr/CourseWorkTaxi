@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
@@ -10,6 +10,7 @@ using Taxi.UI.Models.CarModels;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, CarManager")]
 	public class ModelCarController : Controller
 	{
 		private const int AMOUNT = 5;
@@ -27,7 +28,6 @@ namespace Taxi.UI.Controllers
 		}
 
 		[HttpGet]
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? id, int? page)
 		{
 			var selectedId = id == null ? 0 : id.Value;

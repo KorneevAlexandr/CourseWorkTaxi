@@ -1,10 +1,9 @@
 ﻿@model Taxi.UI.Models.Users.ChangeEmailViewModel;
 
 @{
-	ViewData["Title"] = "Изменение email";
+	ViewData["Title"] = "Изменение Email для пользователя " + User.Identity.Name;
 }
 
-<h2>Изменение email для пользователя @User.Identity.Name</h2>
 <form asp-action="ChangeEmail" asp-controller="User">
 	<div asp-validation-summary="All" class="text-danger"></div>
 

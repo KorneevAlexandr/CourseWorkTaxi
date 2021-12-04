@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -9,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Taxi.BLL.Interfaces.Services;
 using Taxi.UI.Data;
-using Taxi.UI.Models.Accounts;
 using Taxi.UI.Models.Users;
 
 namespace Taxi.UI.Controllers
@@ -32,11 +28,13 @@ namespace Taxi.UI.Controllers
 		{
 			var user = _userManager.Users.FirstOrDefault(us => us.Email.Equals(User.Identity.Name));
 			var employee = await _employeeService.GetAsync(user.EmployeeId);
-			var role = User.Claims.Where(claim => claim.Type.Equals(ClaimTypes.Role)).FirstOrDefault().Value;
+			var role = User.Claims.Where(claim => claim.Type.Equals(ClaimTypes.Role)).FirstOrDefault();
+
+			var roleName = role == null ? DefaultRoles.Employee.ToString() : role.Value;
 
 			var model = new UserViewModel
 			{
-				RoleName = role,
+				RoleName = roleName,
 				Email = user.Email,
 				Name = employee.Name,
 				Surname = employee.Surname,

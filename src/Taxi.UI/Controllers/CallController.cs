@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,6 +15,7 @@ using Taxi.UI.Models.Tariffs;
 
 namespace Taxi.UI.Controllers
 {
+	[Authorize(Roles = "Admin, Dispatcher, Driver")]
 	public class CallController : Controller
 	{
 		private const int AMOUNT = 20;
@@ -36,7 +38,6 @@ namespace Taxi.UI.Controllers
 			_currentPage = 0;
 		}
 
-		[ResponseCache(CacheProfileName = "DefaultCache")]
 		public async Task<IActionResult> Index(int? page, int? tariffId, DateTime? date, int? driverId, int? dispatherId)
 		{
 			// для даты обработки нету, она принимается сервисом как Nullable
