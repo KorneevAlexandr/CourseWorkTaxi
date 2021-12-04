@@ -156,8 +156,11 @@ namespace Taxi.UI.Controllers
                 // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
 
-                await _userManager.AddToRoleAsync(user, role);
-                await _userManager.RemoveFromRoleAsync(user, userRoles.FirstOrDefault());
+                if (!userRoles.FirstOrDefault().Equals(role))
+                {
+                    await _userManager.AddToRoleAsync(user, role);
+                    await _userManager.RemoveFromRoleAsync(user, userRoles.FirstOrDefault());
+                }
 
                 return RedirectToAction("UserList");
             }
